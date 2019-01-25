@@ -2,7 +2,8 @@
 	"count": 20,
 	"start": 0,
 	"total": 35,
-	"subjects": [{
+	"subjects": [
+    {
 		"rating": {
 			"max": 10,
 			"average": 7.2,

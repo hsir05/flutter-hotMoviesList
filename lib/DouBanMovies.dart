@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import './utils/http.dart';
+import './MoviesDetails.dart';
 
 class DouBanMovies extends StatelessWidget {
   @override
@@ -51,7 +52,7 @@ class _MyHomeAppState extends State<MyHomeApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('title'),
+        title: Text('热门电影'),
       ),
       body: Center(
         child: getBody(),
@@ -61,6 +62,7 @@ class _MyHomeAppState extends State<MyHomeApp> {
   
   getItem(var subject) {
 //    演员列表
+    var details = subject;
     var avatars = List.generate(subject['casts'].length, (int index) =>
         Container(
           margin: EdgeInsets.only(left: index.toDouble() == 0.0 ? 0.0 : 16.0),
@@ -108,13 +110,9 @@ class _MyHomeAppState extends State<MyHomeApp> {
                       ),
                     ),
 //                    类型
-                    Text(
-                        "类型：${subject['genres'].join("、")}"
-                    ),
+                    Text( "类型：${subject['genres'].join("、")}" ),
 //                    导演
-                    Text(
-                        '导演：${subject['directors'][0]['name']}'
-                    ),
+                    Text( '导演：${subject['directors'][0]['name']}' ),
 //                    演员
                     Container(
                       margin: EdgeInsets.only(top: 8.0),
@@ -132,8 +130,15 @@ class _MyHomeAppState extends State<MyHomeApp> {
         ],
       ),
     );
-    return Card(
-      child: row,
+    return GestureDetector(
+      child: Card(
+        child: row,
+      ),
+      onTap: () {
+        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+          return new MoviesDetails(details:details);
+        }));
+      },
     );
   }
 
