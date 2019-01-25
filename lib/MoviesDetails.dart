@@ -32,7 +32,7 @@ class Content extends StatelessWidget {
               children: <Widget>[
                 ClipRRect(
                   borderRadius: BorderRadius.circular(6.0),
-                  child: Image.network(content['casts'][index]['avatars']['small'],height: 190.0,),
+                  child: Image.network(content['casts'][index]['avatars']['small'],height: 150.0,),
                 ),
                 Text(content['casts'][index]['name'])
               ],
@@ -41,15 +41,14 @@ class Content extends StatelessWidget {
         ),
     );  
     return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
         children: <Widget>[
           Padding(
             padding: EdgeInsets.all(10.0),
             child: Row(
             children: <Widget>[
               Container(
-                width: 130.0,
+                width: 110.0,
                 margin: EdgeInsets.only(right: 10.0),
                 child:ClipRRect(
                 borderRadius: BorderRadius.circular(6.0),
@@ -62,16 +61,7 @@ class Content extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Text(content['title'], style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
-                    Container(
-                      height: 40.0,
-                      child: Row(
-                        children: <Widget>[
-                          Text( '导演：${content['directors'][0]['name']}' ),
-                          ClipOval(child: Image.network(content['directors'][0]['avatars']['small'])),
-                        ],
-                      ),
-                    ),
-                    
+                    Text( '导演：${content['directors'][0]['name']}' ),
                     Text( "类型：${content['genres'].join("、")}" ),
                     Text('${content['collect_count']} 人想看'),
                     Text('豆瓣评分 ${content['rating']['average']}'),
@@ -87,7 +77,7 @@ class Content extends StatelessWidget {
           ),
           Divider(),
           Container(
-            height:220.0,
+            height:200.0,
             margin: EdgeInsets.only(top: 10.0),
             child:new ListView(
               scrollDirection: Axis.horizontal,
@@ -97,6 +87,53 @@ class Content extends StatelessWidget {
           Divider(),
         ],
       ),
+      // child: Column(
+      //   crossAxisAlignment: CrossAxisAlignment.start,
+      //   children: <Widget>[
+      //     Padding(
+      //       padding: EdgeInsets.all(10.0),
+      //       child: Row(
+      //       children: <Widget>[
+      //         Container(
+      //           width: 110.0,
+      //           margin: EdgeInsets.only(right: 10.0),
+      //           child:ClipRRect(
+      //           borderRadius: BorderRadius.circular(6.0),
+      //           child: Image.network(content['images']['small'], fit: BoxFit.contain,),
+      //         )
+      //         ),
+      //         Expanded(
+      //           child: Column(
+      //             crossAxisAlignment: CrossAxisAlignment.start,
+      //             mainAxisAlignment: MainAxisAlignment.start,
+      //             children: <Widget>[
+      //               Text(content['title'], style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
+      //               Text( '导演：${content['directors'][0]['name']}' ),
+      //               Text( "类型：${content['genres'].join("、")}" ),
+      //               Text('${content['collect_count']} 人想看'),
+      //               Text('豆瓣评分 ${content['rating']['average']}'),
+      //             ],
+      //           ),
+      //         )
+      //       ],
+      //     ),),
+      //     // 演职人员
+      //     Padding(
+      //       padding: EdgeInsets.only(top: 15.0, left: 15.0),
+      //       child: Text('主演',style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),
+      //     ),
+      //     Divider(),
+      //     Container(
+      //       height:200.0,
+      //       margin: EdgeInsets.only(top: 10.0),
+      //       child:new ListView(
+      //         scrollDirection: Axis.horizontal,
+      //         children: castList,
+      //       )
+      //     ),
+      //     Divider(),
+      //   ],
+      // ),
     );
   }
 }
