@@ -52,7 +52,7 @@ class _MyHomeAppState extends State<MyHomeApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('热门电影'),
+        title: Text('${title}'),
       ),
       body: Center(
         child: getBody(),
