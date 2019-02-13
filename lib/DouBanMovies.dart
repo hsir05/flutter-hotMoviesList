@@ -38,7 +38,6 @@ class _MyHomeAppState extends State<MyHomeApp> {
   void getHttp() async{
       try {
        var result = await Http().get("/in_theaters",data: {});
-       print(result);
        setState(() {
         title = result['title'];
         subjects = result['subjects'];
@@ -149,8 +148,7 @@ class _MyHomeAppState extends State<MyHomeApp> {
           itemBuilder: (BuildContext context, int position) {
             return getItem(subjects[position]);
           });
-    } else {
-      // 加载菊花
+    } else { // 加载菊花
       return CupertinoActivityIndicator();
     }
   }
