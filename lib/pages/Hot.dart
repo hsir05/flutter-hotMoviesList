@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
-import './utils/http.dart';
+import '../utils/http.dart';
 import './MoviesDetails.dart';
 
-class DouBanMovies extends StatelessWidget {
+class Hot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

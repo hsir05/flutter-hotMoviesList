@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './utils/http.dart';
+import '../utils/http.dart';
 import 'package:flutter/cupertino.dart';
 
 // class MoviesDetails extends StatelessWidget {
