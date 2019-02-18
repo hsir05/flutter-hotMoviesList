@@ -3,9 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
-// import '../api/Api.dart';
-// import 'package:http/http.dart' as http;
-// import '../util/DataUtils.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PublishTweetPage extends StatefulWidget {

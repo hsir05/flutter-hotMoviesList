@@ -3,19 +3,16 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
-// import '../api/Api.dart';
-// import 'package:http/http.dart' as http;
-// import '../util/DataUtils.dart';
 import 'package:image_picker/image_picker.dart';
 
-class PublishTweetPage extends StatefulWidget {
+class PublishPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return new PublishTweetPageState();
+    return new PublishPageState();
   }
 }
 
-class PublishTweetPageState extends State<PublishTweetPage> {
+class PublishPageState extends State<PublishPage> {
 
   TextEditingController _controller = new TextEditingController();
   List<File> fileList = new List();
@@ -231,7 +228,7 @@ class PublishTweetPageState extends State<PublishTweetPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("发布动弹", style: new TextStyle(color: Colors.white)),
+        title: new Text("发布", style: new TextStyle(color: Colors.white)),
         iconTheme: new IconThemeData(color: Colors.white),
         actions: <Widget>[
           new Builder(

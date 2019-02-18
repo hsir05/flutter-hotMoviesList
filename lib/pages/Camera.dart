@@ -34,7 +34,7 @@ class _CameraState extends State<Camera> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Image Picker Example'),
+        title: Text('拍照展示'),
         backgroundColor: Colors.redAccent,
       ),
       body: Center(
@@ -42,6 +42,7 @@ class _CameraState extends State<Camera> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: getImage,
+        backgroundColor: Colors.redAccent,
         tooltip: 'Pick Image',
         child: Icon(Icons.add_a_photo),
       ),

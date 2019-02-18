@@ -3,6 +3,7 @@ import './Weather.dart';
 import './Upload.dart';
 import './Camera.dart';
 import './PhoteShow.dart';
+import './Publish.dart';
 
 class My extends StatelessWidget {
   @override
@@ -44,18 +45,18 @@ class My extends StatelessWidget {
                 }));
             },
           ),
-          // Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
+          Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
 
-          // ListTile(
-          //   title:new Text('照片上传',style: TextStyle(fontWeight: FontWeight.w500),),
-          //   leading: new Icon(Icons.image,color: Colors.lightBlue,),
-          //   trailing: new Icon(Icons.chevron_right),
-          //   onTap: () {
-          //      Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-          //         return new WarpDemo();
-          //       }));
-          //   },
-          // ),
+          ListTile(
+            title:new Text('文字图片',style: TextStyle(fontWeight: FontWeight.w500),),
+            leading: new Icon(Icons.image,color: Colors.lightBlue,),
+            trailing: new Icon(Icons.chevron_right),
+            onTap: () {
+               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+                  return PublishPage();
+                }));
+            },
+          ),
           Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
 
           ListTile(
