@@ -42,7 +42,6 @@ class _MyHomeAppState extends State<MyHomeApp> {
       // 小于50px时，触发上拉加载；
       if (position.maxScrollExtent - position.pixels < 50) {
         _loadMore();
-        print('===================================');
       }
     });
     getInitData();
@@ -56,7 +55,6 @@ class _MyHomeAppState extends State<MyHomeApp> {
   }
 
   Future<void> _onRefresh() async {
-    print("3333333333333333333333333333333333");
     await Future.delayed(Duration(seconds: 2), () {
       getInitData();
       setState(() {});
@@ -94,10 +92,7 @@ class _MyHomeAppState extends State<MyHomeApp> {
       var result = await Http().get("https://api.douban.com/v2/movie/in_theaters?start=${start + 1}&count=${count}",data: {});
       setState(() {
         start = start + 1;
-        print(subjects.length);
         subjects.addAll(result['subjects']);
-        print('0000000000000000000000000000');
-        print(subjects.length);
       });
     }catch(e){
       print(e);
@@ -113,7 +108,9 @@ class _MyHomeAppState extends State<MyHomeApp> {
       body: RefreshIndicator(
         color: Colors.deepOrangeAccent,
         backgroundColor: Colors.white,
-        child: getBody(),
+        child: Center(
+          child: getBody(),
+        ),
         onRefresh: _onRefresh),
     );
   }
@@ -217,9 +214,6 @@ class _MyHomeAppState extends State<MyHomeApp> {
   }
 
   Widget _getRow(BuildContext context, int index) {
-    print(index);
-    print('===================================================');
-    print(subjects.length);
     if (index < subjects.length) {
       return getItem(subjects[index]);
     }
