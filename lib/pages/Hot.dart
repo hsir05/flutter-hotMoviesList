@@ -29,22 +29,79 @@ class MyHomeApp extends StatefulWidget {
 class _MyHomeAppState extends State<MyHomeApp> {
   List subjects = [];
   String title = '';
+  int start = 0;
+  int count = 20;
+  ScrollController _scrollController = new ScrollController();
 
   @override
   void initState () {
     super.initState();
-    getHttp();
+
+     _scrollController.addListener(() {
+      var position = _scrollController.position;
+      // 小于50px时，触发上拉加载；
+      if (position.maxScrollExtent - position.pixels < 50) {
+        _loadMore();
+        print('===================================');
+      }
+    });
+    getInitData();
   }
-  void getHttp() async{
-      try {
-       var result = await Http().get("https://api.douban.com/v2/movie/in_theaters",data: {});
-       setState(() {
+
+  @override
+  void dispose() {
+    print("RefreshListPage _dispose()");
+    _scrollController?.dispose();
+    super.dispose();
+  }
+
+  Future<void> _onRefresh() async {
+    print("3333333333333333333333333333333333");
+    await Future.delayed(Duration(seconds: 2), () {
+      getInitData();
+      setState(() {});
+    });
+  }
+
+  bool isLoading = false;
+
+  void _loadMore() async {
+    print("RefreshListPage _loadMore()");
+    if (!isLoading) {
+      isLoading = true;
+      setState(() {});
+      Future.delayed(Duration(seconds: 3), () {
+        isLoading = false;
+        getMoreData();
+      });
+    }
+  }
+
+  void getInitData() async{
+    try {
+      var result = await Http().get("https://api.douban.com/v2/movie/in_theaters?start=${0}&count=${count}",data: {});
+      setState(() {
         title = result['title'];
         subjects = result['subjects'];
       });
-      }catch(e){
-        return print(e);
-      }
+    }catch(e){
+      print(e);
+    }
+  }
+
+  void getMoreData () async{
+    try {
+      var result = await Http().get("https://api.douban.com/v2/movie/in_theaters?start=${start + 1}&count=${count}",data: {});
+      setState(() {
+        start = start + 1;
+        print(subjects.length);
+        subjects.addAll(result['subjects']);
+        print('0000000000000000000000000000');
+        print(subjects.length);
+      });
+    }catch(e){
+      print(e);
+    }
   }
 
   @override
@@ -53,14 +110,16 @@ class _MyHomeAppState extends State<MyHomeApp> {
       appBar: AppBar(
         title: Text('${title}'),
       ),
-      body: Center(
+      body: RefreshIndicator(
+        color: Colors.deepOrangeAccent,
+        backgroundColor: Colors.white,
         child: getBody(),
-      ),
+        onRefresh: _onRefresh),
     );
   }
   
   getItem(var subject) {
-//    演员列表
+    //    演员列表
     var details = subject;
     var avatars = List.generate(subject['casts'].length, (int index) =>
         Container(
@@ -144,12 +203,55 @@ class _MyHomeAppState extends State<MyHomeApp> {
   getBody() {
     if (subjects.length != 0) {
       return ListView.builder(
-          itemCount: subjects.length,
-          itemBuilder: (BuildContext context, int position) {
-            return getItem(subjects[position]);
-          });
+        controller: _scrollController,
+        itemCount: subjects.length == 0
+            ? 0
+            : isLoading ? subjects.length + 1 : subjects.length,
+        itemBuilder: (context, index) {
+          return _getRow(context, index);
+        },
+      );
     } else { // 加载菊花
       return CupertinoActivityIndicator();
     }
   }
+
+  Widget _getRow(BuildContext context, int index) {
+    print(index);
+    print('===================================================');
+    print(subjects.length);
+    if (index < subjects.length) {
+      return getItem(subjects[index]);
+    }
+    return _getMoreWidget();
+  }
+
+  Widget _getMoreWidget() {
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 4.0,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+              child: Text(
+                '加载中...',
+                style: TextStyle(fontSize: 16.0),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 }

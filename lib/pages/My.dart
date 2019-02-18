@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './Weather.dart';
-import './Upload.dart';
+import './Refresh.dart';
 import './Camera.dart';
 import './PhoteShow.dart';
 import './Publish.dart';
@@ -78,6 +78,18 @@ class My extends StatelessWidget {
             onTap: () {
                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
                   return PublishTweetPage();
+                }));
+            },
+          ),
+          Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
+
+          ListTile(
+            title:new Text('下拉刷新，上拉加载',style: TextStyle(fontWeight: FontWeight.w500),),
+            leading: new Icon(Icons.image,color: Colors.lightBlue,),
+            trailing: new Icon(Icons.chevron_right),
+            onTap: () {
+               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+                  return RefreshListPage();
                 }));
             },
           ),
