@@ -1,0 +1,7 @@
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>要用定位</string>
+
+<key>NSPhotoLibraryUsageDescription</key>
+<string>需要相册权限</string>
+<key>NSCameraUsageDescription</key>
+<string>需要照相机权限</string>

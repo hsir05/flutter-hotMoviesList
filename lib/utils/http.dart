@@ -18,7 +18,7 @@ class Http{
   Http(){
   		// 初始化 Options
     _options =new Options(
-      baseUrl: _config.base_url,
+      // baseUrl: _config.base_url,
       connectTimeout: _config.connectTimeout,
       receiveTimeout: _config.receiveTimeout,
       headers: {}

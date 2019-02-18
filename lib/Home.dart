@@ -22,47 +22,50 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   Widget build(BuildContext context) {
      return Scaffold(
        body: list[_currentIndex],
-       bottomNavigationBar: BottomNavigationBar(
-         items: [
-           BottomNavigationBarItem(
-             icon:Icon(
-               Icons.home,
-               color:_BottomNavigationColor,
-             ),
-             title:Text(
-               'Hot',
-               style:TextStyle(color:_BottomNavigationColor)
-             )
-           ),
-           BottomNavigationBarItem(
-             icon:Icon(
-               Icons.pages,
-               color:_BottomNavigationColor,
-             ),
-             title:Text(
-               'Details',
-               style:TextStyle(color:_BottomNavigationColor)
-             )
-           ),
-           BottomNavigationBarItem(
-             icon:Icon(
-               Icons.airplay,
-               color:_BottomNavigationColor,
-             ),
-             title:Text(
-               'My',
-               style:TextStyle(color:_BottomNavigationColor)
-             )
-           ),
-         ],
-         currentIndex:_currentIndex,
-         onTap:(int index){
-           setState((){
-             _currentIndex= index;
-           });
-         },
-         type:BottomNavigationBarType.fixed
-       ),
+       bottomNavigationBar: Offstage(
+          offstage: false, //这里控制底部按钮显示与隐藏的方法
+          child: BottomNavigationBar(
+            items: [
+            BottomNavigationBarItem(
+              icon:Icon(
+                Icons.home,
+                color:_BottomNavigationColor,
+              ),
+              title:Text(
+                'Hot',
+                style:TextStyle(color:_BottomNavigationColor)
+              )
+            ),
+            BottomNavigationBarItem(
+              icon:Icon(
+                Icons.pages,
+                color:_BottomNavigationColor,
+              ),
+              title:Text(
+                'Details',
+                style:TextStyle(color:_BottomNavigationColor)
+              )
+            ),
+            BottomNavigationBarItem(
+              icon:Icon(
+                Icons.person,
+                color:_BottomNavigationColor,
+              ),
+              title:Text(
+                'My',
+                style:TextStyle(color:_BottomNavigationColor)
+              )
+            ),
+          ],
+          currentIndex:_currentIndex,
+          onTap:(int index){
+            setState((){
+              _currentIndex= index;
+            });
+          },
+          type:BottomNavigationBarType.fixed
+         ),
+        )
      );
   }
 }

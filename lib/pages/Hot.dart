@@ -37,7 +37,7 @@ class _MyHomeAppState extends State<MyHomeApp> {
   }
   void getHttp() async{
       try {
-       var result = await Http().get("/in_theaters",data: {});
+       var result = await Http().get("https://api.douban.com/v2/movie/in_theaters",data: {});
        setState(() {
         title = result['title'];
         subjects = result['subjects'];
@@ -92,7 +92,7 @@ class _MyHomeAppState extends State<MyHomeApp> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-//                    电影名称
+                    // 电影名称
                     Text(
                       subject['title'],
                       style: TextStyle(

@@ -39,7 +39,7 @@ class _MoviesDetailsState extends State<MoviesDetails> {
   }
   void getHttp() async{
     try {
-      var result = await Http().get("/${widget.details['id']}",data: {});
+      var result = await Http().get("https://api.douban.com/v2/movie/${widget.details['id']}",data: {});
       setState(() {
         movDetail = result;
       });
