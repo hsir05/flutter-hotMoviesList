@@ -49,27 +49,32 @@ class _WeatherState extends State<Weather> {
 
   getScrItem (var item) {
     var itemDetails = item;
-    return Container(
-      height: 60.0,
-      child: Row(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 15.0),
-            child: Text(itemDetails['date']),
+    return Column(
+      children: <Widget>[
+        Container(
+          height: 50.0,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 15.0),
+                  child: Text(itemDetails['date']),
+              )),
+              Expanded(
+                child: Padding(
+                padding: EdgeInsets.only(top: 15.0),
+                child: Text(itemDetails['type']),
+              ),),
+              Expanded(
+                child: Padding(
+                padding: EdgeInsets.only(top: 15.0),
+                child: Text('${itemDetails['high']}~${itemDetails['low']}'),
+              ))
+            ],
           ),
-          Divider(),
-          Padding(
-            padding: EdgeInsets.only(top: 15.0),
-            child: Text(itemDetails['type']),
-          ),
-          Divider(),
-          Padding(
-            padding: EdgeInsets.only(top: 15.0),
-            child: Text('${itemDetails['high']}~${itemDetails['low']}'),
-          ),
-          Divider(),
-        ],
-      ),
+        ),
+        Divider()
+      ],
     );
   }
 
@@ -113,6 +118,7 @@ class _WeatherState extends State<Weather> {
             Container(
               width: width,
               height: height/2,
+              padding: EdgeInsets.only(left: 15.0),
               child: getScroll()
             )
           ],
