@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:city_pickers/city_pickers.dart';
 import 'dart:convert';
-import './AttrItemContainer.dart';
+import 'package:flutter/cupertino.dart';
+import '../comonent/AttrItemContainer.dart';
 
 class CityPicker2 extends StatefulWidget {
   @override
@@ -9,7 +10,7 @@ class CityPicker2 extends StatefulWidget {
 }
 
 class _CityPicker2State extends State<CityPicker2> {
-   Result result = new Result();
+  Result result = new Result();
   
   show() async {
     Result res = await CityPickers.showCityPicker(
@@ -19,10 +20,6 @@ class _CityPicker2State extends State<CityPicker2> {
      result = res;
     });
     print(result);
-
-    // Result result2 = await CityPickers.showFullPageCityPicker(
-    //   context: context,
-    // );
   }
 
   @override

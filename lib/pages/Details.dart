@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:amap_location/amap_location.dart';
+// import 'package:amap_location/amap_location.dart';
 
 class Details extends StatefulWidget {
   @override
@@ -9,7 +9,6 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
-  Future<File> _imageFile;
 
   @override
   void initState () {
@@ -30,12 +29,6 @@ class _DetailsState extends State<Details> {
   //   AMapLocationClient.startLocation();
   // }
 
-   void _selectedImage() {
-    setState(() {
-      _imageFile = ImagePicker.pickImage(source: ImageSource.gallery);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
 
@@ -51,14 +44,6 @@ class _DetailsState extends State<Details> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Text('detail'),
-            RaisedButton(
-              child: Text('按钮',style: TextStyle(color:Colors.white,fontSize: 16)),
-              color: Colors.redAccent,
-              colorBrightness: Brightness.light,
-              onPressed: () {
-                print('我是button');
-                _selectedImage();
-              })
           ],
         ),
       ),

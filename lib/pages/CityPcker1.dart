@@ -7,8 +7,6 @@ class CityPicker extends StatefulWidget {
   _CityPickerState createState() => _CityPickerState();
 }
 
-
-
 class _CityPickerState extends State<CityPicker> {
   String province;
   String city;

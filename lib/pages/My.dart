@@ -6,6 +6,8 @@ import './PhoteShow.dart';
 import './Publish.dart';
 import './CityPcker1.dart';
 import './CityPicker2.dart';
+import './Wechat.dart';
+import './WebView.dart';
 
 class My extends StatelessWidget {
   @override
@@ -117,6 +119,30 @@ class My extends StatelessWidget {
                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
                   return CityPicker2();
                 }));
+            },
+          ),
+          Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
+
+          ListTile(
+            title:new Text('微信',style: TextStyle(fontWeight: FontWeight.w500),),
+            leading: new Icon(Icons.chat_bubble_outline,color: Colors.redAccent,),
+            trailing: new Icon(Icons.chevron_right),
+            onTap: () {
+               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+                  return Wechat();
+                }));
+            },
+          ),
+          Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
+
+          ListTile(
+            title:new Text('WebView',style: TextStyle(fontWeight: FontWeight.w500),),
+            leading: new Icon(Icons.chat_bubble_outline,color: Colors.redAccent,),
+            trailing: new Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+                return NewsWebPage('https://www.baidu.com/','baidu');
+              }));
             },
           ),
           Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
