@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:city_picker/city_picker.dart';
+import 'dart:convert';
 
 class CityPicker extends StatefulWidget {
   @override
@@ -20,9 +21,11 @@ class _CityPickerState extends State<CityPicker> {
   
   cityPicker () async {
     CityResult result = await showCityPicker(context);
-    province = result?.province; // 省
-    city = result?.city; // 市
-    county = result?.county; // 地级市/县
+    setState(() {
+      province = result?.province; // 省
+      city = result?.city; // 市
+      county = result?.county; // 地级市/县
+    });
   }
 
   @override
@@ -42,9 +45,9 @@ class _CityPickerState extends State<CityPicker> {
               cityPicker();
             },
           ),
-          // Text(province),
-          // Text(city),
-          // Text(county),
+          Text(json.encode(province)),
+          Text(json.encode(city)),
+          Text(json.encode(county)),
         ],),
       ),
     );

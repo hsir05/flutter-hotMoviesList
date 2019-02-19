@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:city_pickers/city_pickers.dart';
+import 'dart:convert';
+import './AttrItemContainer.dart';
 
 class CityPicker2 extends StatefulWidget {
   @override
   _CityPicker2State createState() => _CityPicker2State();
 }
 
-
-
 class _CityPicker2State extends State<CityPicker2> {
-  String province;
-  String city;
-  String county;
-
-  @override
-  void initState () {
-    super.initState();
-    // cityPicker2();
-  }
+   Result result = new Result();
   
   show() async {
-    Result result = await CityPickers.showCityPicker(
+    Result res = await CityPickers.showCityPicker(
       context: context,
     );
+    setState(() {
+     result = res;
+    });
+    print(result);
+
     // Result result2 = await CityPickers.showFullPageCityPicker(
     //   context: context,
     // );
@@ -37,7 +34,14 @@ class _CityPicker2State extends State<CityPicker2> {
       ),
       body: Center(
         child: Column(children: <Widget>[
-          Text('城市选择器'),
+          Padding(
+            padding: EdgeInsets.all(15.0),
+            child: Text('城市选择器'),
+          ),
+          AttrItemContainer(
+              title: '选择结果',
+              editor: Text("${result.toString()}")
+          ),
           RaisedButton(
             child: Text('选择城市',style: TextStyle(color: Colors.white),),
             color: Colors.redAccent,
@@ -45,9 +49,6 @@ class _CityPicker2State extends State<CityPicker2> {
               show();
             },
           ),
-          // Text(province),
-          // Text(city),
-          // Text(county),
         ],),
       ),
     );
