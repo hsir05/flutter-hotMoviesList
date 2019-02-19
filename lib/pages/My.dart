@@ -4,6 +4,8 @@ import './Refresh.dart';
 import './Camera.dart';
 import './PhoteShow.dart';
 import './Publish.dart';
+import './CityPcker1.dart';
+import './CityPicker2.dart';
 
 class My extends StatelessWidget {
   @override
@@ -13,7 +15,7 @@ class My extends StatelessWidget {
         title: Text('我的'),
         backgroundColor: Colors.redAccent
       ),
-      body: Column(
+      body:ListView(
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(top:10.0,left: 10.0,bottom: 10.0),
@@ -37,7 +39,7 @@ class My extends StatelessWidget {
 
           ListTile(
             title:new Text('天气预报',style: TextStyle(fontWeight: FontWeight.w500),),
-            leading: new Icon(Icons.wb_sunny,color: Colors.lightBlue,),
+            leading: new Icon(Icons.wb_sunny,color: Colors.redAccent,),
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
@@ -49,7 +51,7 @@ class My extends StatelessWidget {
 
           ListTile(
             title:new Text('文字图片',style: TextStyle(fontWeight: FontWeight.w500),),
-            leading: new Icon(Icons.image,color: Colors.lightBlue,),
+            leading: new Icon(Icons.image,color: Colors.redAccent,),
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
@@ -61,7 +63,7 @@ class My extends StatelessWidget {
 
           ListTile(
             title:new Text('拍照',style: TextStyle(fontWeight: FontWeight.w500),),
-            leading: new Icon(Icons.image,color: Colors.lightBlue,),
+            leading: new Icon(Icons.fastfood,color: Colors.redAccent,),
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
@@ -73,7 +75,7 @@ class My extends StatelessWidget {
 
            ListTile(
             title:new Text('相册照片选取展示',style: TextStyle(fontWeight: FontWeight.w500),),
-            leading: new Icon(Icons.image,color: Colors.lightBlue,),
+            leading: new Icon(Icons.group_work,color: Colors.redAccent,),
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
@@ -85,11 +87,35 @@ class My extends StatelessWidget {
 
           ListTile(
             title:new Text('下拉刷新，上拉加载',style: TextStyle(fontWeight: FontWeight.w500),),
-            leading: new Icon(Icons.image,color: Colors.lightBlue,),
+            leading: new Icon(Icons.music_video,color: Colors.redAccent,),
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
                   return RefreshListPage();
+                }));
+            },
+          ),
+          Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
+
+          ListTile(
+            title:new Text('城市选择1',style: TextStyle(fontWeight: FontWeight.w500),),
+            leading: new Icon(Icons.photo_album,color: Colors.redAccent,),
+            trailing: new Icon(Icons.chevron_right),
+            onTap: () {
+               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+                  return CityPicker();
+                }));
+            },
+          ),
+          Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
+
+          ListTile(
+            title:new Text('城市选择2',style: TextStyle(fontWeight: FontWeight.w500),),
+            leading: new Icon(Icons.code,color: Colors.redAccent,),
+            trailing: new Icon(Icons.chevron_right),
+            onTap: () {
+               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+                  return CityPicker2();
                 }));
             },
           ),

@@ -57,7 +57,6 @@ class _MyHomeAppState extends State<MyHomeApp> {
   Future<void> _onRefresh() async {
     await Future.delayed(Duration(seconds: 2), () {
       getInitData();
-      setState(() {});
     });
   }
 

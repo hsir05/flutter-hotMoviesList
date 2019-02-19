@@ -26,6 +26,8 @@ dev_dependencies:
   dio: ^1.0.13  
   image_picker: '^0.4.5'
   amap_location: 0.1.0
+  city_picker: ^0.1.1
+  city_pickers: ^0.0.1
 
 
 # For information on the generic Dart part of this file, see the
