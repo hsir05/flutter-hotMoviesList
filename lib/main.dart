@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import './state/count_state.dart';
+import './pages/Splash.dart';
 import './Home.dart';
+
 
 void main() {
   final store =
@@ -22,7 +24,10 @@ class MyApp extends StatelessWidget {
         title:'Flutter bottomNavigationBar',
         theme:ThemeData.light(),
         debugShowCheckedModeBanner: false,
-        home:BottomNavigationWidget()
+        home:SplashScreen(),
+        routes: {
+          'TutorialHome': (BuildContext context) => BottomNavigationWidget()
+        },
       )
     );
   }

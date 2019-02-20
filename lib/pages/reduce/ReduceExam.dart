@@ -15,7 +15,7 @@ class _TopScreenState extends State<TopScreen> {
       appBar: AppBar(
         backgroundColor: Colors.redAccent,
         title: Text('Top Screen'),
-      ),
+      ), 
       body: Center(
         child: StoreConnector<CountState,int>(
           converter: (store) => store.state.count,
