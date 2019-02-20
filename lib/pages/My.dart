@@ -47,9 +47,9 @@ class My extends StatelessWidget {
             leading: new Icon(Icons.wb_sunny,color: Colors.redAccent,),
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
-               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+              Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
                   return new Weather();
-                }));
+              }));
             },
           ),
           Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
@@ -61,7 +61,7 @@ class My extends StatelessWidget {
             onTap: () {
                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
                   return PublishPage();
-                }));
+               }));
             },
           ),
           Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
@@ -73,7 +73,7 @@ class My extends StatelessWidget {
             onTap: () {
                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
                   return DatePicker();
-                }));
+               }));
             },
           ),
           Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
@@ -82,9 +82,9 @@ class My extends StatelessWidget {
             leading: new Icon(Icons.airline_seat_legroom_reduced,color: Colors.redAccent,),
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
-               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
                   return TopScreen();
-                }));
+               }));
             },
           ),
           Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
@@ -94,9 +94,9 @@ class My extends StatelessWidget {
             leading: new Icon(Icons.contact_phone,color: Colors.redAccent,),
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
-               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
                   return ContactPicker();
-                }));
+               }));
             },
           ),
           Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
@@ -106,9 +106,9 @@ class My extends StatelessWidget {
             leading: new Icon(Icons.fastfood,color: Colors.redAccent,),
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
-               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
                   return Camera();
-                }));
+               }));
             },
           ),
           Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
@@ -118,9 +118,9 @@ class My extends StatelessWidget {
             leading: new Icon(Icons.group_work,color: Colors.redAccent,),
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
-               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
                   return PublishTweetPage();
-                }));
+               }));
             },
           ),
           Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
@@ -130,9 +130,9 @@ class My extends StatelessWidget {
             leading: new Icon(Icons.music_video,color: Colors.redAccent,),
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
-               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
                   return RefreshListPage();
-                }));
+               }));
             },
           ),
           Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
@@ -142,9 +142,9 @@ class My extends StatelessWidget {
             leading: new Icon(Icons.photo_album,color: Colors.redAccent,),
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
-               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
                   return CityPicker();
-                }));
+               }));
             },
           ),
           Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
@@ -154,9 +154,9 @@ class My extends StatelessWidget {
             leading: new Icon(Icons.code,color: Colors.redAccent,),
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
-               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
                   return CityPicker2();
-                }));
+               }));
             },
           ),
           Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
@@ -166,9 +166,9 @@ class My extends StatelessWidget {
             leading: new Icon(Icons.chat_bubble_outline,color: Colors.redAccent,),
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
-               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
                   return WechatShare();
-                }));
+               }));
             },
           ),
           Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
@@ -178,7 +178,7 @@ class My extends StatelessWidget {
             leading: new Icon(Icons.chat_bubble_outline,color: Colors.redAccent,),
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
-              Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
                 return NewsWebPage('https://www.baidu.com/','baidu');
               }));
             },
@@ -192,7 +192,7 @@ class My extends StatelessWidget {
           //   onTap: () {
           //     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
           //       return NewsWebPage('https://www.baidu.com/','baidu');
-          //     }));
+        //      }));
           //   },
           // ),
           // Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),

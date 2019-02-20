@@ -14,7 +14,7 @@ class SplashScreen extends StatefulWidget {
     }
  
    void navigationPage() {
-     Navigator.of(context).pushReplacementNamed('TutorialHome');
+     Navigator.of(context).pushReplacementNamed('Login');
    }
  
    @override

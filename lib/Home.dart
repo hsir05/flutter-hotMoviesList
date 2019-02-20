@@ -6,6 +6,7 @@ import 'pages/My.dart';
 class BottomNavigationWidget extends StatefulWidget {
   _BottomNavigationWidgetState createState() => _BottomNavigationWidgetState();
 }
+
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   final _BottomNavigationColor = Colors.redAccent;
   int _currentIndex = 0;

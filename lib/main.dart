@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import './state/count_state.dart';
 import './pages/Splash.dart';
-import './Home.dart';
+import './login.dart';
 
 
 void main() {
@@ -21,12 +21,12 @@ class MyApp extends StatelessWidget {
     return StoreProvider<CountState>(
       store: store,
       child: MaterialApp(
-        title:'Flutter bottomNavigationBar',
+        title:'Login',
         theme:ThemeData.light(),
         debugShowCheckedModeBanner: false,
         home:SplashScreen(),
         routes: {
-          'TutorialHome': (BuildContext context) => BottomNavigationWidget()
+          'Login': (BuildContext context) => LoginPage()
         },
       )
     );
