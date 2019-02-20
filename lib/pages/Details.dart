@@ -32,21 +32,24 @@ class _DetailsState extends State<Details> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      appBar:AppBar(
-        title: Text('Details'),
-        backgroundColor: Colors.redAccent
-      ),
-      body: Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.only(top: 80.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Text('detail'),
-          ],
+    return MaterialApp(
+      title:'Detail',
+      home: Scaffold(
+        appBar:AppBar(
+          title: Text('Details'),
+          backgroundColor: Colors.redAccent
         ),
-      ),
+        body: Container(
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(top: 80.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Text('detail'),
+            ],
+          ),
+        ),
+      )
     );
   }
 }
