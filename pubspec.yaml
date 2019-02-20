@@ -25,12 +25,13 @@ dev_dependencies:
     sdk: flutter
   dio: ^1.0.13  
   image_picker: '^0.4.5'
-  # amap_location: 0.1.0
+  amap_location: 0.1.0
   city_picker: ^0.1.1
   city_pickers: ^0.0.1
   flutter_webview_plugin: ^0.3.0+2
-
-  # fluwx: ^0.0.1
+  flutter_redux: ^0.5.3
+  redux: ^3.0.0
+  fluwx: ^0.6.0
 
 
 # For information on the generic Dart part of this file, see the
@@ -48,6 +49,7 @@ flutter:
    - json/movies.json
    - images/001.jpg
    - images/0.jpg
+   - images/logo.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

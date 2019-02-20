@@ -106,6 +106,8 @@ onScaleEnd
 
 ### 9. flutter 常用插件
 
+[常用库](https://blog.csdn.net/szintu/article/details/82666335)
+
 ```
 audio_recorder: any #录音、播放
   flutter_sound: ^1.1.5#录音
@@ -163,3 +165,45 @@ audio_recorder: any #录音、播放
 final width = MediaQuery.of(context).size.width;
 final height = MediaQuery.of(context).size.height;
 ```
+
+### 11 . 日期组件国际化
+
++ 1.添加包
+
+   `flutter_localizations:`
+
++ 2.导包 
+
+  `import 'package:flutter_localizations/flutter_localizations.dart';`
+
++ 3. 设置
+  
+  ```
+    void main() {
+    runApp(
+      new MaterialApp(
+        title: 'app',
+        theme: new ThemeData(
+          primaryColor: Colors.white,
+        ),
+        home: new MyLoginWidget(),
+        localizationsDelegates: [
+          //此处
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          //此处
+          const Locale('zh', 'CH'),
+          const Locale('en', 'US'),
+        ],
+      ),
+    );
+  }
+  ```
+  要显示中文控件设置
+  `locale: Locale('zh'),`
+
+### 12. 获取发布版SHA1值
+
+` keytool -list -v -keystore D:\key.jks`

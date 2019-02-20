@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-// import 'package:amap_location/amap_location.dart';
+import 'package:amap_location/amap_location.dart';
 
 class Details extends StatefulWidget {
   @override
@@ -17,17 +16,18 @@ class _DetailsState extends State<Details> {
     // getLocation();
   }
 
-  // getLocation () async{
-  //   await AMapLocationClient.startup(new AMapLocationOption( desiredAccuracy:CLLocationAccuracy.kCLLocationAccuracyHundredMeters ));
-  //   await AMapLocationClient.getLocation(true);
+  getLocation () async{
+    await AMapLocationClient.startup(new AMapLocationOption( desiredAccuracy:CLLocationAccuracy.kCLLocationAccuracyHundredMeters ));
+    await AMapLocationClient.getLocation(true);
 
-  //   AMapLocationClient.onLocationUpate.listen((AMapLocation loc){
-  //     if(!mounted)return;
-  //     print(loc);
-  //   });
+    AMapLocationClient.onLocationUpate.listen((AMapLocation loc){
+      if(!mounted)return;
+      print('===========================================');
+      print(loc);
+    });
 
-  //   AMapLocationClient.startLocation();
-  // }
+    AMapLocationClient.startLocation();
+  }
 
   @override
   Widget build(BuildContext context) {

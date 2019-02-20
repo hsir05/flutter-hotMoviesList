@@ -6,8 +6,11 @@ import './PhoteShow.dart';
 import './Publish.dart';
 import './CityPcker1.dart';
 import './CityPicker2.dart';
-import './Wechat.dart';
+import './wechat/Wechat.dart';
 import './WebView.dart';
+import './DatePicker.dart';
+import './ContactPicker.dart';
+import './reduce/ReduceExam.dart';
 
 class My extends StatelessWidget {
   @override
@@ -58,6 +61,41 @@ class My extends StatelessWidget {
             onTap: () {
                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
                   return PublishPage();
+                }));
+            },
+          ),
+          Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
+
+          ListTile(
+            title:new Text('日期',style: TextStyle(fontWeight: FontWeight.w500),),
+            leading: new Icon(Icons.date_range,color: Colors.redAccent,),
+            trailing: new Icon(Icons.chevron_right),
+            onTap: () {
+               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+                  return DatePicker();
+                }));
+            },
+          ),
+          Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
+          ListTile(
+            title:new Text('ReduceExam',style: TextStyle(fontWeight: FontWeight.w500),),
+            leading: new Icon(Icons.airline_seat_legroom_reduced,color: Colors.redAccent,),
+            trailing: new Icon(Icons.chevron_right),
+            onTap: () {
+               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+                  return TopScreen();
+                }));
+            },
+          ),
+          Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
+
+           ListTile(
+            title:new Text('联系人',style: TextStyle(fontWeight: FontWeight.w500),),
+            leading: new Icon(Icons.contact_phone,color: Colors.redAccent,),
+            trailing: new Icon(Icons.chevron_right),
+            onTap: () {
+               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+                  return ContactPicker();
                 }));
             },
           ),
@@ -129,7 +167,7 @@ class My extends StatelessWidget {
             trailing: new Icon(Icons.chevron_right),
             onTap: () {
                Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-                  return Wechat();
+                  return WechatShare();
                 }));
             },
           ),
@@ -146,6 +184,18 @@ class My extends StatelessWidget {
             },
           ),
           Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
+
+          // ListTile(
+          //   title:new Text('日期插件',style: TextStyle(fontWeight: FontWeight.w500),),
+          //   leading: new Icon(Icons.date_range,color: Colors.redAccent,),
+          //   trailing: new Icon(Icons.chevron_right),
+          //   onTap: () {
+          //     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+          //       return NewsWebPage('https://www.baidu.com/','baidu');
+          //     }));
+          //   },
+          // ),
+          // Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
         ],
       ),);
   }
