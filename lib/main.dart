@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import './state/count_state.dart';
+import './state/state.dart';
 import './pages/Splash.dart';
 import './login.dart';
 
 
 void main() {
-  final store =
-      Store<CountState>(reducer, initialState: CountState.initState());
+   Store<AppState> store = new Store<AppState>(mainReducer,initialState: new AppState(
+    main: new MainPageState(),
+    auth: new AuthState(),
+  ),middleware: [loggingMiddleware]);
   runApp(new MyApp(store));
 }
 
 class MyApp extends StatelessWidget {
-  final Store<CountState> store;
+  final Store<AppState> store;
 
   MyApp(this.store);
   @override
   Widget build(BuildContext context) {
-    return StoreProvider<CountState>(
+    return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
         title:'Login',

@@ -10,7 +10,7 @@ import './wechat/Wechat.dart';
 import './WebView.dart';
 import './DatePicker.dart';
 import './ContactPicker.dart';
-import './reduce/ReduceExam.dart';
+// import './reduce/ReduceExam.dart';
 
 class My extends StatelessWidget {
   @override
@@ -76,17 +76,17 @@ class My extends StatelessWidget {
                }));
             },
           ),
-          Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
-          ListTile(
-            title:new Text('ReduceExam',style: TextStyle(fontWeight: FontWeight.w500),),
-            leading: new Icon(Icons.airline_seat_legroom_reduced,color: Colors.redAccent,),
-            trailing: new Icon(Icons.chevron_right),
-            onTap: () {
-               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
-                  return TopScreen();
-               }));
-            },
-          ),
+          // Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
+          // ListTile(
+          //   title:new Text('ReduceExam',style: TextStyle(fontWeight: FontWeight.w500),),
+          //   leading: new Icon(Icons.airline_seat_legroom_reduced,color: Colors.redAccent,),
+          //   trailing: new Icon(Icons.chevron_right),
+          //   onTap: () {
+          //      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
+          //         return TopScreen();
+          //      }));
+          //   },
+          // ),
           Padding(padding: EdgeInsets.only(left:15.0,right: 15.0),child: Divider()),
 
            ListTile(

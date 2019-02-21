@@ -16,13 +16,13 @@ class _UnderScreenState extends State<UnderScreen> {
         title: Text('Under Screen'),
       ),
       body: Center(
-        child: new Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
+           Text(
               'You have pushed the button this many times:',
             ),
-            StoreConnector<CountState,int>(
+            StoreConnector<InitState,int>(
               converter: (store) => store.state.count,
               builder: (context, count) {
                 return Text(
@@ -34,7 +34,7 @@ class _UnderScreenState extends State<UnderScreen> {
           ],
         ),
       ),
-      floatingActionButton: StoreConnector<CountState,VoidCallback>(
+      floatingActionButton: StoreConnector<InitState,VoidCallback>(
        
         converter: (store) {
           return () => store.dispatch(Action.increment);

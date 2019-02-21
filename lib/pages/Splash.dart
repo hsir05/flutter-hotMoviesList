@@ -9,7 +9,7 @@ class SplashScreen extends StatefulWidget {
  class _SplashScreenState extends State {
    startTime() async {
      //设置启动图生效时间
-    var _duration = Duration(seconds: 10);
+    var _duration = Duration(seconds: 5);
       return Timer(_duration, navigationPage);
     }
  

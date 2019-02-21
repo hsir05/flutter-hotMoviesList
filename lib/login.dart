@@ -1,17 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import './Home.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+import './state/state.dart';
 
 class LoginPage extends StatefulWidget {
+  LoginPage({Key key,this.isLogin,this.email}):super(key: key);
+
+  final bool isLogin;
+  final String email;
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+
   final _forKey = GlobalKey<FormState>();
   String _email, _password;
   bool _isObscure = true;
   Color _eyeColor;
+ 
+ @override
+  void initState () {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +33,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Form(
         key: _forKey,
         child: ListView(
+          key: ValueKey("login"),
           padding: EdgeInsets.symmetric(horizontal: 22.0),
           children: <Widget>[
             SizedBox(height: kToolbarHeight,),
@@ -85,23 +100,23 @@ class _LoginPageState extends State<LoginPage> {
       child: SizedBox(
         height: 45.0,
         width: 270.0,
-        child: RaisedButton(
-          child: Text(
-            'Login',
-            style: Theme.of(context).primaryTextTheme.headline,
-          ),
-          color: Colors.redAccent,
-          shape: StadiumBorder(),
-          onPressed: () {
-            if (_forKey.currentState.validate()) {
-              _forKey.currentState.save();
-              print('email:$_email , assword:$_password');
-              login();
-            }
-          }
-        ),
-      ),
-    );
+        child: StoreConnector<AppState,VoidCallback>(
+          key: ValueKey("logout"),
+          builder: (BuildContext context,VoidCallback login){
+            return RaisedButton(
+              color: Colors.redAccent,
+              shape: StadiumBorder(), 
+              child: Text(
+                'Login',style: Theme.of(context).primaryTextTheme.headline,
+              ),
+              onPressed:login,
+              );
+          }, 
+          converter: (Store<AppState> store){
+            return ()=>
+              login(store);
+          })
+      ));
   }
 
    Padding buildTitleLine() {
@@ -128,11 +143,18 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void login() async{
+  void login(store) async{
     print('login'); 
-    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-      return BottomNavigationWidget();
-    }));
+    if (_forKey.currentState.validate()) {
+      _forKey.currentState.save();
+      print('email:$_email , assword:$_password');
+      store.dispatch(
+        LoginSuccessAction(email: _email)
+      );
+      Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+        return BottomNavigationWidget();
+      }));
+    }
       // try {
       //   Response response;
       //   response = await Dio().get("https://www.toutiao.com/stream/widget/local_weather/data/?city=兰州");
