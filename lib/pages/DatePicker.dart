@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../comonent/AttrItemContainer.dart';
+import '../component/AttrItemContainer.dart';
 
 class DatePicker extends StatefulWidget {
   @override

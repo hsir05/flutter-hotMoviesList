@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:city_pickers/city_pickers.dart';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
-import '../comonent/AttrItemContainer.dart';
+import '../component/AttrItemContainer.dart';
 
 class CityPicker2 extends StatefulWidget {
   @override

@@ -22,10 +22,9 @@ class _AttrItemContainerState extends State<AttrItemContainer> {
           children: <Widget>[
             Text("${widget.title}"),
             Expanded(
-                child: Padding(padding: EdgeInsets.only(left: 30),
-                  child: widget.editor
-                )
-            )
+              child: Padding(padding: EdgeInsets.only(left: 30),
+                child: widget.editor
+              ))
           ],
         ),
       ),
