@@ -11,7 +11,7 @@ void main() {
     main: new MainPageState(),
     auth: new AuthState(),
   ),middleware: [loggingMiddleware]);
-  runApp(new MyApp(store));
+  runApp(MyApp(store));
 }
 
 class MyApp extends StatelessWidget {
