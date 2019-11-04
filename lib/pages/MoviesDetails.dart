@@ -2,23 +2,6 @@ import 'package:flutter/material.dart';
 import '../utils/http.dart';
 import 'package:flutter/cupertino.dart';
 
-// class MoviesDetails extends StatelessWidget {
-//   final details;
-//   MoviesDetails({Key key, @required this.details}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('${details['title']}'),
-//       ),
-//       body: Center(
-//         child: Content(content:details),
-//       )
-//     );
-//   }
-// }
-
 class MoviesDetails extends StatefulWidget {
   final details;
   MoviesDetails({this.details});
@@ -39,7 +22,9 @@ class _MoviesDetailsState extends State<MoviesDetails> {
   }
   void getHttp() async{
     try {
-      var result = await Http().get("https://api.douban.com/v2/movie/${widget.details['id']}",data: {});
+      var result = await Http().get("https://api.douban.com/v2/movie/subject/${widget.details['id']}?apikey=0b2bdeda43b5688921839c8ecb20399b",data: {});
+      // print('++++++++++++++++++');
+      // print(result);
       setState(() {
         movDetail = result;
       });
@@ -54,11 +39,11 @@ class _MoviesDetailsState extends State<MoviesDetails> {
       appBar: AppBar(
         title: Text('${widget.details['title']}'),
       ),
-      body: Center(
-        child: ContentArea(content:widget.details, movDetail: this.movDetail),
-      )
+      body: ContentArea(content:widget.details, movDetail: this.movDetail),
     );
   }
+
+
 }
 
 class ContentArea extends StatelessWidget {
@@ -85,28 +70,6 @@ class ContentArea extends StatelessWidget {
           )
         ),
     );
-
-    getTags () {
-      int len = movDetail['tags'] != null ? movDetail['tags'].length : 0;
-      if (len != 0) {
-        var tags = List.generate(len, (int index) => 
-           Container(
-              padding: EdgeInsets.all(5.0),
-              // color: Colors.redAccent,
-              height: 30.0,
-              width: 100.0,
-              alignment: Alignment.bottomLeft,
-              // decoration: BoxDecoration(
-              //   border: Border.all(color: Colors.grey, width: 1.0),
-              //   borderRadius: BorderRadius.all(Radius.circular(2.0)),
-              // ),
-              child: Text('${movDetail['tags'][index]['name']}',style: TextStyle(fontSize: 16.0), textAlign:TextAlign.center ,),),
-        );
-        return Wrap(direction: Axis.horizontal,alignment: WrapAlignment.start,children: tags,);
-      } else {
-        return CupertinoActivityIndicator();
-      }
-    }
     
     return Container(
       child: ListView(
@@ -146,11 +109,11 @@ class ContentArea extends StatelessWidget {
             width: 100.0,
             child: Text('标签',style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.w700),),
           ),
+          
           Divider(),
-          Padding(
-            padding: EdgeInsets.only(left: 5.0),
-            child: getTags(),
-          ),
+        
+          // _getTags(),
+
           // 电影介绍
           Padding(
             padding: EdgeInsets.only(top:15.0,left: 10.0,right: 10.0),
@@ -167,10 +130,11 @@ class ContentArea extends StatelessWidget {
             child: Text('主演',style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),
           ),
           Divider(),
+          
           Container(
             height:200.0,
             margin: EdgeInsets.only(left:10.0,top: 10.0),
-            child:new ListView(
+            child: ListView(
               scrollDirection: Axis.horizontal,
               children: castList,
             )
@@ -179,5 +143,28 @@ class ContentArea extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  
+    Widget _getTags() {
+      print('++++++++++++++');
+      print(movDetail['tags']);
+      if (movDetail['tags'] != null && movDetail['tags'].length != 0 ) {
+        List<Widget>listWidget = movDetail['tags'].map((val){
+          return Container(
+              padding: EdgeInsets.all(5.0),
+              height: 30.0,
+              width: 100.0,
+              alignment: Alignment.bottomLeft,
+              child: Text(val, style: TextStyle(fontSize: 16.0), textAlign:TextAlign.center)
+            );
+            }).toList();
+          return Wrap(
+            spacing: 2,
+            children: listWidget,
+          );
+      } else {
+        return Center( child: CupertinoActivityIndicator());
+      }
   }
 }

@@ -208,10 +208,8 @@ class _MyHomeAppState extends State<MyHomeApp> {
           return _getRow(context, index);
         },
       );
-    } else { // 加载菊花
-      return Center(
-        child: CupertinoActivityIndicator(),
-      );
+    } else {
+      return Center( child: CupertinoActivityIndicator());
     }
   }
 
