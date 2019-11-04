@@ -145,16 +145,22 @@ class _LoginPageState extends State<LoginPage> {
 
   void login(store) async{
     print('login'); 
-    if (_forKey.currentState.validate()) {
-      _forKey.currentState.save();
-      print('email:$_email , assword:$_password');
-      store.dispatch(
-        LoginSuccessAction(email: _email)
+    // if (_forKey.currentState.validate()) {
+    //   _forKey.currentState.save();
+    //   print('email:$_email , assword:$_password');
+    //   store.dispatch(
+    //     LoginSuccessAction(email: '123123@qq.com')
+    //   );
+    //   Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+    //     return BottomNavigationWidget();
+    //   }));
+    // }
+     store.dispatch(
+        LoginSuccessAction(email: '123123@qq.com')
       );
       Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
         return BottomNavigationWidget();
       }));
-    }
       // try {
       //   Response response;
       //   response = await Dio().get("https://www.toutiao.com/stream/widget/local_weather/data/?city=兰州");

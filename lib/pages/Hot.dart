@@ -15,7 +15,7 @@ class Hot extends StatelessWidget {
       home: MyHomeApp(title: 'Movies'),
     );
   }
-}
+} 
 
 class MyHomeApp extends StatefulWidget {
   final String title;
@@ -88,7 +88,7 @@ class _MyHomeAppState extends State<MyHomeApp> {
 
   void getMoreData () async{
     try {
-      var result = await Http().get("https://api.douban.com/v2/movie/in_theaters?start=${start + 1}&count=100",data: {});
+      var result = await Http().get("https://api.douban.com/v2/movie/in_theaters?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&start=${start + 1}&count=100",data: {});
       setState(() {
         start = start + 1;
         subjects.addAll(result['subjects']);
@@ -102,15 +102,14 @@ class _MyHomeAppState extends State<MyHomeApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${title}'),
+        title: Text('$title'),
       ),
       body: RefreshIndicator(
         color: Colors.deepOrangeAccent,
         backgroundColor: Colors.white,
-        child: Center(
-          child: getBody(),
+        child: getBody(),
+        onRefresh: _onRefresh
         ),
-        onRefresh: _onRefresh),
     );
   }
   
@@ -120,10 +119,12 @@ class _MyHomeAppState extends State<MyHomeApp> {
     var avatars = List.generate(subject['casts'].length, (int index) =>
         Container(
           margin: EdgeInsets.only(left: index.toDouble() == 0.0 ? 0.0 : 16.0),
-          child: CircleAvatar(
+          child: 
+          CircleAvatar(
               backgroundColor: Colors.white10,
-              backgroundImage: NetworkImage(
-                  subject['casts'][index]['avatars']['small']
+              backgroundImage: 
+              subject['casts'][index]['avatars'] == null ?  AssetImage("assets/images/avatar.png") : NetworkImage( 
+                subject['casts'][index]['avatars']['small'] 
               )
           ),
         ),
@@ -208,11 +209,15 @@ class _MyHomeAppState extends State<MyHomeApp> {
         },
       );
     } else { // 加载菊花
-      return CupertinoActivityIndicator();
+      return Center(
+        child: CupertinoActivityIndicator(),
+      );
     }
   }
 
   Widget _getRow(BuildContext context, int index) {
+    
+
     if (index < subjects.length) {
       return getItem(subjects[index]);
     }
