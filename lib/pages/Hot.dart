@@ -76,7 +76,7 @@ class _MyHomeAppState extends State<MyHomeApp> {
 
   void getInitData() async{
     try {
-      var result = await Http().get("https://api.douban.com/v2/movie/in_theaters?start=${0}&count=${count}",data: {});
+      var result = await Http().get("https://api.douban.com/v2/movie/in_theaters?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&start=0&start=0&count=100",data: {});
       setState(() {
         title = result['title'];
         subjects = result['subjects'];
@@ -88,7 +88,7 @@ class _MyHomeAppState extends State<MyHomeApp> {
 
   void getMoreData () async{
     try {
-      var result = await Http().get("https://api.douban.com/v2/movie/in_theaters?start=${start + 1}&count=${count}",data: {});
+      var result = await Http().get("https://api.douban.com/v2/movie/in_theaters?start=${start + 1}&count=100",data: {});
       setState(() {
         start = start + 1;
         subjects.addAll(result['subjects']);
