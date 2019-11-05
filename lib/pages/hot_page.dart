@@ -1,32 +1,17 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import '../utils/http.dart';
 import './MoviesDetails.dart';
 
-class Hot extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '豆瓣电影',
-      theme: ThemeData(
-        primaryColor: Colors.redAccent,
-      ),
-      home: MyHomeApp(title: 'Movies'),
-    );
-  }
-} 
 
-class MyHomeApp extends StatefulWidget {
-  final String title;
-
-  MyHomeApp({Key key, this.title}):super(key:key);
+class HotPage extends StatefulWidget {
+  final String title = 'Movies';
 
   @override
-  _MyHomeAppState createState() => _MyHomeAppState();
+  _HotPageState createState() => _HotPageState();
 }
-
-class _MyHomeAppState extends State<MyHomeApp> {
+ 
+class _HotPageState extends State<HotPage> {
   List subjects = [];
   String title = '';
   int start = 0;
@@ -39,7 +24,6 @@ class _MyHomeAppState extends State<MyHomeApp> {
 
      _scrollController.addListener(() {
       var position = _scrollController.position;
-      // 小于50px时，触发上拉加载；
       if (position.maxScrollExtent - position.pixels < 50) {
         _loadMore();
       }

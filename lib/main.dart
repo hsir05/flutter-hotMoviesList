@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+import 'package:fluro/fluro.dart';
+import 'index_page.dart';
+import './routers/routes.dart';
+import './routers/application.dart';
+
 import './state/state.dart';
-import './pages/Splash.dart';
-import './login.dart';
 
 
 void main() {
@@ -20,16 +23,19 @@ class MyApp extends StatelessWidget {
   MyApp(this.store);
   @override
   Widget build(BuildContext context) {
+
+    final router = Router();
+    Routes.configureRoutes(router);
+    Application.router=router;
+
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
-        title:'Login',
+        title:'豆瓣', 
         theme:ThemeData.light(),
         debugShowCheckedModeBanner: false,
-        home:SplashScreen(),
-        routes: {
-          'Login': (BuildContext context) => LoginPage()
-        },
+        onGenerateRoute: Application.router.generator,
+        home:IndexPage()
       )
     );
   }

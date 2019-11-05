@@ -3,18 +3,17 @@ import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
    @override
-   _SplashScreenState createState() => new _SplashScreenState();
+   _SplashScreenState createState() => _SplashScreenState();
  }
  
  class _SplashScreenState extends State {
    startTime() async {
-     //设置启动图生效时间
-    var _duration = Duration(seconds: 5);
+    var _duration = Duration(seconds: 3);
       return Timer(_duration, navigationPage);
     }
  
    void navigationPage() {
-     Navigator.of(context).pushReplacementNamed('Login');
+     Navigator.of(context).pushReplacementNamed('hot');
    }
  
    @override
@@ -29,7 +28,6 @@ class SplashScreen extends StatefulWidget {
        body: Center(
         child: Image(
           image: AssetImage('images/timg.jpg'),
-          // 图片充满手机
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           fit: BoxFit.cover

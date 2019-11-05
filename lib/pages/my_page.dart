@@ -15,7 +15,7 @@ import './WebView.dart';
 import './DatePicker.dart';
 import './ContactPicker.dart';
 
-class My extends StatelessWidget {
+class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AuthState>(

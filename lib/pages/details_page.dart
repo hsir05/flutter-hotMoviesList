@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:amap_location/amap_location.dart';
 
-class Details extends StatefulWidget {
+class DetailsPage extends StatefulWidget {
   @override
-  _DetailsState createState() => _DetailsState();
+  _DetailsPageState createState() => _DetailsPageState();
 }
 
-class _DetailsState extends State<Details> {
+class _DetailsPageState extends State<DetailsPage> {
 
   @override
   void initState () {
