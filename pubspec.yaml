@@ -23,7 +23,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  dio: ^1.0.13  
+  dio: ^2.0.7
   fluro: ^1.5.1
   image_picker: '^0.4.5'
   amap_location: 0.1.0
