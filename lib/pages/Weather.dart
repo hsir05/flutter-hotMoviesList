@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:convert';
-import '../utils/http.dart';
+// import '../utils/http.dart';
 
 class Weather extends StatefulWidget {
   @override
@@ -18,18 +18,18 @@ class _WeatherState extends State<Weather> {
     getHttp();
   }
   void getHttp() async{
-    try {
-      var result = await Http().get("http://wthrcdn.etouch.cn/weather_mini?city=兰州市",data: {});
-      var res = json.decode(result);
-      if (res['status'] == 1000) {
-        setState(() {
-          weatherInfo = res['data'];
-          weatherItem = res['data']['forecast'];
-        });
-      }
-    }catch(e){
-      return print(e);
-    }
+    // try {
+    //   var result = await Http().get("http://wthrcdn.etouch.cn/weather_mini?city=兰州市",data: {});
+    //   var res = json.decode(result);
+    //   if (res['status'] == 1000) {
+    //     setState(() {
+    //       weatherInfo = res['data'];
+    //       weatherItem = res['data']['forecast'];
+    //     });
+    //   }
+    // }catch(e){
+    //   return print(e);
+    // }
   }
 
   getCurr () {

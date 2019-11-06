@@ -1,102 +1,88 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../utils/http.dart';
-import './MoviesDetails.dart';
-
+import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_easyrefresh/material_footer.dart';
+import 'package:flutter_easyrefresh/material_header.dart';
+import 'dart:async';
+import 'dart:convert';
+import '../service/service_method.dart';
 
 class HotPage extends StatefulWidget {
-  final String title = 'Movies';
-
-  @override
   _HotPageState createState() => _HotPageState();
 }
  
-class _HotPageState extends State<HotPage> {
-  List subjects = [];
-  String title = '';
-  int start = 0;
-  int count = 20;
-  ScrollController _scrollController = new ScrollController();
+class _HotPageState extends State<HotPage>with AutomaticKeepAliveClientMixin  {
+  List hot = [];
+  String title = '热映';
 
   @override
-  void initState () {
-    super.initState();
-
-     _scrollController.addListener(() {
-      var position = _scrollController.position;
-      if (position.maxScrollExtent - position.pixels < 50) {
-        _loadMore();
-      }
-    });
-    getInitData();
+  bool get wantKeepAlive =>true;
+  void initState() {
+      super.initState();
   }
-
-  @override
-  void dispose() {
-    print("RefreshListPage _dispose()");
-    _scrollController?.dispose();
-    super.dispose();
-  }
-
-  Future<void> _onRefresh() async {
-    await Future.delayed(Duration(seconds: 2), () {
-      getInitData();
-    });
-  }
-
-  bool isLoading = false;
-
-  void _loadMore() async {
-    print("RefreshListPage _loadMore()");
-    if (!isLoading) {
-      isLoading = true;
-      setState(() {});
-      Future.delayed(Duration(seconds: 3), () {
-        isLoading = false;
-        getMoreData();
-      });
-    }
-  }
-
-  void getInitData() async{
-    try {
-      var result = await Http().get("https://api.douban.com/v2/movie/in_theaters?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&start=0&start=0&count=100",data: {});
-      setState(() {
-        title = result['title'];
-        subjects = result['subjects'];
-      });
-    }catch(e){
-      print(e);
-    }
-  }
-
-  void getMoreData () async{
-    try {
-      var result = await Http().get("https://api.douban.com/v2/movie/in_theaters?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&start=${start + 1}&count=100",data: {});
-      setState(() {
-        start = start + 1;
-        subjects.addAll(result['subjects']);
-      });
-    }catch(e){
-      print(e);
-    }
+ 
+   Future _getData(){
+    print('+++++++++++++');
+    return request('hotPageContext', null); 
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('$title'),
-      ),
-      body: RefreshIndicator(
-        color: Colors.deepOrangeAccent,
-        backgroundColor: Colors.white,
-        child: getBody(),
-        onRefresh: _onRefresh
-        ),
+      body: FutureBuilder(
+           future: _getData(),
+           builder: (context, snapshot) {
+             if(snapshot.hasData) {
+               print('+++++++++++++');
+                // List<Map> subjects =  JSON.decode(snapshot.data['subjects']) ;
+                // var subjects =  JSON.decode(snapshot.data['subjects']) ;
+                // print(subjects[0]);
+                return EasyRefresh(
+                 footer: MaterialFooter(),
+                 header: MaterialHeader(),
+                //  child: _wrapList(context, subjects),
+                 child: Text('data'),
+                onLoad: ()async{
+                    print('开始加载更多');
+                    var timer;
+                      timer = Timer.periodic(
+                        const Duration(milliseconds: 2000), (Void) {
+                          request('hotPageContext', null).then((data){
+                              print('加载成功');
+                              print('+++++++==================');
+                              print(data);
+                              setState(() {
+                                  // hot.addAll(data);
+                                });
+                          });
+                          (timer as Timer).cancel();
+                      });
+                  }
+                );
+             } else {
+               return Container(
+                 child: Center( child: CupertinoActivityIndicator()),
+               );
+             }
+        }
+      )
     );
   }
   
+  Widget _wrapList(BuildContext context, List<Map> list) {
+    print('=========list========');
+    print(list);
+    if (list.length!= 0){
+      List<Widget>listWidget = list.map((val){
+          return getItem(val);
+      }).toList();
+       return Wrap(
+        spacing: 2,
+        children: listWidget,
+      );
+    }
+  }
+
   getItem(var subject) {
     //    演员列表
     var details = subject;
@@ -174,34 +160,17 @@ class _HotPageState extends State<HotPage> {
         child: row,
       ),
       onTap: () {
-        Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-          return new MoviesDetails(details:details);
-        }));
+        // Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+        //   return new MoviesDetails(details:details);
+        // }));
       },
     );
   }
 
-  getBody() {
-    if (subjects.length != 0) {
-      return ListView.builder(
-        controller: _scrollController,
-        itemCount: subjects.length == 0
-            ? 0
-            : isLoading ? subjects.length + 1 : subjects.length,
-        itemBuilder: (context, index) {
-          return _getRow(context, index);
-        },
-      );
-    } else {
-      return Center( child: CupertinoActivityIndicator());
-    }
-  }
 
   Widget _getRow(BuildContext context, int index) {
-    
-
-    if (index < subjects.length) {
-      return getItem(subjects[index]);
+    if (index < hot.length) {
+      return getItem(hot[index]);
     }
     return _getMoreWidget();
   }

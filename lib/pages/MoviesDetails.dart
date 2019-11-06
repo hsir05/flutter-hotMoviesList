@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils/http.dart';
+// import '../utils/http.dart';
 import 'package:flutter/cupertino.dart';
 
 class MoviesDetails extends StatefulWidget {
@@ -18,20 +18,18 @@ class _MoviesDetailsState extends State<MoviesDetails> {
   @override
   void initState () {
     super.initState();
-    getHttp();
+    // getHttp();
   }
-  void getHttp() async{
-    try {
-      var result = await Http().get("https://api.douban.com/v2/movie/subject/${widget.details['id']}?apikey=0b2bdeda43b5688921839c8ecb20399b",data: {});
-      // print('++++++++++++++++++');
-      // print(result);
-      setState(() {
-        movDetail = result;
-      });
-    }catch(e){
-      return print(e);
-    }
-  }
+  // void getHttp() async{
+  //   try {
+  //     var result = await Http().get("https://api.douban.com/v2/movie/subject/${widget.details['id']}?apikey=0b2bdeda43b5688921839c8ecb20399b",data: {});
+  //     setState(() {
+  //       movDetail = result;
+  //     });
+  //   }catch(e){
+  //     return print(e);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

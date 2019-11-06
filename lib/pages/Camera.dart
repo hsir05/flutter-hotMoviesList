@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import '../utils/http.dart';
+// import '../utils/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 

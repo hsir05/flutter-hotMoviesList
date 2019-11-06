@@ -9,22 +9,36 @@ Future request(url,formData)async{
       Response response;
       Dio dio = new Dio();
       dio.options.contentType=ContentType.parse("application/x-www-form-urlencoded");
-      if(formData==null){
-          response = await dio.post(servicePath[url]);
+      if(formData == null){
+          response = await dio.get(servicePath[url]);
       }else{
           response = await dio.post(servicePath[url],data:formData);
       }
       if(response.statusCode==200){
-        // if (url == 'recItemDetailById'){
-        //   print('++++++++++++++recItemDetailById+++++++++++++');
-        //   print(response.data);
-        // }
         return response.data;
       }else{
           throw Exception('后端接口出现异常，请检测代码和服务器情况.........');
       }
     }catch(e){
-        return print('ERROR:======>$e');
+        return print('ERROR:---------->$e');
     }
-     
+}
+
+Future requestGet(url,data)async{
+    try{
+      print('$url, 开始获取数据...............');
+      Response response;
+      Dio dio = new Dio();
+      dio.options.contentType=ContentType.parse("application/x-www-form-urlencoded");
+
+      response = await dio.post(servicePath[url] + '/subject/$data' + '?apikey=0b2bdeda43b5688921839c8ecb20399b');
+
+      if(response.statusCode==200){
+        return response.data;
+      }else{
+          throw Exception('后端接口出现异常，请检测代码和服务器情况.........');
+      }
+    }catch(e){
+        return print('ERROR:---------->$e');
+    }
 }
