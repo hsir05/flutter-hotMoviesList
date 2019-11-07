@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:movies/res/resources.dart';
 import './searchBar.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,13 +32,13 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffDE331F),
+        backgroundColor: Colours.bg_color,
         leading: Container(
           margin: EdgeInsets.only(left: 4.0),
           alignment: Alignment.center,
           child: Row(children: <Widget>[
-            Text('兰州', style: TextStyle(fontWeight: FontWeight.w700)),
-            Icon(Icons.arrow_drop_down)
+            Text('兰州', style: TextStyle(fontWeight: FontWeight.w700, color: Colours.text)),
+            Icon(Icons.arrow_drop_down, color: Colours.text,)
           ],),
         ),
         title: InkWell(
@@ -48,9 +49,9 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
           height: 40.0,
           padding: EdgeInsets.only(left: 5.0),
           decoration: BoxDecoration(
-            color: Colors.black12,
+            color: Colours.bg_color,
             borderRadius: BorderRadius.all(new Radius.circular(5.0)),
-            border: Border.all(width: 1.0)
+            border: Border.all(width: 1.0, color: Colours.text_gray)
           ),
           child: Row(
             children: <Widget>[
@@ -65,6 +66,7 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
           controller: _tabController,
           isScrollable: true,
           tabs: myTabs,
+          labelColor: Colours.text,
         ),
       ),
       body: TabBarView(
