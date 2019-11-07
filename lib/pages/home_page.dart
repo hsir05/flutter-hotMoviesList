@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xffDE331F),
         leading: Container(
           margin: EdgeInsets.only(left: 4.0),
           alignment: Alignment.center,
@@ -47,9 +48,9 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
           height: 40.0,
           padding: EdgeInsets.only(left: 5.0),
           decoration: BoxDecoration(
+            color: Colors.black12,
             borderRadius: BorderRadius.all(new Radius.circular(5.0)),
-            color: Colors.white,
-            border: Border.all(width: 1.0, color: Colors.white)
+            border: Border.all(width: 1.0)
           ),
           child: Row(
             children: <Widget>[
@@ -62,7 +63,6 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
         centerTitle: true,
         bottom: TabBar(
           controller: _tabController,
-          indicatorColor: Colors.white,
           isScrollable: true,
           tabs: myTabs,
         ),

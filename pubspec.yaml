@@ -34,6 +34,8 @@ dependencies:
   flutter_redux: ^0.5.3
   redux: ^3.0.0
   fluwx: ^0.6.0
+  flustars: ^0.2.6+1
+  provide: ^1.0.2
 
 dev_dependencies:
   flutter_test:
