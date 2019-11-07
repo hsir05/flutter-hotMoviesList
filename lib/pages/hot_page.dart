@@ -5,6 +5,7 @@ import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'dart:async';
 import 'dart:convert';
+import '../model/hot_model.dart';
 import '../service/service_method.dart';
 
 class HotPage extends StatefulWidget {
@@ -22,7 +23,6 @@ class _HotPageState extends State<HotPage>with AutomaticKeepAliveClientMixin  {
   }
  
    Future _getData(){
-    print('+++++++++++++');
     return request('hotPageContext', null); 
   }
 
@@ -33,15 +33,15 @@ class _HotPageState extends State<HotPage>with AutomaticKeepAliveClientMixin  {
            future: _getData(),
            builder: (context, snapshot) {
              if(snapshot.hasData) {
-               print('+++++++++++++');
-                // List<Map> subjects =  JSON.decode(snapshot.data['subjects']) ;
-                // var subjects =  JSON.decode(snapshot.data['subjects']) ;
-                // print(subjects[0]);
+              //  print('+++++++++++++');
+              //   var resultList = snapshot.data['subjects'];
+              //   var list = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
+              //   print(list);              
                 return EasyRefresh(
                  footer: MaterialFooter(),
                  header: MaterialHeader(),
-                //  child: _wrapList(context, subjects),
-                 child: Text('data'),
+                //  child: _wrapList(context, list),
+                 child: Container(child: Center(child: Text('data'),),),
                 onLoad: ()async{
                     print('开始加载更多');
                     var timer;
@@ -69,9 +69,9 @@ class _HotPageState extends State<HotPage>with AutomaticKeepAliveClientMixin  {
     );
   }
   
-  Widget _wrapList(BuildContext context, List<Map> list) {
+  Widget _wrapList(BuildContext context, list) {
     print('=========list========');
-    print(list);
+    print(list.length);
     if (list.length!= 0){
       List<Widget>listWidget = list.map((val){
           return getItem(val);
