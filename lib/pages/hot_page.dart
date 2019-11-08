@@ -14,6 +14,7 @@ class HotPage extends StatefulWidget {
  
 class _HotPageState extends State<HotPage>with AutomaticKeepAliveClientMixin  {
   List hot = [];
+   List<Subject> list;
   String title = '热映';
 
   @override
@@ -33,10 +34,10 @@ class _HotPageState extends State<HotPage>with AutomaticKeepAliveClientMixin  {
            future: _getData(),
            builder: (context, snapshot) {
              if(snapshot.hasData) {
-              //  print('+++++++++++++');
-              //   var resultList = snapshot.data['subjects'];
-              //   var list = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
-              //   print(list);              
+                 var resultList = snapshot.data['subjects'];
+                  setState(() {
+                    list =resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
+                  });          
                 return EasyRefresh(
                  footer: MaterialFooter(),
                  header: MaterialHeader(),
@@ -50,10 +51,6 @@ class _HotPageState extends State<HotPage>with AutomaticKeepAliveClientMixin  {
                           request('hotPageContext', null).then((data){
                               print('加载成功');
                               print('+++++++==================');
-                              print(data);
-                              setState(() {
-                                  // hot.addAll(data);
-                                });
                           });
                           (timer as Timer).cancel();
                       });

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:movies/res/resources.dart';
 import './searchBar.dart';
+import '../service/service_method.dart';
+import '../model/hot_model.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,13 +16,39 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
     Tab(text: '即将上映'),
   ];
 
-    TabController _tabController;
+  List<Subject> list;
+
+  TabController _tabController;
+  int _currentIndex = 0; //选中下标
 
     @override
     void initState() {
       super.initState();
+      _getData();
       _tabController = TabController(vsync: this, length: myTabs.length);
+      _tabController.addListener(() => _onTabChanged());
     }
+
+     /// tab改变监听
+  _onTabChanged() {
+    if (_tabController.index.toDouble() == _tabController.animation.value) {
+      //赋值 并更新数据
+      this.setState(() {
+        _currentIndex = _tabController.index;
+      });
+      _getData();
+    }
+  }
+
+    void _getData(){
+    request('hotPageContext', null).then((result){
+        var resultList = result['subjects'];
+        list = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
+        print('+++++++++++++');
+        print(list);
+        setState(() {});
+    }); 
+  }
 
   @override
   void dispose() {
@@ -66,23 +94,32 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
           controller: _tabController,
           isScrollable: true,
           tabs: myTabs,
+          onTap: (int i){
+            print(i);
+          },
           labelColor: Colours.text,
         ),
       ),
       body: TabBarView(
         controller: _tabController,
+        
         children: myTabs.map((Tab tab) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Image.asset('images/noInfo.png', width: 130.0,),
-                Text('暂无数据呢...')
-              ],
-            )
-            );
+          return Text(tab.text);
         }).toList(),
       )
     );
   }
+
+  Widget noData() {
+    return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset('images/noInfo.png', width: 130.0,),
+            Text('暂无数据呢...')
+          ],
+        )
+        );
+  }
 }
+
