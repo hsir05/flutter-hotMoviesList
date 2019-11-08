@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
              showSearch(context: context,delegate: SearchBarDelegate());
           },
           child: Container(
-          height: 40.0,
+          height: 40.0, 
           padding: EdgeInsets.only(left: 5.0),
           decoration: BoxDecoration(
             color: Colours.bg_color,

@@ -1,5 +1,9 @@
 class SubjectEntity {
 
+//  "subject":Object{...},
+//  "rank":1,
+//  "delta":0
+
   Subject subject;
   var rank;
   var delta;
