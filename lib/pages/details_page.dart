@@ -16,25 +16,11 @@ class _DetailsPageState extends State<DetailsPage> {
     // getLocation();
   }
 
-  getLocation () async{
-    await AMapLocationClient.startup(new AMapLocationOption( desiredAccuracy:CLLocationAccuracy.kCLLocationAccuracyHundredMeters ));
-    await AMapLocationClient.getLocation(true);
-
-    AMapLocationClient.onLocationUpate.listen((AMapLocation loc){
-      if(!mounted)return;
-      print('===========================================');
-      print(loc);
-    });
-
-    AMapLocationClient.startLocation();
-  }
 
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
-      title:'Detail',
-      home: Scaffold(
+    return Scaffold(
         appBar:AppBar(
           title: Text('Details'),
           backgroundColor: Colors.redAccent
@@ -49,7 +35,6 @@ class _DetailsPageState extends State<DetailsPage> {
             ],
           ),
         ),
-      )
-    );
+      );
   }
 }

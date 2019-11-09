@@ -11,34 +11,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin {
-    final List<Tab> myTabs = <Tab>[
+  final List<Tab> myTabs = <Tab>[
     Tab(text: '正在热映'),
     Tab(text: '即将上映'),
   ];
 
-  List<Subject> list;
+  List<Subject> list = [];
 
   TabController _tabController;
-  int _currentIndex = 0; //选中下标
+  // int _currentIndex = 0; //选中下标
 
-    @override
-    void initState() {
-      super.initState();
-      _getData();
-      _tabController = TabController(vsync: this, length: myTabs.length);
-      _tabController.addListener(() => _onTabChanged());
-    }
+  @override
+  void initState() {
+    super.initState();
+    // _getData();
+    _tabController = TabController(vsync: this, length: myTabs.length);
+    // _tabController.addListener(() => _onTabChanged());
+  }
 
      /// tab改变监听
-  _onTabChanged() {
-    if (_tabController.index.toDouble() == _tabController.animation.value) {
-      //赋值 并更新数据
-      this.setState(() {
-        _currentIndex = _tabController.index;
-      });
-      _getData();
-    }
-  }
+  // _onTabChanged() {
+  //   if (_tabController.index.toDouble() == _tabController.animation.value) {
+  //     //赋值 并更新数据
+  //     // this.setState(() {
+  //     //   _currentIndex = _tabController.index;
+  //     // });
+  //     // _getData();
+  //   }
+  // }
 
     void _getData(){
     request('hotPageContext', null).then((result){
@@ -92,7 +92,6 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
         centerTitle: true,
         bottom: TabBar(
           controller: _tabController,
-          isScrollable: true,
           tabs: myTabs,
           onTap: (int i){
             print(i);
@@ -102,15 +101,108 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
       ),
       body: TabBarView(
         controller: _tabController,
-        
+        // children: _wrapList(context, list)
         children: myTabs.map((Tab tab) {
-          return Text(tab.text);
+          return Center(child: Text(tab.text));
         }).toList(),
       )
     );
   }
 
-  Widget noData() {
+   _wrapList(context, list) {
+    if (list.length!= 0){
+      List<Widget>listWidget = list.map((val){
+          return getItem(val);
+      }).toList();
+       return Wrap(
+        spacing: 2,
+        children: listWidget,
+      );
+    }
+  }
+
+  getItem(var subject) {
+    //    演员列表
+    var avatars = List.generate(subject['casts'].length, (int index) =>
+        Container(
+          margin: EdgeInsets.only(left: index.toDouble() == 0.0 ? 0.0 : 16.0),
+          child: 
+          CircleAvatar(
+              backgroundColor: Colors.white10,
+              backgroundImage: 
+              subject['casts'][index]['avatars'] == null ?  AssetImage("assets/images/avatar.png") : NetworkImage( 
+                subject['casts'][index]['avatars']['small'] 
+              )
+          ),
+        ),
+    );
+    var row = Container(
+      margin: EdgeInsets.all(4.0),
+      child: Row(
+        children: <Widget>[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4.0),
+            child: Image.network(
+              subject['images']['large'],
+              width: 100.0, height: 150.0,
+              fit: BoxFit.fill,
+            ),
+          ),
+          Expanded(
+               child: Container(
+                margin: EdgeInsets.only(left: 8.0),
+                height: 150.0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    // 电影名称
+                    Text(
+                      subject['title'],
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                      maxLines: 1,
+                    ),
+//                    豆瓣评分
+                    Text(
+                      '豆瓣评分：${subject['rating']['average']}',
+                      style: TextStyle(
+                          fontSize: 16.0
+                      ),
+                    ),
+//                    类型
+                    Text( "类型：${subject['genres'].join("、")}" ),
+//                    导演
+                    Text( '导演：${subject['directors'][0]['name']}' ),
+//                    演员
+                    Container(
+                      margin: EdgeInsets.only(top: 8.0),
+                      child: Row(
+                        children: <Widget>[
+                          Text('主演：'),
+                          Row(children: avatars,)
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )
+          )
+        ],
+      ),
+    );
+    return GestureDetector(
+      child: Card(
+        child: row,
+      ),
+      onTap: () {
+       print('3333');
+      },
+    );
+  }
+
+  Widget _noData() {
     return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
