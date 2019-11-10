@@ -49,9 +49,10 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
     if (_tabController.index.toDouble() == _tabController.animation.value) {
       //赋值 并更新数据
       this.setState(() {
+        loading = true;
         _currentIndex = _tabController.index;
           String url;
-        if(_currentIndex == 1) {
+        if(_currentIndex == 0) {
           url = 'hotPageContext';
         } else {
           url = 'upComContext';
@@ -67,12 +68,12 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
         var resultList = result['subjects'];
          List<Subject> list = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
         print('+++++++++++++');
-        if (_currentIndex == 1) {
+        if (_currentIndex == 0) {
           hotList = list;
         } else {
           comingSoonList = list;
         }
-        setState(() {});
+        setState(() {loading = false;});
     }); 
   }
 
@@ -212,7 +213,7 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
                     Row(
                       children: <Widget>[
                         Expanded(child: Text( '豆瓣评分：${bean.rating.average}', style: TextStyle(fontSize: 12.0, color: Colours.text_star)),),
-                        Text('有${bean.collect_count}人看过', style: TextStyle(fontSize: 12.0, color: Colours.text_star))
+                        Text('有${bean.collect_count}人${_currentIndex == 0 ? "看过" : "想看"}', style: TextStyle(fontSize: 12.0, color: Colours.text_star))
                       ],
                     ),
                     Gaps.vGap5,
