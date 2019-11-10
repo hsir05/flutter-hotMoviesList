@@ -22,7 +22,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin {
-  List<Subject> list = [];
+  List<Subject> hotList = [];
+  List<Subject> comingSoonList = [];
   TabController _tabController;
   int _currentIndex = 0;
   bool loading = true;
@@ -38,7 +39,7 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
     }).then((result) {
       var resultList = result['subjects'];
       setState(() {
-        list =resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
+        hotList =resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
         loading = false;
       });
     });
@@ -49,17 +50,28 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
       //赋值 并更新数据
       this.setState(() {
         _currentIndex = _tabController.index;
+          String url;
+        if(_currentIndex == 1) {
+          url = 'hotPageContext';
+        } else {
+          url = 'upComContext';
+        }
+        _getData(url);
       });
-      // _getData();
+  
     }
   }
 
-  void _getData(){
-    request('hotPageContext', null).then((result){
+  void _getData(url){
+    request(url, null).then((result){
         var resultList = result['subjects'];
-        list = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
+         List<Subject> list = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
         print('+++++++++++++');
-        print(list);
+        if (_currentIndex == 1) {
+          hotList = list;
+        } else {
+          comingSoonList = list;
+        }
         setState(() {});
     }); 
   }
@@ -124,13 +136,14 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
 
   Widget handelTabs() {
     if (_currentIndex == 1) {
-      return Text('即将上映');
+      // return Text('即将上映');
+      return LoadingWidget.containerLoadingBody(_getBody(comingSoonList), loading: loading);
     } else {
-         return LoadingWidget.containerLoadingBody(_getBody(), loading: loading);
+      return LoadingWidget.containerLoadingBody(_getBody(hotList), loading: loading);
     }
   }
 
-  Widget _getBody() {
+  Widget _getBody(list) {
     if (list == null) {
       return Container(
         child: Image.asset(Constant.ASSETS_IMG + 'ic_group_top.png'),
@@ -139,7 +152,7 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
-        Subject bean = list[index ];
+        Subject bean = list[index];
         return Padding(
           padding: const EdgeInsets.only(right: Constant.MARGIN_RIGHT, left: 6.0, top: 13.0),
           child: _getItem(bean, index),
@@ -157,7 +170,7 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
           CircleAvatar(
               backgroundColor: Colors.white10,
               backgroundImage: 
-              bean.casts[index].avatars == null ?  AssetImage("assets/images/avatar.png") : NetworkImage( 
+              bean.casts[index].avatars == null ?  AssetImage("images/avatar.png") : NetworkImage( 
                 bean.casts[index].avatars.small 
               )
           ),
@@ -174,14 +187,15 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
             borderRadius: BorderRadius.circular(4.0),
             child: Image.network(
               bean.images.large, 
-              width: 100.0, height: 150.0,
+              width: ScreenUtil.getInstance().getAdapterSize(90), 
+              height: ScreenUtil.getInstance().getAdapterSize(130),
               fit: BoxFit.fill,
             ),
           ),
           Expanded(
                child: Container(
                 margin: EdgeInsets.only(left: 8.0),
-                height: 150.0,
+                height: ScreenUtil.getInstance().getAdapterSize(130),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -221,10 +235,10 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
         ],
       ),
     ),
-      onTap: () {
-        print(444);
-        // Router.push(context, Router.detailPage, bean.id);
-      },
+    onTap: () {
+      print(444);
+      // Router.push(context, Router.detailPage, bean.id);
+    },
     );
   }
 }
