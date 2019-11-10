@@ -15,10 +15,10 @@ class LoadingWidget {
         height: 70.0,
         alignment: AlignmentDirectional.center,
         child: SizedBox(
-          height: 25.0,
-          width: 25.0,
+          height: 20.0,
+          width: 20.0,
           child: CupertinoActivityIndicator(
-            radius: 15.0,
+            radius: 5.0,
           ),
         ),
       ),

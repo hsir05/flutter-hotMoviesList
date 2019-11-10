@@ -71,6 +71,7 @@ flutter:
    - images/ic_status_detail_reshare_icon.png
    - images/ic_group_top.png
    - images/ic_group_check_anonymous.png
+   - images/ic_group_checked_anonymous.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 // import 'pages/hot_page.dart';
-import 'pages/homes_page.dart';
+import 'pages/home_page.dart';
 import 'pages/details_page.dart';
 import 'pages/my_page.dart';
 
