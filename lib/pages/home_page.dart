@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flustars/flustars.dart';
 import 'package:movies/res/resources.dart';
 import 'package:movies/constant/constant.dart';
-import 'package:movies/widget/radius_img.dart';
+// import 'package:movies/widget/radius_img.dart';
 import 'package:movies/widget/loading_widget.dart';
 // import 'package:movies/widget/video_widget.dart';
 
@@ -21,9 +22,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin {
-
   List<Subject> list = [];
-
   TabController _tabController;
   int _currentIndex = 0;
   bool loading = true;
@@ -77,11 +76,11 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: Container(
-          margin: EdgeInsets.only(left: 4.0),
+          margin: EdgeInsets.only(left: 11.0),
           alignment: Alignment.center,
           child: Row(children: <Widget>[
             Text('兰州', style: TextStyle(fontWeight: FontWeight.w700, color: Colours.text)),
-            Icon(Icons.arrow_drop_down, color: Colours.text,)
+            Icon(Icons.arrow_drop_down, color: Colours.text, size: ScreenUtil.getInstance().getAdapterSize(14),)
           ],),
         ),
         title: InkWell(
@@ -143,91 +142,10 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
         Subject bean = list[index ];
         return Padding(
           padding: const EdgeInsets.only(right: Constant.MARGIN_RIGHT, left: 6.0, top: 13.0),
-          child: _getItem(bean, index ),
-          // child: getItem(bean ),
+          child: _getItem(bean, index),
         );
       },
       itemCount: list.length ,
-    );
-  }
-
-  getItem(var subject) {
-    var avatars = List.generate(subject['casts'].length, (int index) =>
-        Container(
-          margin: EdgeInsets.only(left: index.toDouble() == 0.0 ? 0.0 : 16.0),
-          child: 
-          CircleAvatar(
-              backgroundColor: Colors.white10,
-              backgroundImage: 
-              subject['casts'][index]['avatars'] == null ?  AssetImage("assets/images/avatar.png") : NetworkImage( 
-                subject['casts'][index]['avatars']['small'] 
-              )
-          ),
-        ),
-    );
-    var row = Container(
-      margin: EdgeInsets.all(4.0),
-      child: Row(
-        children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4.0),
-            child: Image.network(
-              subject['images']['large'],
-              width: 100.0, height: 150.0,
-              fit: BoxFit.fill,
-            ),
-          ),
-          Expanded(
-               child: Container(
-                margin: EdgeInsets.only(left: 8.0),
-                height: 150.0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    // 电影名称
-                    Text(
-                      subject['title'],
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                      ),
-                      maxLines: 1,
-                    ),
-//                    豆瓣评分
-                    Text(
-                      '豆瓣评分：${subject['rating']['average']}',
-                      style: TextStyle(
-                          fontSize: 16.0
-                      ),
-                    ),
-//                    类型
-                    Text( "类型：${subject['genres'].join("、")}" ),
-//                    导演
-                    Text( '导演：${subject['directors'][0]['name']}' ),
-//                    演员
-                    Container(
-                      margin: EdgeInsets.only(top: 8.0),
-                      child: Row(
-                        children: <Widget>[
-                          Text('主演：'),
-                          Row(children: avatars,)
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              )
-          )
-        ],
-      ),
-    );
-    return GestureDetector(
-      child: Card(
-        child: row,
-      ),
-      onTap: () {
-     print('link');
-      },
     );
   }
 
@@ -272,15 +190,20 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
                       bean.title,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
+                        fontSize: ScreenUtil.getInstance().getAdapterSize(16)
                       ),
                       maxLines: 1,
                     ),
-                    Text(
-                      '豆瓣评分：${bean.rating.average}',
-                      style: TextStyle(fontSize: 16.0),
+                    Gaps.vGap5,
+                    Row(
+                      children: <Widget>[
+                        Expanded(child: Text( '豆瓣评分：${bean.rating.average}', style: TextStyle(fontSize: 12.0, color: Colours.text_star)),),
+                        Text('有${bean.collect_count}人看过', style: TextStyle(fontSize: 12.0, color: Colours.text_star))
+                      ],
                     ),
+                    Gaps.vGap5,
                     Text( "类型：${bean.genres.join("、")}" ),
+                    Gaps.vGap5,
                     Text( '导演：${bean.directors[0]['name']}' ),
                     Container(
                       margin: EdgeInsets.only(top: 8.0),
