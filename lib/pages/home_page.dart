@@ -24,6 +24,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin {
   List<Subject> hotList = [];
   List<Subject> comingSoonList = [];
+  List<Subject> list = [];
   TabController _tabController;
   int _currentIndex = 0;
   bool loading = true;
@@ -51,27 +52,31 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
       this.setState(() {
         loading = true;
         _currentIndex = _tabController.index;
+        
           String url;
         if(_currentIndex == 0) {
           url = 'hotPageContext';
+          list = hotList;
         } else {
           url = 'upComContext';
+          list = comingSoonList;
         }
         _getData(url);
       });
-  
     }
   }
 
   void _getData(url){
     request(url, null).then((result){
         var resultList = result['subjects'];
-         List<Subject> list = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
+         List<Subject> data = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
         print('+++++++++++++');
         if (_currentIndex == 0) {
-          hotList = list;
+          hotList = data;
+          list = data;
         } else {
-          comingSoonList = list;
+          comingSoonList = data;
+           list = data;
         }
         setState(() {loading = false;});
     }); 
@@ -137,14 +142,33 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
 
   Widget handelTabs() {
     if (_currentIndex == 1) {
-      // return Text('即将上映');
-      return LoadingWidget.containerLoadingBody(_getBody(comingSoonList), loading: loading);
+      return LoadingWidget.containerLoadingBody(_getHot(comingSoonList), loading: loading);
     } else {
-      return LoadingWidget.containerLoadingBody(_getBody(hotList), loading: loading);
+      return LoadingWidget.containerLoadingBody(_getComingSoon(hotList), loading: loading);
     }
+    // return LoadingWidget.containerLoadingBody(_getBody(list), loading: loading);
   }
 
-  Widget _getBody(list) {
+  Widget _getHot(list) {
+    if (list == null) {
+      return Container(
+        child: Image.asset(Constant.ASSETS_IMG + 'ic_group_top.png'),
+      );
+    }
+    return ListView.builder(
+      physics: const BouncingScrollPhysics(),
+      itemBuilder: (BuildContext context, int index) {
+        Subject bean = list[index];
+        return Padding(
+          padding: const EdgeInsets.only(right: Constant.MARGIN_RIGHT, left: 6.0, top: 13.0),
+          child: _getItem(bean, index),
+        );
+      },
+      itemCount: list.length ,
+    );
+  }
+
+  Widget _getComingSoon(list) {
     if (list == null) {
       return Container(
         child: Image.asset(Constant.ASSETS_IMG + 'ic_group_top.png'),
