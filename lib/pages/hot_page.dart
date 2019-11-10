@@ -81,8 +81,6 @@ class _HotPageState extends State<HotPage>with AutomaticKeepAliveClientMixin  {
   }
 
   getItem(var subject) {
-    //    演员列表
-    var details = subject;
     var avatars = List.generate(subject['casts'].length, (int index) =>
         Container(
           margin: EdgeInsets.only(left: index.toDouble() == 0.0 ? 0.0 : 16.0),
@@ -157,9 +155,7 @@ class _HotPageState extends State<HotPage>with AutomaticKeepAliveClientMixin  {
         child: row,
       ),
       onTap: () {
-        // Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-        //   return new MoviesDetails(details:details);
-        // }));
+     print('link');
       },
     );
   }

@@ -21,25 +21,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin {
-  // final List<Tab> myTabs = <Tab>[
-  //   Tab(text: '正在热映'),
-  //   Tab(text: '即将上映'),
-  // ];
 
   List<Subject> list = [];
 
   TabController _tabController;
-  int _currentIndex = 0; //选中下标
+  int _currentIndex = 0;
   bool loading = true;
 
   @override
   void initState() {
     super.initState();
-    // _getData();
     _tabController = TabController(vsync: this, length: myTabs.length);
     _tabController.addListener(() => _onTabChanged());
 
-     Future(() {
+    Future(() {
       return request('hotPageContext', null);
     }).then((result) {
       var resultList = result['subjects'];
@@ -122,10 +117,18 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
       body: TabBarView(
         controller: _tabController,
         children: myTabs.map((Tab tab) {
-         return LoadingWidget.containerLoadingBody(_getBody(), loading: loading);
+         return handelTabs();
         }).toList(),
       )
     );
+  }
+
+  Widget handelTabs() {
+    if (_currentIndex == 1) {
+      return Text('即将上映');
+    } else {
+         return LoadingWidget.containerLoadingBody(_getBody(), loading: loading);
+    }
   }
 
   Widget _getBody() {
@@ -141,67 +144,164 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
         return Padding(
           padding: const EdgeInsets.only(right: Constant.MARGIN_RIGHT, left: 6.0, top: 13.0),
           child: _getItem(bean, index ),
+          // child: getItem(bean ),
         );
       },
       itemCount: list.length ,
     );
   }
 
-  Widget _getItem(Subject bean, int index) {
-    return GestureDetector(
-      behavior: HitTestBehavior.translucent,
+  getItem(var subject) {
+    var avatars = List.generate(subject['casts'].length, (int index) =>
+        Container(
+          margin: EdgeInsets.only(left: index.toDouble() == 0.0 ? 0.0 : 16.0),
+          child: 
+          CircleAvatar(
+              backgroundColor: Colors.white10,
+              backgroundImage: 
+              subject['casts'][index]['avatars'] == null ?  AssetImage("assets/images/avatar.png") : NetworkImage( 
+                subject['casts'][index]['avatars']['small'] 
+              )
+          ),
+        ),
+    );
+    var row = Container(
+      margin: EdgeInsets.all(4.0),
       child: Row(
         children: <Widget>[
-          RadiusImg.get(bean.images.small, 50.0, radius: 3.0),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4.0),
+            child: Image.network(
+              subject['images']['large'],
+              width: 100.0, height: 150.0,
+              fit: BoxFit.fill,
+            ),
+          ),
           Expanded(
-            child: Container(
-              alignment: Alignment.topLeft,
-              margin: const EdgeInsets.only(left: 5.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(bean.title,style:TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),),
-                  Text(bean.pubdates != null ? bean.pubdates[0] : '', style: TextStyle(fontSize: 13.0))
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(right: 10.0),
-            child: Text('${bean.collect_count}人', style: TextStyle(fontSize: 13.0),),
-          ),
-          GestureDetector(
-            child: Image.asset(
-              Constant.ASSETS_IMG +
-                  (list[index].tag
-                      ? 'ic_group_checked_anonymous.png'
-                      : 'ic_group_check_anonymous.png'),
-              width: 25.0,
-              height: 25.0,
-            ),
-            onTap: () {
-              setState(() {
-                list[index].tag = !list[index].tag;
-              });
-            },
+               child: Container(
+                margin: EdgeInsets.only(left: 8.0),
+                height: 150.0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    // 电影名称
+                    Text(
+                      subject['title'],
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                      maxLines: 1,
+                    ),
+//                    豆瓣评分
+                    Text(
+                      '豆瓣评分：${subject['rating']['average']}',
+                      style: TextStyle(
+                          fontSize: 16.0
+                      ),
+                    ),
+//                    类型
+                    Text( "类型：${subject['genres'].join("、")}" ),
+//                    导演
+                    Text( '导演：${subject['directors'][0]['name']}' ),
+//                    演员
+                    Container(
+                      margin: EdgeInsets.only(top: 8.0),
+                      child: Row(
+                        children: <Widget>[
+                          Text('主演：'),
+                          Row(children: avatars,)
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )
           )
         ],
       ),
+    );
+    return GestureDetector(
+      child: Card(
+        child: row,
+      ),
       onTap: () {
-        // Router.push(context, Router.detailPage, bean.id);
+     print('link');
       },
     );
   }
 
-  Widget _noData() {
-    return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset('images/noInfo.png', width: 130.0,),
-            Text('暂无数据呢...')
-          ],
-        )
-        );
+  Widget _getItem(Subject bean, int index) {
+    var avatars = List.generate(bean.casts.length, (int index) =>
+        Container(
+          margin: EdgeInsets.only(left: index.toDouble() == 0.0 ? 0.0 : 16.0),
+          child: 
+          CircleAvatar(
+              backgroundColor: Colors.white10,
+              backgroundImage: 
+              bean.casts[index].avatars == null ?  AssetImage("assets/images/avatar.png") : NetworkImage( 
+                bean.casts[index].avatars.small 
+              )
+          ),
+        ),
+    );
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      child: 
+      Container(
+      margin: EdgeInsets.all(4.0),
+      child: Row(
+        children: <Widget>[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4.0),
+            child: Image.network(
+              bean.images.large, 
+              width: 100.0, height: 150.0,
+              fit: BoxFit.fill,
+            ),
+          ),
+          Expanded(
+               child: Container(
+                margin: EdgeInsets.only(left: 8.0),
+                height: 150.0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    // 电影名称
+                    Text(
+                      bean.title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                      maxLines: 1,
+                    ),
+                    Text(
+                      '豆瓣评分：${bean.rating.average}',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                    Text( "类型：${bean.genres.join("、")}" ),
+                    Text( '导演：${bean.directors[0]['name']}' ),
+                    Container(
+                      margin: EdgeInsets.only(top: 8.0),
+                      child: Row(
+                        children: <Widget>[
+                          Text('主演：'),
+                          Row(children: avatars,)
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )
+          )
+        ],
+      ),
+    ),
+      onTap: () {
+        print(444);
+        // Router.push(context, Router.detailPage, bean.id);
+      },
+    );
   }
 }
