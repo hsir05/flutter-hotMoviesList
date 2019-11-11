@@ -40,7 +40,8 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
     }).then((result) {
       var resultList = result['subjects'];
       setState(() {
-        hotList =resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
+        list = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
+        hotList = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
         loading = false;
       });
     });
@@ -50,16 +51,15 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
     if (_tabController.index.toDouble() == _tabController.animation.value) {
       //赋值 并更新数据
       this.setState(() {
+         list = [];
         loading = true;
         _currentIndex = _tabController.index;
         
-          String url;
+        String url;
         if(_currentIndex == 0) {
           url = 'hotPageContext';
-          list = hotList;
         } else {
           url = 'upComContext';
-          list = comingSoonList;
         }
         _getData(url);
       });
@@ -71,14 +71,15 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
         var resultList = result['subjects'];
          List<Subject> data = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
         print('+++++++++++++');
-        if (_currentIndex == 0) {
-          hotList = data;
-          list = data;
-        } else {
-          comingSoonList = data;
-           list = data;
-        }
-        setState(() {loading = false;});
+        setState(() {
+          loading = false;
+            if (_currentIndex == 0) {
+              hotList = data;
+            } else {
+              comingSoonList = data;
+            }
+            list = data;
+          });
     }); 
   }
 
@@ -127,6 +128,9 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
           tabs: myTabs,
           onTap: (int i){
             print(i);
+            setState(() {
+              list = [];
+            });
           },
           labelColor: Colours.text,
         ),
@@ -134,7 +138,8 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
       body: TabBarView(
         controller: _tabController,
         children: myTabs.map((Tab tab) {
-         return handelTabs();
+        //  return handelTabs();
+        return LoadingWidget.containerLoadingBody(_getBody(list), loading: loading);
         }).toList(),
       )
     );
@@ -142,33 +147,14 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
 
   Widget handelTabs() {
     if (_currentIndex == 1) {
-      return LoadingWidget.containerLoadingBody(_getHot(comingSoonList), loading: loading);
+      return LoadingWidget.containerLoadingBody(_getBody(comingSoonList), loading: loading);
     } else {
-      return LoadingWidget.containerLoadingBody(_getComingSoon(hotList), loading: loading);
+      return LoadingWidget.containerLoadingBody(_getBody(hotList), loading: loading);
     }
     // return LoadingWidget.containerLoadingBody(_getBody(list), loading: loading);
   }
 
-  Widget _getHot(list) {
-    if (list == null) {
-      return Container(
-        child: Image.asset(Constant.ASSETS_IMG + 'ic_group_top.png'),
-      );
-    }
-    return ListView.builder(
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (BuildContext context, int index) {
-        Subject bean = list[index];
-        return Padding(
-          padding: const EdgeInsets.only(right: Constant.MARGIN_RIGHT, left: 6.0, top: 13.0),
-          child: _getItem(bean, index),
-        );
-      },
-      itemCount: list.length ,
-    );
-  }
-
-  Widget _getComingSoon(list) {
+  Widget _getBody(list) {
     if (list == null) {
       return Container(
         child: Image.asset(Constant.ASSETS_IMG + 'ic_group_top.png'),
