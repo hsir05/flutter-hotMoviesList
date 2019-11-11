@@ -106,15 +106,16 @@ _onTabChanged() {
               Row(
                 children: <Widget>[
                   Expanded(
-                    child: _part('找电影', '冷门/豆瓣评分/动作', Icon(Icons.list, color: Colors.white,), Colors.purple, (){
+                    child: _part('找电影', '冷门/豆瓣评分', Icon(Icons.list, color: Colors.white,), Colors.purple, (){
                       print('找电影, 冷门/豆瓣评分/动作');
                     }),
                   ),
-                  Expanded(
+                  Container(
+                    width: ScreenUtil.getInstance().getAdapterSize(160),
                     child: _part('我的影视', '未登录', Icon(Icons.favorite_border, color: Colors.white,), Colours.icon_heart, (){
                       print('我的影视');
                     }),
-                  ),
+                  )
                 ],
               )
            ],
