@@ -22,7 +22,7 @@ List<Subject> hotList = [];
   List<Subject> comingSoonList = [];
   List<Subject> list = [];
   TabController _tabController;
-  // int _currentIndex = 0;
+  int _currentIndex = 0;
   bool loading = true;
 
  @override
@@ -47,7 +47,7 @@ _onTabChanged() {
       //赋值 并更新数据
       this.setState(() {
         loading = true;
-        // _currentIndex = _tabController.index;
+        _currentIndex = _tabController.index;
         // _getData(url);
       });
     }
@@ -102,11 +102,36 @@ _onTabChanged() {
              Container(
                 child: Image.asset(Constant.ASSETS_IMG + 'ic_group_top.png'),
               ),
-              Text(tab.text)
+              Gaps.vGap8,
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: _part('找电影', '冷门/豆瓣评分/动作', Icon(Icons.list, color: Colors.white,), Colors.purple, (){
+                      print('找电影, 冷门/豆瓣评分/动作');
+                    }),
+                  ),
+                  Expanded(
+                    child: _part('我的影视', '未登录', Icon(Icons.favorite_border, color: Colors.white,), Colours.icon_heart, (){
+                      print('我的影视');
+                    }),
+                  ),
+                ],
+              )
            ],
          );
         }).toList(),
       )
     );
   }
+
+Widget _part(String title, String subtitle, icon, color, onTap) {
+  return ListTile(
+        leading: CircleAvatar(child: icon, backgroundColor: color, ),
+        title: Text(title, style: TextStyles.textBold14,),
+        subtitle: Text(subtitle, style: TextStyles.textSize12,),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap:onTap,
+      );
+}
+
 }

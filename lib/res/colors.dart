@@ -14,6 +14,8 @@ class Colours {
   static const Color dark_text = Color(0xFFB8B8B8);
 
   static const Color text_star = Color(0xFFe09015);
+
+  static const Color icon_heart = Color(0xFFff4055);
   
   static const Color text_gray = Color(0xFF999999);
   static const Color dark_text_gray = Color(0xFF666666);

@@ -58,20 +58,13 @@ flutter:
   uses-material-design: true
   
   assets:
-   - json/movies.json
-   - images/001.jpg
-   - images/0.jpg
    - images/logo.png
-   - images/timg.jpg
    - images/avatar.png
-   - images/noInfo.png
    - images/ic_new_empty_view_default.png
    - images/ic_vote.png
    - images/ic_notification_tv_calendar_comments.png
    - images/ic_status_detail_reshare_icon.png
    - images/ic_group_top.png
-   - images/ic_group_check_anonymous.png
-   - images/ic_group_checked_anonymous.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

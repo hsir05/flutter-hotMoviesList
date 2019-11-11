@@ -4,7 +4,7 @@ import './router_handler.dart';
 
 class Routes{
   static String root='/';
-  static String hot = '/hot';
+  // static String hot = '/hot';
 
   static void configureRoutes(Router router){
     router.notFoundHandler = new Handler(
@@ -14,6 +14,6 @@ class Routes{
     );
     
     router.define(root, handler:homeHandler);
-    router.define(hot, handler:hotHandler);
+  //   router.define(hot, handler:hotHandler);
   }
 }
