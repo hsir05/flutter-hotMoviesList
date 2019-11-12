@@ -117,7 +117,11 @@ _onTabChanged() {
                     }),
                   )
                 ],
-              )
+              ),
+
+              title('豆瓣热映'),
+
+              
            ],
          );
         }).toList(),
@@ -125,14 +129,37 @@ _onTabChanged() {
     );
   }
 
-Widget _part(String title, String subtitle, icon, color, onTap) {
-  return ListTile(
-        leading: CircleAvatar(child: icon, backgroundColor: color, ),
-        title: Text(title, style: TextStyles.textBold14,),
-        subtitle: Text(subtitle, style: TextStyles.textSize12,),
-        trailing: Icon(Icons.keyboard_arrow_right),
-        onTap:onTap,
-      );
-}
+  Widget title(String title){
+    return Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.only(left:20.0 ,top: 15.0, bottom: 15.0),
+      child: Row(
+        children: <Widget>[
+          Expanded(child: Text(title, style: TextStyles.textBold24,)),
+        
+        Container(
+          width: ScreenUtil.getInstance().getAdapterSize(80),
+          child: InkWell(
+          onTap: (){print(123);},
+          child: Row(children: <Widget>[
+            Text('全部99+ ', style: TextStyles.textBold14),
+            Icon(Icons.keyboard_arrow_right)
+          ],)
+        ),
+        )
+        
+      ],)
+    );
+  } 
+ 
+  Widget _part(String title, String subtitle, icon, color, onTap) {
+    return ListTile(
+          leading: CircleAvatar(child: icon, backgroundColor: color, ),
+          title: Text(title, style: TextStyles.textBold14,),
+          subtitle: Text(subtitle, style: TextStyles.textSize12,),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap:onTap,
+        );
+  }
 
 }
