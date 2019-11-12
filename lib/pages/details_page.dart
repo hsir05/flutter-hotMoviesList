@@ -102,6 +102,7 @@ _onTabChanged() {
         children: tabs.map((Tab tab) {
          return Column(
            children: <Widget>[
+             Divider(),
               Row(
                 children: <Widget>[
                   Expanded(
@@ -136,7 +137,7 @@ _onTabChanged() {
     }
 
     return Container(
-      height: ScreenUtil.getInstance().getAdapterSize(150.0),
+      height: ScreenUtil.getInstance().getAdapterSize(160.0),
       child: ListView.builder(
         padding: new EdgeInsets.all(5.0),
         physics: const BouncingScrollPhysics(),
@@ -153,8 +154,12 @@ _onTabChanged() {
   Widget _getItem(Subject bean) {
       return Container(
         margin: EdgeInsets.all(10.0),
-        height: ScreenUtil.getInstance().getAdapterSize(130),
-        child: ClipRRect(
+        height: ScreenUtil.getInstance().getAdapterSize(140),
+        child: Column(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                ClipRRect(
                   borderRadius: BorderRadius.circular(4.0),
                   child: Image.network(
                     bean.images.large, 
@@ -163,6 +168,23 @@ _onTabChanged() {
                     fit: BoxFit.fill,
                   ),
                 ),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: 
+                  Container(
+                    decoration: BoxDecoration(
+                    color: Colours.icon_bg,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(3.0), bottomRight: Radius.circular(3.0)),
+                    border: Border.all(width: 1.0, color: Colors.white)
+                  ),
+                    child: Icon(Icons.favorite_border, color: Colors.white, size: 20.0,),
+                  )
+                  ),
+              ],
+            )
+          ],
+        )
       );
   }
 
@@ -172,18 +194,18 @@ _onTabChanged() {
       margin: EdgeInsets.only(left:20.0 ,top: 10.0, bottom: 10.0),
       child: Row(
         children: <Widget>[
-          Expanded(child: Text(title, style: TextStyles.textBold24,)),
+          Expanded(child: Text(title, style: TextStyles.textBold18)),
         
-        Container(
-          width: ScreenUtil.getInstance().getAdapterSize(80),
-          child: InkWell(
-          onTap: (){print(123);},
-          child: Row(children: <Widget>[
-            Text('全部99+ ', style: TextStyles.textBold14),
-            Icon(Icons.keyboard_arrow_right)
-          ],)
-        ),
-        )
+          Container(
+            width: ScreenUtil.getInstance().getAdapterSize(80),
+            child: InkWell(
+            onTap: (){print(123);},
+            child: Row(children: <Widget>[
+              Text('全部99+ ', style: TextStyles.textBold14),
+              Icon(Icons.keyboard_arrow_right)
+            ],)
+          ),
+          )
         
       ],)
     );
