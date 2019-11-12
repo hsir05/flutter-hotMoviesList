@@ -34,7 +34,7 @@ List<Subject> hotList = [];
     _tabController.addListener(() => _onTabChanged());
 
     Future(() {
-      return request('hotPageContext', null);
+      return request('hotPageContext', {'start': 0, 'count': 5});
     }).then((result) {
       print('数据加载完成');
       var resultList = result['subjects'];
@@ -137,13 +137,13 @@ _onTabChanged() {
     }
 
     return Container(
-      height: ScreenUtil.getInstance().getAdapterSize(160.0),
+      height: ScreenUtil.getInstance().getAdapterSize(220.0),
       child: ListView.builder(
         padding: new EdgeInsets.all(5.0),
         physics: const BouncingScrollPhysics(),
          itemCount: list.length,
         scrollDirection: Axis.horizontal,
-        itemBuilder: (BuildContext context,int index){
+        itemBuilder: (BuildContext context, int index){
           Subject bean = list[index];
           return _getItem(bean);
         },
@@ -152,31 +152,41 @@ _onTabChanged() {
   }
 
   Widget _getItem(Subject bean) {
+    print(bean.title);
       return Container(
         margin: EdgeInsets.all(10.0),
-        height: ScreenUtil.getInstance().getAdapterSize(140),
+        height: ScreenUtil.getInstance().getAdapterSize(180),
         child: Column(
           children: <Widget>[
             Stack(
               children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(4.0),
-                  child: Image.network(
-                    bean.images.large, 
-                    width: ScreenUtil.getInstance().getAdapterSize(85), 
-                    height: ScreenUtil.getInstance().getAdapterSize(130),
-                    fit: BoxFit.fill,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(4.0),
+                      child: Image.network(
+                        bean.images.large, 
+                        width: ScreenUtil.getInstance().getAdapterSize(95), 
+                        height: ScreenUtil.getInstance().getAdapterSize(135),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    Gaps.vGap4,
+                    Text(bean.title, style: TextStyles.textSize12,),
+                    Gaps.vGap4,
+                    Text( '豆瓣评分：${bean.rating.average}', style: TextStyles.textSize12,),
+                  ],
                 ),
                 Positioned(
                   top: 0,
                   left: 0,
-                  child: 
-                  Container(
+                  child: Container(
+                    width: 25.0,
+                    height: 25.0,
                     decoration: BoxDecoration(
                     color: Colours.icon_bg,
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(3.0), bottomRight: Radius.circular(3.0)),
-                    border: Border.all(width: 1.0, color: Colors.white)
                   ),
                     child: Icon(Icons.favorite_border, color: Colors.white, size: 20.0,),
                   )

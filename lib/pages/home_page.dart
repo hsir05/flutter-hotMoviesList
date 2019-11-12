@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
     _tabController.addListener(() => _onTabChanged());
 
     Future(() {
-      return request('hotPageContext', null);
+      return request('hotPageContext', {'start': 0, 'count': 20});
     }).then((result) {
       var resultList = result['subjects'];
       setState(() {
@@ -58,19 +58,19 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
         String url;
         if(_currentIndex == 0) {
           url = 'hotPageContext';
+          _getData(url, {'star': 0, 'count': 20});
         } else {
           url = 'upComContext';
+          _getData(url, null);
         }
-        _getData(url);
       });
     }
   }
 
-  void _getData(url){
-    request(url, null).then((result){
+  void _getData(url, data){
+    request(url, data).then((result){
         var resultList = result['subjects'];
          List<Subject> data = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
-        print('+++++++++++++');
         setState(() {
           loading = false;
             if (_currentIndex == 0) {

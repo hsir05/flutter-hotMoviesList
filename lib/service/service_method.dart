@@ -3,16 +3,18 @@ import 'dart:async';
 import 'dart:io';
 import '../config/service_url.dart';
 
-Future request(url,formData)async{
+Future request(url, formData, {type: 'get'})async{
     try{
       print('$url, 开始获取数据...............');
       Response response;
       Dio dio = new Dio();
       dio.options.contentType=ContentType.parse("application/x-www-form-urlencoded");
-      if(formData == null){
-          response = await dio.get(servicePath[url]);
-      }else{
-          response = await dio.post(servicePath[url],data:formData);
+      if(type == 'get' && formData != null){
+        response = await dio.get(servicePath[url] + '?city=%E5%8C%97%E4%BA%AC&start=${formData['start']}&count=${formData['count']}&apikey=0b2bdeda43b5688921839c8ecb20399b');
+      }else if (type == 'get' && formData == null){
+        response = await dio.get(servicePath[url]);
+      } else {
+        response = await dio.post(servicePath[url], data:formData);
       }
       if(response.statusCode==200){
         return response.data;
