@@ -12,6 +12,7 @@ Future request(url, formData, {type: 'get'})async{
       if(type == 'get' && formData != null){
         response = await dio.get(servicePath[url] + '?city=%E5%8C%97%E4%BA%AC&start=${formData['start']}&count=${formData['count']}&apikey=0b2bdeda43b5688921839c8ecb20399b');
       }else if (type == 'get' && formData == null){
+        print(servicePath[url]);
         response = await dio.get(servicePath[url]);
       } else {
         response = await dio.post(servicePath[url], data:formData);

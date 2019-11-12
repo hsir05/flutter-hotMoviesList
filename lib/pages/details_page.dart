@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 // import 'package:movies/widget/loading_widget.dart';
 import 'package:flustars/flustars.dart';
 import 'package:movies/res/resources.dart';
-import 'package:movies/constant/constant.dart';
+// import 'package:movies/constant/constant.dart';
 import 'package:movies/widget/loading_widget.dart';
 import './searchBar.dart';
 import '../service/service_method.dart';
@@ -20,8 +20,8 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderStateMixin {
-List<Subject> hotList = [];
-  List<Subject> comingSoonList = [];
+  List<Subject> hotList = [];
+  List<Subject> topList = [];
   List<Subject> list = [];
   TabController _tabController;
   int _currentIndex = 0;
@@ -43,6 +43,18 @@ List<Subject> hotList = [];
         loading = false;
       });
     });
+    _getTopData();
+  }
+
+  void _getTopData() {
+    request('top250Context', null).then((result){
+        var resultList = result['subjects'];
+         List<Subject> data = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
+        setState(() {
+          loading = false;
+          topList = data;
+          });
+    }); 
   }
 
 _onTabChanged() {
@@ -100,9 +112,9 @@ _onTabChanged() {
       body: TabBarView(
         controller: _tabController,
         children: tabs.map((Tab tab) {
-         return Column(
+         return ListView(
            children: <Widget>[
-             Divider(),
+              Divider(),
               Row(
                 children: <Widget>[
                   Expanded(
@@ -122,11 +134,44 @@ _onTabChanged() {
               title('豆瓣热映'),
               Divider(),
               LoadingWidget.containerLoadingBody(_hotMovies(hotList), loading: loading),
+       
+              ListTile(
+                title: Text('豆瓣电影Top250', style: TextStyles.textBold18,),
+              ),
+              Divider(),
+              LoadingWidget.containerLoadingBody(_topContent(), loading: loading),
+              Text('全部250', style: TextStyles.textSize12, textAlign: TextAlign.center,)
            ],
          );
         }).toList(),
       )
     );
+  }
+
+  Widget _topContent() {
+    if (topList.length != 0) {
+      List<Widget>listWidget = topList.map((val){
+          return ListTile(
+              leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(4.0),
+                  child: Image.network(
+                    val.images.large, 
+                    width: ScreenUtil.getInstance().getAdapterSize(35), 
+                    height: ScreenUtil.getInstance().getAdapterSize(45),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              title: Text(val.title, style: TextStyles.textBold14),
+              subtitle: Text( '豆瓣评分：${val.rating.average}', style: TextStyles.textSize12),
+            );
+            }).toList();
+          return Wrap(
+            spacing: 2,
+            children: listWidget,
+          );
+    } else {
+      return Text('');
+    }
   }
 
   Widget _hotMovies(list) {
@@ -137,7 +182,8 @@ _onTabChanged() {
     }
 
     return Container(
-      height: ScreenUtil.getInstance().getAdapterSize(220.0),
+      height: ScreenUtil.getInstance().getAdapterSize(200.0),
+      color: Colours.bg_gray,
       child: ListView.builder(
         padding: new EdgeInsets.all(5.0),
         physics: const BouncingScrollPhysics(),
@@ -152,7 +198,6 @@ _onTabChanged() {
   }
 
   Widget _getItem(Subject bean) {
-    print(bean.title);
       return Container(
         margin: EdgeInsets.all(10.0),
         height: ScreenUtil.getInstance().getAdapterSize(180),
@@ -173,7 +218,7 @@ _onTabChanged() {
                       ),
                     ),
                     Gaps.vGap4,
-                    Text(bean.title, style: TextStyles.textSize12,),
+                    Text(bean.title, style: TextStyles.textBold12,),
                     Gaps.vGap4,
                     Text( '豆瓣评分：${bean.rating.average}', style: TextStyles.textSize12,),
                   ],
