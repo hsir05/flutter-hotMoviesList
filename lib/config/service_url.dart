@@ -8,5 +8,5 @@ const servicePath={
   'top250Context': serviceUrl + '/top250?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&start=0&count=4&client=&udid=',
 
   'opinionsContext': serviceUrl + '/weekly?apikey=0b2bdeda43b5688921839c8ecb20399b',
-  'northAmericaContext': serviceUrl + 'us_box?apikey=0b2bdeda43b5688921839c8ecb20399b'
+  'northAmericaContext': serviceUrl + '/us_box?apikey=0b2bdeda43b5688921839c8ecb20399b'
 };

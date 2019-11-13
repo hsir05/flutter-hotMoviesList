@@ -46,49 +46,47 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
     });
     _getTopData();
     _getOpinionsData();
+    _northAmerica();
   }
 
   void _getTopData() {
     request('top250Context', null).then((result){
         var resultList = result['subjects'];
-         List<Subject> data = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
         setState(() {
           loading = false;
-          topList = data;
+          topList = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
           });
     }); 
   }
 
   void _getOpinionsData() {
       request('opinionsContext', null).then((result){
-        print('++++++++++++++');
+        print('++++++opinionsContext++++++++');
         var resultList = result['subjects'];
-        List<SubjectEntity> list = resultList
-        .map<SubjectEntity>((item) => SubjectEntity.fromMap(item))
-        .toList();
-
         setState(() {
           loading = false;
-          weeklyBeans = list;
+          weeklyBeans = resultList
+            .map<SubjectEntity>((item) => SubjectEntity.fromMap(item))
+            .toList();
           });
       }); 
   }
+  
   void _northAmerica() {
     request('northAmericaContext', null).then((result){
-        print('++++++++++++++');
+        print('+++++northAmericaContext+++++');
         var resultList = result['subjects'];
-        List<SubjectEntity> list = resultList
-        .map<SubjectEntity>((item) => SubjectEntity.fromMap(item))
-        .toList();
 
         setState(() {
           loading = false;
-          northAmerica = list;
+          northAmerica = resultList
+            .map<SubjectEntity>((item) => SubjectEntity.fromMap(item))
+            .toList();
           });
       }); 
   }
 
-_onTabChanged() {
+  _onTabChanged() {
     if (_tabController.index.toDouble() == _tabController.animation.value) {
       //赋值 并更新数据
       this.setState(() {
@@ -147,42 +145,22 @@ _onTabChanged() {
         children: tabs.map((Tab tab) {
          return ListView(
            children: <Widget>[
-              // Divider(),
-              // Row(
-              //   children: <Widget>[
-              //     Expanded(
-              //       child: _part('找电影', '冷门/豆瓣评分', Icon(Icons.list, color: Colors.white,), Colors.purple, (){
-              //         print('找电影, 冷门/豆瓣评分/动作');
-              //       }),
-              //     ),
-              //     Container(
-              //       width: ScreenUtil.getInstance().getAdapterSize(160),
-              //       child: _part('我的影视', '未登录', Icon(Icons.favorite_border, color: Colors.white,), Colours.icon_heart, (){
-              //         print('我的影视');
-              //       }),
-              //     )
-              //   ],
-              // ),
               Divider(),
               title('豆瓣热映'),
               Divider(),
               LoadingWidget.containerLoadingBody(_hotMovies(hotList), loading: loading),
        
-              ListTile(
-                title: Text('豆瓣电影Top250', style: TextStyles.textBold18,),
-              ),
+              ListTile( title: Text('豆瓣电影Top250', style: TextStyles.textBold18,)),
               Divider(),
               LoadingWidget.containerLoadingBody(_topContent(), loading: loading),
               Text('全部250', style: TextStyles.textSize12, textAlign: TextAlign.center,),
 
-              ListTile(
-                title: Text('本周口碑榜', style: TextStyles.textBold18,),
-              ),
-              LoadingWidget.containerLoadingBody(_optContent(), loading: loading),
+              ListTile( title: Text('本周口碑榜', style: TextStyles.textBold18,)),
+              LoadingWidget.containerLoadingBody(_optContent(weeklyBeans), loading: loading),
 
-              ListTile(
-                title: Text('北美票房榜', style: TextStyles.textBold18,),
-              ),
+              ListTile(title: Text('北美票房榜', style: TextStyles.textBold18,)),
+              LoadingWidget.containerLoadingBody(_optContent(northAmerica), loading: loading),
+
            ],
          );
         }).toList(),
@@ -190,25 +168,26 @@ _onTabChanged() {
     );
   }
 
-  Widget _optContent(){
-    if (weeklyBeans.length  == 0) {
+  // 本周口碑榜 北美票房榜
+  Widget _optContent(list){
+    if (list.length  == 0) {
         return Container(
             child: Text(''),
           );
     }
    return GridView.builder(
           shrinkWrap: true,
-          itemCount: weeklyBeans.length,
+          itemCount: list.length,
           physics: NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 5),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
+            mainAxisSpacing: 5,
+            crossAxisSpacing:5,
             childAspectRatio: 0.7,
           ),
           itemBuilder: (context, index) {
-            return _optItem(weeklyBeans[index]);
+            return _optItem(list[index]);
           },
         );
   }
@@ -219,7 +198,7 @@ _onTabChanged() {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ClipRRect(
-              borderRadius: BorderRadius.circular(4.0),
+              borderRadius: BorderRadius.circular(5.0),
               child: Image.network(
                 bean.subject.images.small, 
                 height: ScreenUtil.getInstance().getAdapterSize(120),
@@ -227,12 +206,14 @@ _onTabChanged() {
               ),
             ),
             Gaps.vGap4,
-            Text(bean.subject.title, style: TextStyles.textBold12, overflow: TextOverflow.ellipsis,)
+            Text(bean.subject.title, style: TextStyles.textBold12, overflow: TextOverflow.ellipsis),
+            Text('豆瓣评分:${bean.subject.rating.average}', style:  TextStyles.textSize12,overflow: TextOverflow.ellipsis)
         ],
       ),
     );
   }
-
+  
+  // top250
   Widget _topContent() {
     if (topList.length != 0) {
       List<Widget>listWidget = topList.map((val){
@@ -259,15 +240,15 @@ _onTabChanged() {
     }
   }
 
+  // 热映
   Widget _hotMovies(list) {
     if (list.length  == 0) {
         return Container(
             child: Text(''),
           );
     }
-
     return Container(
-      height: ScreenUtil.getInstance().getAdapterSize(220.0),
+      height: ScreenUtil.getInstance().getAdapterSize(205),
       color: Colours.bg_gray,
       child: ListView.builder(
         padding: new EdgeInsets.all(5.0),
@@ -297,7 +278,7 @@ _onTabChanged() {
                       child: Image.network(
                         bean.images.large, 
                         width: ScreenUtil.getInstance().getAdapterSize(95), 
-                        height: ScreenUtil.getInstance().getAdapterSize(135),
+                        height: ScreenUtil.getInstance().getAdapterSize(125),
                         fit: BoxFit.fill,
                       ),
                     ),
