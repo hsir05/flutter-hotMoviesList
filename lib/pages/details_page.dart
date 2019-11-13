@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:movies/widget/loading_widget.dart';
 import 'package:flustars/flustars.dart';
 import 'package:movies/res/resources.dart';
-// import 'package:movies/constant/constant.dart';
 import 'package:movies/widget/loading_widget.dart';
 import './searchBar.dart';
 import '../service/service_method.dart';
+// import '../model/hot_model.dart';
 import '../model/hot_model.dart';
 
  final List<Tab> tabs = <Tab>[
@@ -22,6 +21,7 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderStateMixin {
   List<Subject> hotList = [];
   List<Subject> topList = [];
+  List<SubjectEntity> weeklyBeans = List();
   List<Subject> list = [];
   TabController _tabController;
   int _currentIndex = 0;
@@ -44,6 +44,7 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
       });
     });
     _getTopData();
+    _getOpinionsData();
   }
 
   void _getTopData() {
@@ -53,6 +54,21 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
         setState(() {
           loading = false;
           topList = data;
+          });
+    }); 
+  }
+
+  void _getOpinionsData() {
+        request('opinionsContext', null).then((result){
+           print('++++++++++++++');
+        var resultList = result['subjects'];
+         List<SubjectEntity> list = resultList
+        .map<SubjectEntity>((item) => SubjectEntity.fromMap(item))
+        .toList();
+
+        setState(() {
+          loading = false;
+          weeklyBeans = list;
           });
     }); 
   }
@@ -140,11 +156,60 @@ _onTabChanged() {
               ),
               Divider(),
               LoadingWidget.containerLoadingBody(_topContent(), loading: loading),
-              Text('全部250', style: TextStyles.textSize12, textAlign: TextAlign.center,)
+              Text('全部250', style: TextStyles.textSize12, textAlign: TextAlign.center,),
+
+               ListTile(
+                title: Text('豆瓣本周口碑榜', style: TextStyles.textBold18,),
+              ),
+              LoadingWidget.containerLoadingBody(_optContent(), loading: loading),
            ],
          );
         }).toList(),
       )
+    );
+  }
+
+  Widget _optContent(){
+    if (weeklyBeans.length  == 0) {
+        return Container(
+            child: Text(''),
+          );
+    }
+   return GridView.builder(
+          shrinkWrap: true,
+          itemCount: weeklyBeans.length,
+          physics: NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+            childAspectRatio: 0.7,
+          ),
+          itemBuilder: (context, index) {
+            return _optItem(weeklyBeans[index]);
+          },
+        );
+  }
+
+  Widget _optItem(bean) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          ClipRRect(
+              borderRadius: BorderRadius.circular(4.0),
+              child: Image.network(
+                bean.subject.images.small, 
+                // width: ScreenUtil.getInstance().getAdapterSize(95), 
+                height: ScreenUtil.getInstance().getAdapterSize(130),
+                fit: BoxFit.fill,
+              ),
+            ),
+            Gaps.vGap4,
+            Text(bean.subject.title, style: TextStyles.textBold12, overflow: TextOverflow.ellipsis,)
+        ],
+      ),
     );
   }
 

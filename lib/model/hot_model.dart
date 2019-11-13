@@ -7,7 +7,7 @@ class SubjectEntity {
   Subject subject;
   var rank;
   var delta;
-
+ 
   SubjectEntity.fromMap(Map<String, dynamic> map){
     rank = map['rank'];
     delta = map['delta'];
@@ -20,7 +20,7 @@ class Subject {
   bool tag = false;
   Rating rating;
   var genres;
-  var title;
+  var title; 
   List<Cast> casts;
   var durations;
   var collect_count;
@@ -34,7 +34,7 @@ class Subject {
   Images images;
   var alt;
   var id;
-
+ 
   ///构造函数
   Subject.fromMap(Map<String, dynamic> map) {
     var rating = map['rating'];
@@ -57,7 +57,7 @@ class Subject {
     has_video = map['has_video'];
     pubdates = map['pubdates'];
   }
-
+ 
   _converCasts(casts) {
     return casts.map<Cast>((item)=>Cast.fromMap(item)).toList();
   }

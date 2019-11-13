@@ -1,70 +1,85 @@
-class HotModelEntity {
-	int total;
-	List<HotModelSubject> subjects;
-	int count;
-	int start;
+class OptionionsEntity {
+	List<OptionionsSubject> subjects;
 	String title;
 
-	HotModelEntity({this.total, this.subjects, this.count, this.start, this.title});
+	OptionionsEntity({this.subjects, this.title});
 
-	HotModelEntity.fromJson(Map<String, dynamic> json) {
-		total = json['total'];
+	OptionionsEntity.fromJson(Map<String, dynamic> json) {
 		if (json['subjects'] != null) {
-			subjects = new List<HotModelSubject>();(json['subjects'] as List).forEach((v) { subjects.add(new HotModelSubject.fromJson(v)); });
+			subjects = new List<OptionionsSubject>();(json['subjects'] as List).forEach((v) { subjects.add(new OptionionsSubject.fromJson(v)); });
 		}
-		count = json['count'];
-		start = json['start'];
 		title = json['title'];
 	}
 
 	Map<String, dynamic> toJson() {
 		final Map<String, dynamic> data = new Map<String, dynamic>();
-		data['total'] = this.total;
 		if (this.subjects != null) {
       data['subjects'] =  this.subjects.map((v) => v.toJson()).toList();
     }
-		data['count'] = this.count;
-		data['start'] = this.start;
 		data['title'] = this.title;
 		return data;
 	}
 }
 
-class HotModelSubject {
-	HotModelSubjectsImages images;
+class OptionionsSubject {
+	OptionionsSubjectsSubject subject;
+	int delta;
+	int rank;
+
+	OptionionsSubject({this.subject, this.delta, this.rank});
+
+	OptionionsSubject.fromJson(Map<String, dynamic> json) {
+		subject = json['subject'] != null ? new OptionionsSubjectsSubject.fromJson(json['subject']) : null;
+		delta = json['delta'];
+		rank = json['rank'];
+	}
+
+	Map<String, dynamic> toJson() {
+		final Map<String, dynamic> data = new Map<String, dynamic>();
+		if (this.subject != null) {
+      data['subject'] = this.subject.toJson();
+    }
+		data['delta'] = this.delta;
+		data['rank'] = this.rank;
+		return data;
+	}
+}
+
+class OptionionsSubjectsSubject {
+	OptionionsSubjectsSubjectImages images;
 	String originalTitle;
 	String year;
-	List<HotModelSubjectsDirector> directors;
-	HotModelSubjectsRating rating;
+	List<OptionionsSubjectsSubjectDirector> directors;
+	OptionionsSubjectsSubjectRating rating;
 	String alt;
 	String title;
 	int collectCount;
 	bool hasVideo;
 	List<String> pubdates;
-	List<HotModelSubjectsCast> casts;
+	List<OptionionsSubjectsSubjectCast> casts;
 	String subtype;
 	List<String> genres;
 	List<String> durations;
 	String mainlandPubdate;
 	String id;
 
-	HotModelSubject({this.images, this.originalTitle, this.year, this.directors, this.rating, this.alt, this.title, this.collectCount, this.hasVideo, this.pubdates, this.casts, this.subtype, this.genres, this.durations, this.mainlandPubdate, this.id});
+	OptionionsSubjectsSubject({this.images, this.originalTitle, this.year, this.directors, this.rating, this.alt, this.title, this.collectCount, this.hasVideo, this.pubdates, this.casts, this.subtype, this.genres, this.durations, this.mainlandPubdate, this.id});
 
-	HotModelSubject.fromJson(Map<String, dynamic> json) {
-		images = json['images'] != null ? new HotModelSubjectsImages.fromJson(json['images']) : null;
+	OptionionsSubjectsSubject.fromJson(Map<String, dynamic> json) {
+		images = json['images'] != null ? new OptionionsSubjectsSubjectImages.fromJson(json['images']) : null;
 		originalTitle = json['original_title'];
 		year = json['year'];
 		if (json['directors'] != null) {
-			directors = new List<HotModelSubjectsDirector>();(json['directors'] as List).forEach((v) { directors.add(new HotModelSubjectsDirector.fromJson(v)); });
+			directors = new List<OptionionsSubjectsSubjectDirector>();(json['directors'] as List).forEach((v) { directors.add(new OptionionsSubjectsSubjectDirector.fromJson(v)); });
 		}
-		rating = json['rating'] != null ? new HotModelSubjectsRating.fromJson(json['rating']) : null;
+		rating = json['rating'] != null ? new OptionionsSubjectsSubjectRating.fromJson(json['rating']) : null;
 		alt = json['alt'];
 		title = json['title'];
 		collectCount = json['collect_count'];
 		hasVideo = json['has_video'];
 		pubdates = json['pubdates']?.cast<String>();
 		if (json['casts'] != null) {
-			casts = new List<HotModelSubjectsCast>();(json['casts'] as List).forEach((v) { casts.add(new HotModelSubjectsCast.fromJson(v)); });
+			casts = new List<OptionionsSubjectsSubjectCast>();(json['casts'] as List).forEach((v) { casts.add(new OptionionsSubjectsSubjectCast.fromJson(v)); });
 		}
 		subtype = json['subtype'];
 		genres = json['genres']?.cast<String>();
@@ -103,14 +118,14 @@ class HotModelSubject {
 	}
 }
 
-class HotModelSubjectsImages {
+class OptionionsSubjectsSubjectImages {
 	String small;
 	String large;
 	String medium;
 
-	HotModelSubjectsImages({this.small, this.large, this.medium});
+	OptionionsSubjectsSubjectImages({this.small, this.large, this.medium});
 
-	HotModelSubjectsImages.fromJson(Map<String, dynamic> json) {
+	OptionionsSubjectsSubjectImages.fromJson(Map<String, dynamic> json) {
 		small = json['small'];
 		large = json['large'];
 		medium = json['medium'];
@@ -125,20 +140,20 @@ class HotModelSubjectsImages {
 	}
 }
 
-class HotModelSubjectsDirector {
+class OptionionsSubjectsSubjectDirector {
 	String name;
 	String alt;
 	String id;
-	HotModelSubjectsDirectorsAvatars avatars;
+	OptionionsSubjectsSubjectDirectorsAvatars avatars;
 	String nameEn;
 
-	HotModelSubjectsDirector({this.name, this.alt, this.id, this.avatars, this.nameEn});
+	OptionionsSubjectsSubjectDirector({this.name, this.alt, this.id, this.avatars, this.nameEn});
 
-	HotModelSubjectsDirector.fromJson(Map<String, dynamic> json) {
+	OptionionsSubjectsSubjectDirector.fromJson(Map<String, dynamic> json) {
 		name = json['name'];
 		alt = json['alt'];
 		id = json['id'];
-		avatars = json['avatars'] != null ? new HotModelSubjectsDirectorsAvatars.fromJson(json['avatars']) : null;
+		avatars = json['avatars'] != null ? new OptionionsSubjectsSubjectDirectorsAvatars.fromJson(json['avatars']) : null;
 		nameEn = json['name_en'];
 	}
 
@@ -155,14 +170,14 @@ class HotModelSubjectsDirector {
 	}
 }
 
-class HotModelSubjectsDirectorsAvatars {
+class OptionionsSubjectsSubjectDirectorsAvatars {
 	String small;
 	String large;
 	String medium;
 
-	HotModelSubjectsDirectorsAvatars({this.small, this.large, this.medium});
+	OptionionsSubjectsSubjectDirectorsAvatars({this.small, this.large, this.medium});
 
-	HotModelSubjectsDirectorsAvatars.fromJson(Map<String, dynamic> json) {
+	OptionionsSubjectsSubjectDirectorsAvatars.fromJson(Map<String, dynamic> json) {
 		small = json['small'];
 		large = json['large'];
 		medium = json['medium'];
@@ -177,20 +192,18 @@ class HotModelSubjectsDirectorsAvatars {
 	}
 }
 
-class HotModelSubjectsRating {
+class OptionionsSubjectsSubjectRating {
 	double average;
 	int min;
 	int max;
-	HotModelSubjectsRatingDetails details;
 	String stars;
 
-	HotModelSubjectsRating({this.average, this.min, this.max, this.details, this.stars});
+	OptionionsSubjectsSubjectRating({this.average, this.min, this.max, this.stars});
 
-	HotModelSubjectsRating.fromJson(Map<String, dynamic> json) {
+	OptionionsSubjectsSubjectRating.fromJson(Map<String, dynamic> json) {
 		average = json['average'];
 		min = json['min'];
 		max = json['max'];
-		details = json['details'] != null ? new HotModelSubjectsRatingDetails.fromJson(json['details']) : null;
 		stars = json['stars'];
 	}
 
@@ -199,56 +212,25 @@ class HotModelSubjectsRating {
 		data['average'] = this.average;
 		data['min'] = this.min;
 		data['max'] = this.max;
-		if (this.details != null) {
-      data['details'] = this.details.toJson();
-    }
 		data['stars'] = this.stars;
 		return data;
 	}
 }
 
-class HotModelSubjectsRatingDetails {
-	String rating1;
-	String rating2;
-	String rating3;
-	String rating4;
-	String rating5;
-
-	HotModelSubjectsRatingDetails({this.rating1, this.rating2, this.rating3, this.rating4, this.rating5});
-
-	HotModelSubjectsRatingDetails.fromJson(Map<String, dynamic> json) {
-		rating1 = json['1'];
-		rating2 = json['2'];
-		rating3 = json['3'];
-		rating4 = json['4'];
-		rating5 = json['5'];
-	}
-
-	Map<String, dynamic> toJson() {
-		final Map<String, dynamic> data = new Map<String, dynamic>();
-		data['rating11'] = this.rating1;
-		data['rating12'] = this.rating2;
-		data['rating13'] = this.rating3;
-		data['rating14'] = this.rating4;
-		data['rating15'] = this.rating5;
-		return data;
-	}
-}
-
-class HotModelSubjectsCast {
+class OptionionsSubjectsSubjectCast {
 	String name;
 	String alt;
 	String id;
-	HotModelSubjectsCastsAvatars avatars;
+	OptionionsSubjectsSubjectCastsAvatars avatars;
 	String nameEn;
 
-	HotModelSubjectsCast({this.name, this.alt, this.id, this.avatars, this.nameEn});
+	OptionionsSubjectsSubjectCast({this.name, this.alt, this.id, this.avatars, this.nameEn});
 
-	HotModelSubjectsCast.fromJson(Map<String, dynamic> json) {
+	OptionionsSubjectsSubjectCast.fromJson(Map<String, dynamic> json) {
 		name = json['name'];
 		alt = json['alt'];
 		id = json['id'];
-		avatars = json['avatars'] != null ? new HotModelSubjectsCastsAvatars.fromJson(json['avatars']) : null;
+		avatars = json['avatars'] != null ? new OptionionsSubjectsSubjectCastsAvatars.fromJson(json['avatars']) : null;
 		nameEn = json['name_en'];
 	}
 
@@ -265,14 +247,14 @@ class HotModelSubjectsCast {
 	}
 }
 
-class HotModelSubjectsCastsAvatars {
+class OptionionsSubjectsSubjectCastsAvatars {
 	String small;
 	String large;
 	String medium;
 
-	HotModelSubjectsCastsAvatars({this.small, this.large, this.medium});
+	OptionionsSubjectsSubjectCastsAvatars({this.small, this.large, this.medium});
 
-	HotModelSubjectsCastsAvatars.fromJson(Map<String, dynamic> json) {
+	OptionionsSubjectsSubjectCastsAvatars.fromJson(Map<String, dynamic> json) {
 		small = json['small'];
 		large = json['large'];
 		medium = json['medium'];
