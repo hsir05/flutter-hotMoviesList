@@ -23,7 +23,8 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
   List<Subject> topList = [];
   List<SubjectEntity> weeklyBeans = List();
   List<SubjectEntity> northAmerica = List();
-  List<Subject> list = [];
+  List<Subject> newMovie = [];
+  // List<Subject> list = [];
   TabController _tabController;
   int _currentIndex = 0;
   bool loading = true;
@@ -35,7 +36,7 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
     _tabController.addListener(() => _onTabChanged());
 
     Future(() {
-      return request('hotPageContext', {'start': 0, 'count': 5});
+      return request('hotPageContext', {'start': 0, 'count': 5,  'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
     }).then((result) {
       print('数据加载完成');
       var resultList = result['subjects'];
@@ -76,7 +77,6 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
     request('northAmericaContext', null).then((result){
         print('+++++northAmericaContext+++++');
         var resultList = result['subjects'];
-
         setState(() {
           loading = false;
           northAmerica = resultList
@@ -96,8 +96,6 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
       });
     }
   }
-
- 
 
   @override
   void dispose() {
@@ -160,7 +158,7 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
 
               ListTile(title: Text('北美票房榜', style: TextStyles.textBold18,)),
               LoadingWidget.containerLoadingBody(_optContent(northAmerica), loading: loading),
-
+               
            ],
          );
         }).toList(),
@@ -194,6 +192,7 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
 
   Widget _optItem(bean) {
     return Container(
+      alignment: Alignment.center,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -265,6 +264,7 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
 
   Widget _getItem(Subject bean) {
       return Container(
+        alignment: Alignment.center,
         margin: EdgeInsets.all(10.0),
         child: Column(
           children: <Widget>[
