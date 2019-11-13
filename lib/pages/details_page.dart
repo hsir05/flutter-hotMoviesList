@@ -22,6 +22,7 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
   List<Subject> hotList = [];
   List<Subject> topList = [];
   List<SubjectEntity> weeklyBeans = List();
+  List<SubjectEntity> northAmerica = List();
   List<Subject> list = [];
   TabController _tabController;
   int _currentIndex = 0;
@@ -59,10 +60,10 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
   }
 
   void _getOpinionsData() {
-        request('opinionsContext', null).then((result){
-           print('++++++++++++++');
+      request('opinionsContext', null).then((result){
+        print('++++++++++++++');
         var resultList = result['subjects'];
-         List<SubjectEntity> list = resultList
+        List<SubjectEntity> list = resultList
         .map<SubjectEntity>((item) => SubjectEntity.fromMap(item))
         .toList();
 
@@ -70,7 +71,21 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
           loading = false;
           weeklyBeans = list;
           });
-    }); 
+      }); 
+  }
+  void _northAmerica() {
+    request('northAmericaContext', null).then((result){
+        print('++++++++++++++');
+        var resultList = result['subjects'];
+        List<SubjectEntity> list = resultList
+        .map<SubjectEntity>((item) => SubjectEntity.fromMap(item))
+        .toList();
+
+        setState(() {
+          loading = false;
+          northAmerica = list;
+          });
+      }); 
   }
 
 _onTabChanged() {
@@ -83,6 +98,8 @@ _onTabChanged() {
       });
     }
   }
+
+ 
 
   @override
   void dispose() {
@@ -130,22 +147,22 @@ _onTabChanged() {
         children: tabs.map((Tab tab) {
          return ListView(
            children: <Widget>[
-              Divider(),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: _part('找电影', '冷门/豆瓣评分', Icon(Icons.list, color: Colors.white,), Colors.purple, (){
-                      print('找电影, 冷门/豆瓣评分/动作');
-                    }),
-                  ),
-                  Container(
-                    width: ScreenUtil.getInstance().getAdapterSize(160),
-                    child: _part('我的影视', '未登录', Icon(Icons.favorite_border, color: Colors.white,), Colours.icon_heart, (){
-                      print('我的影视');
-                    }),
-                  )
-                ],
-              ),
+              // Divider(),
+              // Row(
+              //   children: <Widget>[
+              //     Expanded(
+              //       child: _part('找电影', '冷门/豆瓣评分', Icon(Icons.list, color: Colors.white,), Colors.purple, (){
+              //         print('找电影, 冷门/豆瓣评分/动作');
+              //       }),
+              //     ),
+              //     Container(
+              //       width: ScreenUtil.getInstance().getAdapterSize(160),
+              //       child: _part('我的影视', '未登录', Icon(Icons.favorite_border, color: Colors.white,), Colours.icon_heart, (){
+              //         print('我的影视');
+              //       }),
+              //     )
+              //   ],
+              // ),
               Divider(),
               title('豆瓣热映'),
               Divider(),
@@ -158,10 +175,14 @@ _onTabChanged() {
               LoadingWidget.containerLoadingBody(_topContent(), loading: loading),
               Text('全部250', style: TextStyles.textSize12, textAlign: TextAlign.center,),
 
-               ListTile(
-                title: Text('豆瓣本周口碑榜', style: TextStyles.textBold18,),
+              ListTile(
+                title: Text('本周口碑榜', style: TextStyles.textBold18,),
               ),
               LoadingWidget.containerLoadingBody(_optContent(), loading: loading),
+
+              ListTile(
+                title: Text('北美票房榜', style: TextStyles.textBold18,),
+              ),
            ],
          );
         }).toList(),
@@ -201,8 +222,7 @@ _onTabChanged() {
               borderRadius: BorderRadius.circular(4.0),
               child: Image.network(
                 bean.subject.images.small, 
-                // width: ScreenUtil.getInstance().getAdapterSize(95), 
-                height: ScreenUtil.getInstance().getAdapterSize(130),
+                height: ScreenUtil.getInstance().getAdapterSize(120),
                 fit: BoxFit.fill,
               ),
             ),
@@ -247,7 +267,7 @@ _onTabChanged() {
     }
 
     return Container(
-      height: ScreenUtil.getInstance().getAdapterSize(200.0),
+      height: ScreenUtil.getInstance().getAdapterSize(220.0),
       color: Colours.bg_gray,
       child: ListView.builder(
         padding: new EdgeInsets.all(5.0),
@@ -265,7 +285,6 @@ _onTabChanged() {
   Widget _getItem(Subject bean) {
       return Container(
         margin: EdgeInsets.all(10.0),
-        height: ScreenUtil.getInstance().getAdapterSize(180),
         child: Column(
           children: <Widget>[
             Stack(
@@ -317,7 +336,7 @@ _onTabChanged() {
           Expanded(child: Text(title, style: TextStyles.textBold18)),
         
           Container(
-            width: ScreenUtil.getInstance().getAdapterSize(80),
+            width: ScreenUtil.getInstance().getAdapterSize(90),
             child: InkWell(
             onTap: (){print(123);},
             child: Row(children: <Widget>[

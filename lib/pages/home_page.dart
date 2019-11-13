@@ -167,6 +167,8 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
     var avatars = List.generate(bean.casts.length, (int index) =>
         Container(
           margin: EdgeInsets.only(left: index.toDouble() == 0.0 ? 0.0 : 16.0),
+            width: ScreenUtil.getInstance().getAdapterSize(20), 
+            height: ScreenUtil.getInstance().getAdapterSize(20),
           child: 
           CircleAvatar(
               backgroundColor: Colors.white10,
@@ -188,8 +190,8 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
             borderRadius: BorderRadius.circular(4.0),
             child: Image.network(
               bean.images.large, 
-              width: ScreenUtil.getInstance().getAdapterSize(90), 
-              height: ScreenUtil.getInstance().getAdapterSize(130),
+              width: ScreenUtil.getInstance().getAdapterSize(100), 
+              height: ScreenUtil.getInstance().getAdapterSize(140),
               fit: BoxFit.fill,
             ),
           ),
