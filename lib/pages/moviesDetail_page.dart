@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:movies/res/resources.dart';
+import 'package:flustars/flustars.dart';
 import '../service/service_method.dart';
 import '../model/movie_detail_bean.dart';
 
@@ -33,23 +35,35 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
     }); 
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(180, 40, 45, 1),
+        brightness: Brightness.dark,
+        elevation: 0,
+        backgroundColor: Colours.bg_detail_color,
         leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: Icon(Icons.arrow_back, color: Colors.white,),
             onPressed: () {
                 Navigator.pop(context);
             }),
-        title: loading ? CupertinoActivityIndicator() : Text(movDetail.title), 
+        title: loading ? CupertinoActivityIndicator() : Text(movDetail.title, style: TextStyle(color: Colors.white),), 
         centerTitle: true),
-      body: ListView(
+      body: Container(
+        child: ListView(
         children: <Widget>[
-          Text(widget.id)
+
+          Container(
+            width: ScreenUtil.getInstance().screenWidth, 
+            height: ScreenUtil.getInstance().getAdapterSize(300),
+            padding: EdgeInsets.only(top: 25.0, bottom:  25.0),
+            alignment: Alignment.center,
+            color: Colours.bg_detail_color,
+            child: movDetail == null ? Image.asset("images/ic_default_img_subject_movie.8.png", width: 50.0,)  : Image.network(movDetail.images.small),
+          ),
+
         ],
+      ),
       )
       );
   }

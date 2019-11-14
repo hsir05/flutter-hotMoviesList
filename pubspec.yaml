@@ -65,6 +65,8 @@ flutter:
    - images/ic_notification_tv_calendar_comments.png
    - images/ic_status_detail_reshare_icon.png
    - images/ic_group_top.png
+   - images/ic_default_img_subject_movie.9.png
+   - images/ic_default_img_subject_movie.8.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

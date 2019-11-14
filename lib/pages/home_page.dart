@@ -174,7 +174,7 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
           CircleAvatar(
               backgroundColor: Colors.white10,
               backgroundImage: 
-              bean.casts[index].avatars == null ?  AssetImage("images/avatar.png") : NetworkImage( 
+              bean.casts[index].avatars == null ?  AssetImage("images/ic_default_img_subject_movie.8.png") : NetworkImage( 
                 bean.casts[index].avatars.small 
               )
           ),
