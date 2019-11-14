@@ -3,7 +3,9 @@ import 'package:fluro/fluro.dart';
 import './router_handler.dart';
 
 class Routes{
-  static String root='/';
+  static String root='/'; 
+  static String movieDetail = '/movieDetail';
+
   // static String hot = '/hot';
 
   static void configureRoutes(Router router){
@@ -14,6 +16,7 @@ class Routes{
     );
     
     router.define(root, handler:homeHandler);
+    router.define(movieDetail, handler:movieDetailHandler);
   //   router.define(hot, handler:hotHandler);
   }
 }

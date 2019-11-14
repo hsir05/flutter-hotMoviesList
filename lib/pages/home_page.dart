@@ -6,10 +6,11 @@ import 'package:movies/constant/constant.dart';
 // import 'package:movies/widget/radius_img.dart';
 import 'package:movies/widget/loading_widget.dart';
 // import 'package:movies/widget/video_widget.dart';
-
+import 'package:fluro/fluro.dart';
 import './searchBar.dart';
 import '../service/service_method.dart';
 import '../model/hot_model.dart';
+import '../routers/application.dart';
 
  final List<Tab> myTabs = <Tab>[
     Tab(text: '正在热映'),
@@ -180,68 +181,68 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
         ),
     );
     return GestureDetector(
+      onTap: () {
+        print(444);
+        Application.router.navigateTo(context,"/movieDetail?id=${bean.id}", transition: TransitionType.inFromRight);
+      },
       behavior: HitTestBehavior.translucent,
       child: 
       Container(
-      margin: EdgeInsets.all(4.0),
-      child: Row(
-        children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4.0),
-            child: Image.network(
-              bean.images.large, 
-              width: ScreenUtil.getInstance().getAdapterSize(100), 
-              height: ScreenUtil.getInstance().getAdapterSize(140),
-              fit: BoxFit.fill,
+        margin: EdgeInsets.all(4.0),
+        child: Row(
+          children: <Widget>[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4.0),
+              child: Image.network(
+                bean.images.large, 
+                width: ScreenUtil.getInstance().getAdapterSize(100), 
+                height: ScreenUtil.getInstance().getAdapterSize(140),
+                fit: BoxFit.fill,
+              ),
             ),
-          ),
-          Expanded(
-               child: Container(
-                margin: EdgeInsets.only(left: 8.0),
-                height: ScreenUtil.getInstance().getAdapterSize(130),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    // 电影名称
-                    Text(
-                      bean.title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: ScreenUtil.getInstance().getAdapterSize(16)
+            Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(left: 8.0),
+                  height: ScreenUtil.getInstance().getAdapterSize(130),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      // 电影名称
+                      Text(
+                        bean.title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: ScreenUtil.getInstance().getAdapterSize(16)
+                        ),
+                        maxLines: 1,
                       ),
-                      maxLines: 1,
-                    ),
-                    Gaps.vGap5,
-                    Row(
-                      children: <Widget>[
-                        Expanded(child: Text( '豆瓣评分：${bean.rating.average}', style: TextStyle(fontSize: 12.0, color: Colours.text_star)),),
-                        Text('有${bean.collect_count}人${_currentIndex == 0 ? "看过" : "想看"}', style: TextStyle(fontSize: 12.0, color: Colours.text_star))
-                      ],
-                    ),
-                    Gaps.vGap5,
-                    Text( "类型：${bean.genres.join("、")}" ),
-                    Gaps.vGap5,
-                    Text( '导演：${bean.directors[0]['name']}' ),
-                    Container(
-                      margin: EdgeInsets.only(top: 8.0),
-                      child: Row(
+                      Gaps.vGap5,
+                      Row(
                         children: <Widget>[
-                          Text('主演：'),
-                          Row(children: avatars,)
+                          Expanded(child: Text( '豆瓣评分：${bean.rating.average}', style: TextStyle(fontSize: 12.0, color: Colours.text_star)),),
+                          Text('有${bean.collect_count}人${_currentIndex == 0 ? "看过" : "想看"}', style: TextStyle(fontSize: 12.0, color: Colours.text_star))
                         ],
                       ),
-                    )
-                  ],
-                ),
-              )
-          )
-        ],
+                      Gaps.vGap5,
+                      Text( "类型：${bean.genres.join("、")}" ),
+                      Gaps.vGap5,
+                      Text( '导演：${bean.directors[0]['name']}' ),
+                      Container(
+                        margin: EdgeInsets.only(top: 8.0),
+                        child: Row(
+                          children: <Widget>[
+                            Text('主演：'),
+                            Row(children: avatars,)
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )
+            )
+          ],
+        ),
       ),
-    ),
-    onTap: () {
-      print(444);
-      // Router.push(context, Router.detailPage, bean.id);
-    },
     );
   }
 }

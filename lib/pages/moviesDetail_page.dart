@@ -1,44 +1,57 @@
 import 'package:flutter/material.dart';
-// import '../utils/http.dart';
 import 'package:flutter/cupertino.dart';
+import '../service/service_method.dart';
+import '../model/movie_detail_bean.dart';
 
-class MoviesDetails extends StatefulWidget {
-  final details;
-  MoviesDetails({this.details});
+class MoviesDetailPage extends StatefulWidget {
+  final String id;
+  MoviesDetailPage({Key key,@required this.id}):super(key:key);
 
   @override
-  _MoviesDetailsState createState() {
-    return _MoviesDetailsState();
+  _MoviesDetailPageState createState() {
+    return _MoviesDetailPageState();
   }
 }
 
-class _MoviesDetailsState extends State<MoviesDetails> {
-  var movDetail = {};
+class _MoviesDetailPageState extends State<MoviesDetailPage> {
+ 
+  MovieDetailBean movDetail;
+  bool loading = true;
 
   @override
   void initState () {
     super.initState();
-    // getHttp();
+    _getData({'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
   }
-  // void getHttp() async{
-  //   try {
-  //     var result = await Http().get("https://api.douban.com/v2/movie/subject/${widget.details['id']}?apikey=0b2bdeda43b5688921839c8ecb20399b",data: {});
-  //     setState(() {
-  //       movDetail = result;
-  //     });
-  //   }catch(e){
-  //     return print(e);
-  //   }
-  // }
+
+  void _getData(data){
+    request('movieDetailContext?${widget.id}', data).then((result){
+        setState(() {
+          movDetail = MovieDetailBean.fromJson(result);
+          loading = false;
+        });
+    }); 
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.details['title']}'),
-      ),
-      body: ContentArea(content:widget.details, movDetail: this.movDetail),
-    );
+        backgroundColor: Color.fromRGBO(180, 40, 45, 1),
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+                Navigator.pop(context);
+            }),
+        title: loading ? CupertinoActivityIndicator() : Text(movDetail.title), 
+        centerTitle: true),
+      body: ListView(
+        children: <Widget>[
+          Text(widget.id)
+        ],
+      )
+      );
   }
 
 
