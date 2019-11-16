@@ -55,10 +55,10 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
 
   Widget _getBody(BuildContext context) {
     if (loading) {
-      return Text('');
-      // return Container(child: Center(child: CupertinoActivityIndicator()));
+      return Container(child: Center(child: Image.asset("images/ic_default_img_subject_movie.8.png",width: 50.0),));
     } else {
       return Container(
+        color: Colours.bg_color,
         child: ListView(
           children: <Widget>[
 
@@ -68,35 +68,55 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
               padding: EdgeInsets.only(top: 25.0, bottom:  25.0),
               alignment: Alignment.center,
               color: Colours.bg_detail_color,
-              child: movDetail == null ? Image.asset("images/ic_default_img_subject_movie.8.png", width: 50.0,) : Image.network(movDetail.images.small),
+              child: loading ? Image.asset("images/ic_default_img_subject_movie.8.png", width: 50.0,) : Image.network(movDetail.images.small),
             ),
 
-            Gaps.vGap16,
-            
-            Row(
-              children: <Widget>[
-                Container(
-                  width: ScreenUtil.getInstance().getAdapterSize(300),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(movDetail.title, style: TextStyles.textBold20),
-                    
-                      Row(
+            Container(
+              padding: EdgeInsets.all(20.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+
+                  Expanded(
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(movDetail.year, style: TextStyles.textSize12,),
-                          Text(movDetail.countries[0], style: TextStyles.textSize12,),
-  // genres
+
+                          Text(movDetail.title, style: TextStyles.textBold24),
+                          _type(),
+                          Text('原名：${movDetail.original_title}', style: TextStyles.textSize12),
+                          Text('上映时间：${movDetail.pubdate}', style: TextStyles.textSize12),
+                          _duration()
+
                         ],
                       ),
-                      Text('原名：${movDetail.original_title}', style: TextStyles.textSize12),
-                      Text('上映时间：${movDetail.pubdates[1]}', style: TextStyles.textSize12),
-                    ],
+                    ),
                   ),
-                ),
+                  
+                  Container(
+                    width: ScreenUtil.getInstance().getAdapterSize(80),
+                    height: ScreenUtil.getInstance().getAdapterSize(80),
+                    // color: Colors.white,
 
-              ],
-            ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [BoxShadow(color: Color(0xFFe8e9ee), offset: Offset(5.0, 5.0),    blurRadius: 10.0, spreadRadius: 2.0), BoxShadow(color: Color(0xFFe8e9ee), offset: Offset(1.0, 1.0)), BoxShadow(color: Color(0xFFe8e9ee))],
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Gaps.vGap10,
+                        Text('豆瓣评分', style: TextStyles.textSize12, textAlign: TextAlign.center),
+                        Gaps.vGap5,
+                        Text('${movDetail.rating.average}', style: TextStyles.textBold20, textAlign: TextAlign.center,),
+                        Gaps.vGap5,
+                        Text('${movDetail.ratings_count}人')
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )
 
           ],
         ),
@@ -104,8 +124,36 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
     }
   }
 
-  Widget _tag() {
+  Widget _duration() {
+    return Text('片长：' + _strSplic(movDetail.durations) , style: TextStyles.textSize12, softWrap: true);
+  }
 
+  Widget _type() { 
+    return Text(movDetail.year + ' ' + _strSplic(movDetail.genres) + ' / ' +  _strSplic(movDetail.countries), style: TextStyles.textSize12, softWrap: true);
+  }
+
+  String _strSplic(list) {
+    String str = '';
+    for (int i = 0; i<= list.length-1; i++) {
+      if (i == list.length-1) {
+        str += list[i];
+      } else {
+        str += list[i] + ' / ';
+      }
+    } 
+    return str;
+  }
+
+  Widget _tag(list) {
+    List<Widget>listWidget = list.map((item){
+        return Text(item, style: TextStyles.textSize12);
+      }).toList();
+    return Container(
+      child: Wrap(
+        spacing: 2,
+        children: listWidget,
+      ),
+    );
   }
 
 }
