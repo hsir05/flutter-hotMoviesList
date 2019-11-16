@@ -8,6 +8,7 @@ class Colours {
   static const Color dark_bg_color = Color(0xFF18191A);
 
   static const Color bg_detail_color = Color(0xFF4c4c4b);
+  static const Color btn_border_color = Color(0xFFfda533);
 
   static const Color material_bg = Color(0xFFFFFFFF);
   static const Color dark_material_bg = Color(0xFF303233);

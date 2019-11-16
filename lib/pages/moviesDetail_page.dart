@@ -73,52 +73,84 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
 
             Container(
               padding: EdgeInsets.all(20.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
                 children: <Widget>[
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
 
-                  Expanded(
-                    child: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
 
-                          Text(movDetail.title, style: TextStyles.textBold24),
-                          _type(),
-                          Text('原名：${movDetail.original_title}', style: TextStyles.textSize12),
-                          Text('上映时间：${movDetail.pubdate}', style: TextStyles.textSize12),
-                          _duration()
+                              Text(movDetail.title, style: TextStyles.textBold24),
+                              _type(),
+                              Text('原名：${movDetail.original_title}', style: TextStyles.textSize12),
+                              Text('上映时间：${movDetail.pubdate}', style: TextStyles.textSize12),
+                              _duration()
 
-                        ],
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+                      
+                      Container(
+                          width: ScreenUtil.getInstance().getAdapterSize(80),
+                          height: ScreenUtil.getInstance().getAdapterSize(80),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [BoxShadow(color: Color(0xFFe8e9ee), offset: Offset(5.0, 5.0),    blurRadius: 10.0, spreadRadius: 2.0), BoxShadow(color: Color(0xFFe8e9ee), offset: Offset(1.0, 1.0)), BoxShadow(color: Color(0xFFe8e9ee))],
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Gaps.vGap10,
+                              Text('豆瓣评分', style: TextStyles.textSize12, textAlign: TextAlign.center),
+                              Gaps.vGap5,
+                              Text('${movDetail.rating.average}', style: TextStyles.textBold24, textAlign: TextAlign.center,),
+                              Gaps.vGap5,
+                              Text('${movDetail.ratings_count}人')
+                            ]),
+                        ),
+                    
+                    ],
                   ),
-                  
-                  Container(
-                    width: ScreenUtil.getInstance().getAdapterSize(80),
-                    height: ScreenUtil.getInstance().getAdapterSize(80),
-                    // color: Colors.white,
 
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [BoxShadow(color: Color(0xFFe8e9ee), offset: Offset(5.0, 5.0),    blurRadius: 10.0, spreadRadius: 2.0), BoxShadow(color: Color(0xFFe8e9ee), offset: Offset(1.0, 1.0)), BoxShadow(color: Color(0xFFe8e9ee))],
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Gaps.vGap10,
-                        Text('豆瓣评分', style: TextStyles.textSize12, textAlign: TextAlign.center),
-                        Gaps.vGap5,
-                        Text('${movDetail.rating.average}', style: TextStyles.textBold20, textAlign: TextAlign.center,),
-                        Gaps.vGap5,
-                        Text('${movDetail.ratings_count}人')
-                      ],
-                    ),
+                  Gaps.vGap16,
+                  Row(
+                    children: <Widget>[
+
+                       OutlineButton(
+                        onPressed: () {},
+                        textColor: Colours.text,
+                        color: Colours.bg_color,
+                        borderSide: BorderSide(color: Colours.btn_border_color),
+                        padding: EdgeInsets.only(top: 10.0, bottom:  10.0, right: 45.0, left: 45.0),
+                        child: Text("想看", style: TextStyle(color: Colours.btn_border_color,),
+                      ),
+                      ),
+
+                      Gaps.hGap15,
+
+                      Expanded(
+                        child:OutlineButton(
+                          onPressed: () {},
+                          textColor: Colours.text,
+                          color: Colours.bg_color,
+                          borderSide: BorderSide(color: Colours.btn_border_color),
+                          padding: EdgeInsets.only(top: 10.0, bottom:  10.0),
+                          child: Text("看过", style: TextStyle(color: Colours.btn_border_color,),
+                        ),
+                        )
+                      )
+
+                    ],
                   )
                 ],
-              ),
-            )
-
-          ],
+              )
+            ),
+           ],
         ),
       );
     }
