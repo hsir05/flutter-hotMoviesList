@@ -182,7 +182,6 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
     );
     return GestureDetector(
       onTap: () {
-        print(444);
         Application.router.navigateTo(context,"/movieDetail?id=${bean.id}", transition: TransitionType.inFromRight);
       },
       behavior: HitTestBehavior.translucent,

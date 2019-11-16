@@ -49,25 +49,64 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
             }),
         title: loading ? CupertinoActivityIndicator() : Text(movDetail.title, style: TextStyle(color: Colors.white),), 
         centerTitle: true),
-      body: Container(
-        child: ListView(
-        children: <Widget>[
-
-          Container(
-            width: ScreenUtil.getInstance().screenWidth, 
-            height: ScreenUtil.getInstance().getAdapterSize(300),
-            padding: EdgeInsets.only(top: 25.0, bottom:  25.0),
-            alignment: Alignment.center,
-            color: Colours.bg_detail_color,
-            child: movDetail == null ? Image.asset("images/ic_default_img_subject_movie.8.png", width: 50.0,)  : Image.network(movDetail.images.small),
-          ),
-
-        ],
-      ),
-      )
+      body: _getBody(context)
       );
   }
 
+  Widget _getBody(BuildContext context) {
+    if (loading) {
+      return Text('');
+      // return Container(child: Center(child: CupertinoActivityIndicator()));
+    } else {
+      return Container(
+        child: ListView(
+          children: <Widget>[
+
+            Container(
+              width: ScreenUtil.getInstance().screenWidth, 
+              height: ScreenUtil.getInstance().getAdapterSize(300),
+              padding: EdgeInsets.only(top: 25.0, bottom:  25.0),
+              alignment: Alignment.center,
+              color: Colours.bg_detail_color,
+              child: movDetail == null ? Image.asset("images/ic_default_img_subject_movie.8.png", width: 50.0,) : Image.network(movDetail.images.small),
+            ),
+
+            Gaps.vGap16,
+            
+            Row(
+              children: <Widget>[
+                Container(
+                  width: ScreenUtil.getInstance().getAdapterSize(300),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(movDetail.title, style: TextStyles.textBold20),
+                    
+                      Row(
+                        children: <Widget>[
+                          Text(movDetail.year, style: TextStyles.textSize12,),
+                          Text(movDetail.countries[0], style: TextStyles.textSize12,),
+  // genres
+                        ],
+                      ),
+                      Text('原名：${movDetail.original_title}', style: TextStyles.textSize12),
+                      Text('上映时间：${movDetail.pubdates[1]}', style: TextStyles.textSize12),
+                    ],
+                  ),
+                ),
+
+              ],
+            ),
+
+          ],
+        ),
+      );
+    }
+  }
+
+  Widget _tag() {
+
+  }
 
 }
 

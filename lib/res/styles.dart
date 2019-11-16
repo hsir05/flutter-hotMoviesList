@@ -32,6 +32,10 @@ class TextStyles {
     fontSize: Dimens.font_sp18,
     fontWeight: FontWeight.bold
   );
+    static const TextStyle textBold20 = const TextStyle(
+    fontSize: Dimens.font_sp20,
+    fontWeight: FontWeight.bold
+  );
   static const TextStyle textBold24 = const TextStyle(
       fontSize: 24.0,
       fontWeight: FontWeight.bold
