@@ -74,6 +74,7 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
             Container(
               padding: EdgeInsets.all(20.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,6 +119,7 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
                   ),
 
                   Gaps.vGap16,
+                  
                   Row(
                     children: <Widget>[
 
@@ -146,7 +148,16 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
                       )
 
                     ],
-                  )
+                  ),
+
+                  Gaps.vGap16,
+
+                  Text('剧情简介', style: TextStyles.textDarkGray12),
+                  
+                  Gaps.vGap8,
+
+                  Text(movDetail.summary, style: TextStyles.textDarkGray12,),
+
                 ],
               )
             ),
