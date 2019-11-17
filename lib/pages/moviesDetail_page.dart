@@ -1,12 +1,11 @@
-import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:movies/widget/video_widget.dart';
-import 'package:movies/widget/video_widget.dart';
 import 'package:movies/res/resources.dart';
 import 'package:flustars/flustars.dart';
+import 'package:fluro/fluro.dart';
 import '../service/service_method.dart';
 import '../model/movie_detail_bean.dart';
+import '../routers/application.dart';
 
 class MoviesDetailPage extends StatefulWidget {
   final String id;
@@ -147,8 +146,17 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
                           color: Colours.bg_color,
                           borderSide: BorderSide(color: Colours.btn_border_color),
                           padding: EdgeInsets.only(top: 10.0, bottom:  10.0),
-                          child: Text("看过", style: TextStyle(color: Colours.btn_border_color,),
-                        ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text("看过", style: TextStyle(color: Colours.btn_border_color)),
+                              Icon(Icons.star_border, color: Colours.text_star, size: 18.0),
+                              Icon(Icons.star_border, color: Colours.text_star, size: 18.0),
+                              Icon(Icons.star_border, color: Colours.text_star, size: 18.0),
+                              Icon(Icons.star_border, color: Colours.text_star, size: 18.0),
+                              Icon(Icons.star_border, color: Colours.text_star, size: 18.0),
+                            ],
+                          )
                         )
                       )
 
@@ -208,9 +216,6 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
                   _trailerUrl(),
                   
                   Gaps.vGap16,
-                  // Container(
-                  //   child:  _getContentVideo(),
-                  // )
 
                 ],
               )
@@ -269,12 +274,6 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
     );
   }
 
-  Widget _getContentVideo() {
-    return VideoWidget( 
-      movDetail.trailers[0].resource_url,
-      showProgressBar: true,
-    );
-  }
 
   Widget _trailerUrl() {
     var castList = List.generate(movDetail.photos.length, (int index) =>
@@ -305,9 +304,10 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
 
     // 视频
     var videoTra = InkWell(
-      onTap: (){print('12312');},
+      onTap: (){
+        Application.router.navigateTo(context,"/trailerVideo", transition: TransitionType.inFromRight);
+      },
       child: Container(
-        // height: ScreenUtil.getInstance().getAdapterSize(150),
         margin: EdgeInsets.only(right: 20.0),
         child: Stack(
           children: <Widget>[

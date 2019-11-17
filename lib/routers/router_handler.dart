@@ -3,6 +3,7 @@ import 'package:fluro/fluro.dart';
 
 import '../index_page.dart';
 import '../pages/moviesDetail_page.dart';
+import '../pages/trailerVideoPlay_page.dart';
 // import '../pages/hot_page.dart';
 
 Handler homeHandler = Handler(
@@ -14,6 +15,13 @@ Handler movieDetailHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>>params) {
   String id = params['id'].first;
   return MoviesDetailPage(id: id);
+});
+
+Handler trailerVideoPlayHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>>params) {
+  print('+++++++');
+  print(params);
+  return TrailerViderPlayPage();
 });
 
 // Handler hotHandler = Handler(

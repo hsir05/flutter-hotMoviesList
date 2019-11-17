@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flustars/flustars.dart';
+import 'package:fluro/fluro.dart';
 import 'package:movies/res/resources.dart';
 import 'package:movies/widget/loading_widget.dart';
 import './searchBar.dart';
 import '../service/service_method.dart';
 // import '../model/hot_model.dart';
 import '../model/hot_model.dart';
+import '../routers/application.dart';
 
  final List<Tab> tabs = <Tab>[
     Tab(text: '电影'),
@@ -191,23 +193,28 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
   }
 
   Widget _optItem(bean) {
-    return Container(
-      alignment: Alignment.center,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          ClipRRect(
-              borderRadius: BorderRadius.circular(5.0),
-              child: Image.network(
-                bean.subject.images.small, 
-                height: ScreenUtil.getInstance().getAdapterSize(120),
-                fit: BoxFit.fill,
+    return InkWell(
+      onTap:(){
+          Application.router.navigateTo(context,"/movieDetail?id=${bean.subject.id}", transition: TransitionType.inFromRight);
+      },
+      child: Container(
+        alignment: Alignment.center,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            ClipRRect(
+                borderRadius: BorderRadius.circular(5.0),
+                child: Image.network(
+                  bean.subject.images.small, 
+                  height: ScreenUtil.getInstance().getAdapterSize(120),
+                  fit: BoxFit.fill,
+                ),
               ),
-            ),
-            Gaps.vGap4,
-            Text(bean.subject.title, style: TextStyles.textBold12, overflow: TextOverflow.ellipsis),
-            Text('豆瓣评分:${bean.subject.rating.average}', style:  TextStyles.textSize12,overflow: TextOverflow.ellipsis)
-        ],
+              Gaps.vGap4,
+              Text(bean.subject.title, style: TextStyles.textBold12, overflow: TextOverflow.ellipsis),
+              Text('豆瓣评分:${bean.subject.rating.average}', style:  TextStyles.textSize12,overflow: TextOverflow.ellipsis)
+          ],
+        ),
       ),
     );
   }
@@ -217,15 +224,18 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
     if (topList.length != 0) {
       List<Widget>listWidget = topList.map((val){
           return ListTile(
-              leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(4.0),
-                  child: Image.network(
-                    val.images.large, 
-                    width: ScreenUtil.getInstance().getAdapterSize(35), 
-                    height: ScreenUtil.getInstance().getAdapterSize(45),
-                    fit: BoxFit.fill,
-                  ),
+            onTap: (){
+              Application.router.navigateTo(context,"/movieDetail?id=${val.id}", transition: TransitionType.inFromRight);
+            },
+            leading: ClipRRect(
+                borderRadius: BorderRadius.circular(4.0),
+                child: Image.network(
+                  val.images.large, 
+                  width: ScreenUtil.getInstance().getAdapterSize(35), 
+                  height: ScreenUtil.getInstance().getAdapterSize(45),
+                  fit: BoxFit.fill,
                 ),
+              ),
               title: Text(val.title, style: TextStyles.textBold14),
               subtitle: Text( '豆瓣评分：${val.rating.average}', style: TextStyles.textSize12),
             );
@@ -263,7 +273,11 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
   }
 
   Widget _getItem(Subject bean) {
-      return Container(
+      return InkWell(
+        onTap: () {
+          Application.router.navigateTo(context,"/movieDetail?id=${bean.id}", transition: TransitionType.inFromRight);
+        },
+        child: Container(
         alignment: Alignment.center,
         margin: EdgeInsets.all(10.0),
         child: Column(
@@ -305,6 +319,7 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
             )
           ],
         )
+        ),
       );
   }
 
