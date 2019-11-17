@@ -52,14 +52,14 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
     if (_tabController.index.toDouble() == _tabController.animation.value) {
       //赋值 并更新数据
       this.setState(() {
-         list = [];
+        list = [];
         loading = true;
         _currentIndex = _tabController.index;
         
         String url;
         if(_currentIndex == 0) {
           url = 'hotPageContext';
-          _getData(url, {'star': 0, 'count': 20});
+          _getData(url, {'star': 0, 'count': 20, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
         } else {
           url = 'upComContext';
           _getData(url, null);
@@ -146,9 +146,9 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
   }
 
   Widget _getBody(list) {
-    if (list == null) {
+    if (loading) {
       return Container(
-        child: Image.asset(Constant.ASSETS_IMG + 'ic_group_top.png'),
+        child: Center(child: CupertinoActivityIndicator(),),
       );
     }
     return ListView.builder(
@@ -185,8 +185,7 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
         Application.router.navigateTo(context,"/movieDetail?id=${bean.id}", transition: TransitionType.inFromRight);
       },
       behavior: HitTestBehavior.translucent,
-      child: 
-      Container(
+      child: Container(
         margin: EdgeInsets.all(4.0),
         child: Row(
           children: <Widget>[
