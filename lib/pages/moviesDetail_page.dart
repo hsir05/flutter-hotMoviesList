@@ -19,6 +19,7 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
  
   MovieDetailBean movDetail;
   bool loading = true;
+  bool isOpen = false;
 
   @override
   void initState () {
@@ -88,8 +89,8 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
 
                               Text(movDetail.title, style: TextStyles.textBold24),
                               _type(),
-                              Text('原名：${movDetail.original_title}', style: TextStyles.textSize12),
-                              Text('上映时间：${movDetail.pubdate}', style: TextStyles.textSize12),
+                              Text('原名：${movDetail.original_title}', style: TextStyles.textDarkGray12),
+                              Text('上映时间：${movDetail.pubdate}', style: TextStyles.textDarkGray12),
                               _duration()
 
                             ],
@@ -107,11 +108,11 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
                           child: Column(
                             children: <Widget>[
                               Gaps.vGap10,
-                              Text('豆瓣评分', style: TextStyles.textSize12, textAlign: TextAlign.center),
+                              Text('豆瓣评分', style: TextStyles.textDarkGray12, textAlign: TextAlign.center),
                               Gaps.vGap5,
                               Text('${movDetail.rating.average}', style: TextStyles.textBold24, textAlign: TextAlign.center,),
                               Gaps.vGap5,
-                              Text('${movDetail.ratings_count}人')
+                              Text('${movDetail.ratings_count}人', style: TextStyles.textDarkGray12,)
                             ]),
                         ),
                     
@@ -153,10 +154,37 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
                   Gaps.vGap16,
 
                   Text('剧情简介', style: TextStyles.textDarkGray12),
-                  
+
                   Gaps.vGap8,
 
-                  Text(movDetail.summary, style: TextStyles.textDarkGray12,),
+                  Stack(
+                    children: <Widget>[
+                      
+                      Text(movDetail.summary, style: TextStyles.textDarkGray12, maxLines: 3, overflow: TextOverflow.ellipsis),
+
+                      Positioned(
+                        right: 2.0,
+                        bottom: 1.0,
+                        child: InkWell(
+                          onTap: (){print('展开');},
+                          child: Container(
+                            width: 40.0,
+                             decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [
+                                    Color.fromRGBO(255,255,255,0.3),
+                                    Color.fromRGBO(255,255,255,1),
+                                  ],
+                                ),
+                              ),
+                            child: Text('展开', style: TextStyles.textBold12, textAlign: TextAlign.right,),
+                          ),
+                        ),
+                      )
+                    ],
+                  )
 
                 ],
               )
@@ -168,11 +196,11 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
   }
 
   Widget _duration() {
-    return Text('片长：' + _strSplic(movDetail.durations) , style: TextStyles.textSize12, softWrap: true);
+    return Text('片长：' + _strSplic(movDetail.durations) , style: TextStyles.textDarkGray12, softWrap: true);
   }
 
   Widget _type() { 
-    return Text(movDetail.year + ' ' + _strSplic(movDetail.genres) + ' / ' +  _strSplic(movDetail.countries), style: TextStyles.textSize12, softWrap: true);
+    return Text(movDetail.year + ' ' + _strSplic(movDetail.genres) + ' / ' +  _strSplic(movDetail.countries), style: TextStyles.textDarkGray12, softWrap: true);
   }
 
   String _strSplic(list) {
