@@ -9,6 +9,9 @@ class TextStyles {
   static const TextStyle textSize12 = const TextStyle(
     fontSize: Dimens.font_sp12,
   ); 
+  static const TextStyle textSize14 = const TextStyle(
+    fontSize: Dimens.font_sp14,
+  ); 
 
   static const TextStyle textSize16 = const TextStyle(
     fontSize: Dimens.font_sp16,
@@ -19,6 +22,13 @@ class TextStyles {
     fontSize: Dimens.font_sp12,
     fontWeight: FontWeight.bold
   ); 
+   
+
+  static const TextStyle textGreen14 = const TextStyle(
+    fontSize: Dimens.font_sp14,
+    color: Colours.text_green,
+    fontWeight: FontWeight.normal
+  );
 
   static const TextStyle textBold14 = const TextStyle(
       fontSize: Dimens.font_sp14,

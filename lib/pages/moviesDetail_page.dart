@@ -1,5 +1,8 @@
+import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+// import 'package:movies/widget/video_widget.dart';
+import 'package:movies/widget/video_widget.dart';
 import 'package:movies/res/resources.dart';
 import 'package:flustars/flustars.dart';
 import '../service/service_method.dart';
@@ -77,6 +80,7 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -160,15 +164,19 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
                   Stack(
                     children: <Widget>[
                       
-                      Text(movDetail.summary, style: TextStyles.textDarkGray12, maxLines: 3, overflow: TextOverflow.ellipsis),
+                      Text(movDetail.summary, style: TextStyles.textSize14, softWrap:isOpen),
 
                       Positioned(
-                        right: 2.0,
+                        right: 0,
                         bottom: 1.0,
                         child: InkWell(
-                          onTap: (){print('展开');},
+                          onTap: (){
+                            setState(() {
+                              isOpen  = !isOpen;
+                            });
+                          },
                           child: Container(
-                            width: 40.0,
+                            width: 45.0,
                              decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   begin: Alignment.centerLeft,
@@ -179,17 +187,34 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
                                   ],
                                 ),
                               ),
-                            child: Text('展开', style: TextStyles.textBold12, textAlign: TextAlign.right,),
+                            child: Text('展开', style: TextStyles.textGreen14, textAlign: TextAlign.right,),
                           ),
                         ),
                       )
                     ],
-                  )
+                  ),
+
+                  Gaps.vGap16,
+
+                  Text('影人', style: TextStyles.textDarkGray12),
+
+                  Gaps.vGap16,
+
+                  _casts(movDetail.casts),
+                  
+                  Gaps.vGap8,
+                  Text('预告片 / 剧照', style: TextStyles.textDarkGray12),
+                  Gaps.vGap16,
+                  _trailerUrl(),
+                  
+                  Gaps.vGap16,
+                  // Container(
+                  //   child:  _getContentVideo(),
+                  // )
 
                 ],
               )
-            ),
-           ],
+            )],
         ),
       );
     }
@@ -215,6 +240,103 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
     return str;
   }
 
+  Widget _casts(list) {
+    var castList = List.generate(list.length, (int index) =>
+        InkWell(
+          onTap: (){print(list[index]);},
+          child: Container(
+          margin: EdgeInsets.only(left: index.toDouble() == 0.0 ? 0.0 : 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(6.0),
+                child: Image.network(list[index].avatars.small,height: 150.0,),
+              ),
+              Gaps.vGap5,
+              Text(list[index].name, style: TextStyles.textSize14)
+            ],
+          )
+        ),
+        )
+    );
+    return Container(
+      height:180.0,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: castList,
+      )
+    );
+  }
+
+  Widget _getContentVideo() {
+    return VideoWidget( 
+      movDetail.trailers[0].resource_url,
+      showProgressBar: true,
+    );
+  }
+
+  Widget _trailerUrl() {
+    var castList = List.generate(movDetail.photos.length, (int index) =>
+        InkWell(
+          onTap: (){print(movDetail.photos[index]);},
+          child: Container( 
+            margin: EdgeInsets.only(left: index.toDouble() == 0.0 ? 0.0 : 8.0),
+            child: ClipRRect(
+                  borderRadius: BorderRadius.circular(6.0),
+                  child: Image.network(movDetail.photos[index].image, height: ScreenUtil.getInstance().getAdapterSize(150),),
+                ),
+          ),
+        )
+    );
+
+    var photoCount = InkWell(
+      onTap: (){print('全部');},
+        child: Container(
+          height: ScreenUtil.getInstance().getAdapterSize(150),
+          width: ScreenUtil.getInstance().getAdapterSize(150),
+          color: Colours.bg_gray,
+          child: Center(child: InkWell(
+            onTap: (){print('132');},
+            child: Text('全部剧照${movDetail.photos_count}', style: TextStyles.textSize14),
+          )),
+        ),
+    );
+
+    // 视频
+    var videoTra = InkWell(
+      onTap: (){print('12312');},
+      child: Container(
+        // height: ScreenUtil.getInstance().getAdapterSize(150),
+        margin: EdgeInsets.only(right: 20.0),
+        child: Stack(
+          children: <Widget>[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6.0),
+              child: Image.network(movDetail.trailers[0].medium,),
+            ),
+            Positioned(
+              top: ScreenUtil.getInstance().getAdapterSize(75),
+              left: ScreenUtil.getInstance().getAdapterSize(125),
+              child: Image.asset('images/ic_playing.png', height: ScreenUtil.getInstance().getAdapterSize(30),),
+            )
+          ],
+        ),
+      ),
+    );
+
+    castList.add(photoCount);
+    castList.insert(0, videoTra);
+
+    return Container(
+      height: ScreenUtil.getInstance().getAdapterSize(160),
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: castList,
+      )
+    );
+  }
+
   Widget _tag(list) {
     List<Widget>listWidget = list.map((item){
         return Text(item, style: TextStyles.textSize12);
@@ -227,127 +349,4 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
     );
   }
 
-}
-
-class ContentArea extends StatelessWidget {
-  var content;
-  var movDetail = {};
-  ContentArea({Key key, @required this.content, @required this.movDetail}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var castList = List.generate(content['casts'].length, (int index) =>
-        Container(
-          margin: EdgeInsets.only(left: index.toDouble() == 0.0 ? 0.0 : 8.0),
-          child: Center(
-            child: Column(
-               crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(6.0),
-                  child: Image.network(content['casts'][index]['avatars']['small'],height: 150.0,),
-                ),
-                Text(content['casts'][index]['name'])
-              ],
-            ),
-          )
-        ),
-    );
-    
-    return Container(
-      child: ListView(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Row(
-            children: <Widget>[
-              Container(
-                width: 130.0,
-                margin: EdgeInsets.only(right: 10.0),
-                child:ClipRRect(
-                borderRadius: BorderRadius.circular(6.0),
-                child: Image.network(content['images']['small'], fit: BoxFit.contain,),
-              )
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Text(content['title'], style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.bold),),
-                    Text( '导演：${content['directors'][0]['name']}' ),
-                    Text( "类型：${content['genres'].join("、")}" ),
-                    // Text( "上映时间：${movDetail['attrs']['pubdate']}" ),
-                    // Text("${movDetail['attrs']['movie_duration']} ${movDetail['attrs']['language']}"),
-                    Text('${content['collect_count']} 人想看'),
-                    Text('豆瓣评分 ${content['rating']['average']}'),
-                  ],
-                ),
-              )
-            ],
-          ),),
-          // 标签
-          Container(
-            padding: EdgeInsets.all(10.0),
-            width: 100.0,
-            child: Text('标签',style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.w700),),
-          ),
-          
-          Divider(),
-        
-          // _getTags(),
-
-          // 电影介绍
-          Padding(
-            padding: EdgeInsets.only(top:15.0,left: 10.0,right: 10.0),
-            child: Text('介绍',style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.w700)),
-          ),
-          Divider(),
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Text('${movDetail['summary']}',style: TextStyle(fontSize: 16.0,)),
-          ),
-          // 演职人员
-          Padding(
-            padding: EdgeInsets.only(top: 15.0, left: 15.0),
-            child: Text('主演',style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),
-          ),
-          Divider(),
-          
-          Container(
-            height:200.0,
-            margin: EdgeInsets.only(left:10.0,top: 10.0),
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: castList,
-            )
-          ),
-          Divider(),
-        ],
-      ),
-    );
-  }
-
-  
-    Widget _getTags() {
-      print('++++++++++++++');
-      print(movDetail['tags']);
-      if (movDetail['tags'] != null && movDetail['tags'].length != 0 ) {
-        List<Widget>listWidget = movDetail['tags'].map((val){
-          return Container(
-              padding: EdgeInsets.all(5.0),
-              height: 30.0,
-              width: 100.0,
-              alignment: Alignment.bottomLeft,
-              child: Text(val, style: TextStyle(fontSize: 16.0), textAlign:TextAlign.center)
-            );
-            }).toList();
-          return Wrap(
-            spacing: 2,
-            children: listWidget,
-          );
-      } else {
-        return Center( child: CupertinoActivityIndicator());
-      }
-  }
 }

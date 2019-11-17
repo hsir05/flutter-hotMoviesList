@@ -18,6 +18,8 @@ class Colours {
 
   static const Color text_star = Color(0xFFe09015);
 
+  static const Color text_green = Color(0xFF37ad26); // 展开
+
   static const Color icon_heart = Color(0xFFff4055);
   static const Color icon_bg = Color(0xFF6a6a6a);
 
