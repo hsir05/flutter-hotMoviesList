@@ -313,7 +313,7 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
     // };
     var videoTra = InkWell(
       onTap: (){
-        Application.router.navigateTo(context,"/trailerVideo", transition: TransitionType.inFromRight);
+        Application.router.navigateTo(context,"/trailerVideo?id=${widget.id}", transition: TransitionType.inFromRight);
       },
       child: Container(
         margin: EdgeInsets.only(right: 20.0),

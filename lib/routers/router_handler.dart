@@ -19,9 +19,8 @@ Handler movieDetailHandler = Handler(
 
 Handler trailerVideoPlayHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>>params) {
-  print('+++++++');
-  print(params);
-  return TrailerViderPlayPage();
+  String id = params['id'].first;
+  return TrailerViderPlayPage(id: id);
 });
 
 // Handler hotHandler = Handler(
