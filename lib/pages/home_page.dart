@@ -139,6 +139,7 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
       body: TabBarView(
         controller: _tabController,
         children: myTabs.map((Tab tab) {
+          // return _getBody(list);
           return LoadingWidget.containerLoadingBody(_getBody(list), loading: loading);
         }).toList(),
       )

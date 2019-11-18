@@ -26,6 +26,7 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
   @override
   void initState () {
     super.initState();
+    print(widget.id);
     _getData({'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
   }
 
@@ -103,7 +104,7 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
                       
                       Container(
                           width: ScreenUtil.getInstance().getAdapterSize(80),
-                          height: ScreenUtil.getInstance().getAdapterSize(80),
+                          height: ScreenUtil.getInstance().getAdapterSize(90),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             boxShadow: [BoxShadow(color: Color(0xFFe8e9ee), offset: Offset(5.0, 5.0),    blurRadius: 10.0, spreadRadius: 2.0), BoxShadow(color: Color(0xFFe8e9ee), offset: Offset(1.0, 1.0)), BoxShadow(color: Color(0xFFe8e9ee))],
@@ -254,9 +255,10 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              ClipRRect(
+              ClipRRect( 
                 borderRadius: BorderRadius.circular(6.0),
-                child: Image.network(list[index].avatars.small,height: 150.0,),
+                child: list[index].avatars == null ? Container(height: 150.0, padding: EdgeInsets.all(40.0),child: Image.asset("images/ic_default_img_subject_movie.8.png"),) : Image.network(list[index].avatars.small,height: 150.0,)
+                // child: Image.network(list[index].avatars.small,height: 150.0,),
               ),
               Gaps.vGap5,
               Text(list[index].name, style: TextStyles.textSize14)
@@ -303,6 +305,12 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
     );
 
     // 视频
+    // var detail = {
+    //   'title': movDetail.title,
+    //   'trailers': movDetail.trailers,
+    //   'bloopers': movDetail.bloopers,
+    //   'average': movDetail.rating.average
+    // };
     var videoTra = InkWell(
       onTap: (){
         Application.router.navigateTo(context,"/trailerVideo", transition: TransitionType.inFromRight);
@@ -313,7 +321,7 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
           children: <Widget>[
             ClipRRect(
               borderRadius: BorderRadius.circular(6.0),
-              child: Image.network(movDetail.trailers[0].medium,),
+              child: Image.network(movDetail.trailers[0].medium),
             ),
             Positioned(
               top: ScreenUtil.getInstance().getAdapterSize(75),
