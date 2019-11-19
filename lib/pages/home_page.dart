@@ -128,7 +128,6 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
           controller: _tabController,
           tabs: myTabs,
           onTap: (int i){
-            print(i);
             setState(() {
               list = [];
             });

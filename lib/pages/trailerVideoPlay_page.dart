@@ -63,16 +63,41 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
       return Container(child: Center(child: CupertinoActivityIndicator()));
     } else {
 
-      return ListView(
+      return Column(
         children: <Widget>[
 
           _getContentVideo(),
 
-          ListTile(
+          _blooper(movDetail.bloopers)
+          // LoadingWidget.containerLoadingBody(_blooper(movDetail.bloopers), loading: loading),
+        ],
+      );
+    }
+  }
+
+  Widget _getContentVideo() {
+    return Container(
+      margin: EdgeInsets.only(top: 1.0),
+      width: ScreenUtil.getInstance().screenWidth,
+      height: ScreenUtil.getInstance().getAdapterSize(180),
+      child: VideoWidget( url, showProgressBar: true ),
+    );
+  }
+
+
+  Widget _blooper(list) {
+     return Container(
+        color: Colors.yellowAccent ,
+        height: (ScreenUtil.getInstance().screenHeight - 180.0 - 105.0),
+        padding: EdgeInsets.only(top: 12.0, left: 12.0),
+        child:ListView(
+          children: <Widget>[
+            
+            ListTile(
             onTap: (){
               Navigator.pop(context);
             },
-            title:Text( movDetail.title, style: TextStyles.textSize16),
+            title:Text( movDetail.title, style: TextStyles.textSize16, textAlign: TextAlign.left,),
             trailing: Icon(Icons.keyboard_arrow_right),
             subtitle: Row(
               children: <Widget>[
@@ -84,41 +109,47 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
               ],
             ),
           ),
-          Divider(),
+            Divider(),
 
           Padding(
             padding: EdgeInsets.only(top: 15.0, left: 15.0),
             child: Text('观看预告片 / 花絮 / 片段', style: TextStyles.textDarkGray14),
           ),
 
-          // LoadingWidget.containerLoadingBody(_blooper(movDetail.trailers), loading: loading),
-          LoadingWidget.containerLoadingBody(_blooper(movDetail.bloopers), loading: loading),
-        ],
-      );
+            // ListView.builder(
+            //   physics: const BouncingScrollPhysics(),
+            //   itemCount: list.length ,
+            //   itemBuilder: (BuildContext context, int index) {
+            //     return  _getItem(list[index]);
+            //   },
+            // )
+          ],
+        )
+         );
+
+    // return Container(
+    //   height: (ScreenUtil.getInstance().screenHeight - 180.0 - 105.0),
+    //   padding: EdgeInsets.only(top: 12.0, left: 12.0),
+    //   child:ListView.builder(
+    //       physics: const BouncingScrollPhysics(),
+    //       itemCount: list.length ,
+    //       itemBuilder: (BuildContext context, int index) {
+    //         return  _getItem(list[index]);
+    //       },
+    //     )
+    // );
+  }
+
+   Widget _contentList(list) {
+    if (list.length!= 0){
+      List<Widget>listWidget = list.map((val){
+        return _getItem(val);
+      }).toList();
+      return Wrap(
+              spacing: 2,
+              children: listWidget,
+            );
     }
-  }
-
-  Widget _getContentVideo() {
-    return Container(
-      margin: EdgeInsets.only(top: 1.0),
-      height: ScreenUtil.getInstance().getAdapterSize(180),
-      child: VideoWidget( url, showProgressBar: true ),
-    );
-  }
-
-
-  Widget _blooper(list) {
-    return Container(
-      height: list.length * 80.0,
-      padding: EdgeInsets.only(top: 12.0, left: 12.0),
-      child: ListView.builder(
-      physics: const BouncingScrollPhysics(),
-      itemCount: list.length ,
-      itemBuilder: (BuildContext context, int index) {
-        return _getItem(list[index]);
-      },
-    ),
-    );
   }
 
   Widget _getItem(item) {
