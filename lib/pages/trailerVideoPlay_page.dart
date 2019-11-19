@@ -91,9 +91,8 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
             child: Text('观看预告片 / 花絮 / 片段', style: TextStyles.textDarkGray14),
           ),
 
-          LoadingWidget.containerLoadingBody(_blooper(movDetail.trailers), loading: loading),
+          // LoadingWidget.containerLoadingBody(_blooper(movDetail.trailers), loading: loading),
           LoadingWidget.containerLoadingBody(_blooper(movDetail.bloopers), loading: loading),
-
         ],
       );
     }

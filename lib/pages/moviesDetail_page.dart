@@ -258,7 +258,6 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
               ClipRRect( 
                 borderRadius: BorderRadius.circular(6.0),
                 child: list[index].avatars == null ? Container(height: 150.0, padding: EdgeInsets.all(40.0),child: Image.asset("images/ic_default_img_subject_movie.8.png"),) : Image.network(list[index].avatars.small,height: 150.0,)
-                // child: Image.network(list[index].avatars.small,height: 150.0,),
               ),
               Gaps.vGap5,
               Text(list[index].name, style: TextStyles.textSize14)
