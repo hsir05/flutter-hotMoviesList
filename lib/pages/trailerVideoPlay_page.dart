@@ -5,7 +5,7 @@ import 'package:movies/widget/video_widget.dart';
 import 'package:movies/res/resources.dart';
 import '../model/movie_detail_bean.dart';
 import 'package:movies/widget/loading_widget.dart';
-
+import 'dart:async';
 import '../service/service_method.dart';
 
 
@@ -21,7 +21,9 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
 
   MovieDetailBean movDetail;
   bool loading = true;
-  String url;
+  bool videoLoading = true;
+  String vidoeUrl;
+  Timer timer;
 
   @override
   void initState () {
@@ -33,8 +35,9 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
     request('movieDetailContext?${widget.id}', data).then((result){
         setState(() {
           movDetail = MovieDetailBean.fromJson(result);
-          url = movDetail.trailers[0].resource_url;
+          vidoeUrl = movDetail.bloopers[0].resource_url;
           loading = false;
+          videoLoading = false;
         });
     }); 
   }
@@ -62,14 +65,12 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
     if (loading) {
       return Container(child: Center(child: CupertinoActivityIndicator()));
     } else {
-
       return Column(
         children: <Widget>[
 
           _getContentVideo(),
 
-          _blooper(movDetail.bloopers)
-          // LoadingWidget.containerLoadingBody(_blooper(movDetail.bloopers), loading: loading),
+          _blooper()
         ],
       );
     }
@@ -80,19 +81,18 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
       margin: EdgeInsets.only(top: 1.0),
       width: ScreenUtil.getInstance().screenWidth,
       height: ScreenUtil.getInstance().getAdapterSize(180),
-      child: VideoWidget( url, showProgressBar: true ),
+      child: videoLoading ? CupertinoActivityIndicator() :VideoWidget( vidoeUrl, showProgressBar: true ),
     );
-  }
+  } 
 
+  Widget _blooper() {
 
-  Widget _blooper(list) {
      return Container(
-        color: Colors.yellowAccent ,
         height: (ScreenUtil.getInstance().screenHeight - 180.0 - 105.0),
         padding: EdgeInsets.only(top: 12.0, left: 12.0),
         child:ListView(
           children: <Widget>[
-            
+            Divider(),
             ListTile(
             onTap: (){
               Navigator.pop(context);
@@ -111,52 +111,48 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
           ),
             Divider(),
 
-          Padding(
-            padding: EdgeInsets.only(top: 15.0, left: 15.0),
-            child: Text('观看预告片 / 花絮 / 片段', style: TextStyles.textDarkGray14),
-          ),
+            Padding(
+              padding: EdgeInsets.only(top: 15.0, left: 15.0),
+              child: Text('观看预告片 / 花絮 / 片段', style: TextStyles.textDarkGray14),
+            ),
 
-            // ListView.builder(
-            //   physics: const BouncingScrollPhysics(),
-            //   itemCount: list.length ,
-            //   itemBuilder: (BuildContext context, int index) {
-            //     return  _getItem(list[index]);
-            //   },
-            // )
+            _contentList(movDetail.bloopers),
+            _contentList(movDetail.trailers),
+
           ],
         )
          );
-
-    // return Container(
-    //   height: (ScreenUtil.getInstance().screenHeight - 180.0 - 105.0),
-    //   padding: EdgeInsets.only(top: 12.0, left: 12.0),
-    //   child:ListView.builder(
-    //       physics: const BouncingScrollPhysics(),
-    //       itemCount: list.length ,
-    //       itemBuilder: (BuildContext context, int index) {
-    //         return  _getItem(list[index]);
-    //       },
-    //     )
-    // );
   }
 
-   Widget _contentList(list) {
+  Widget _contentList(list) {
     if (list.length!= 0){
-      List<Widget>listWidget = list.map((val){
-        return _getItem(val);
-      }).toList();
+ 
+      var listWidget = List.generate(list.length, (int index) => _getItem(list[index]));
+
       return Wrap(
-              spacing: 2,
-              children: listWidget,
-            );
+          spacing: 2,
+          children: listWidget,
+        );
+    } else {
+      return Text('');
     }
   }
 
+  void countdown(){
+    timer = new Timer(new Duration(seconds: 1), () {
+        print('9999999');
+        setState(() {
+          videoLoading = false;
+        });
+    });
+  }
   Widget _getItem(item) {
     return InkWell(
       onTap: (){
         setState(() {
-          url = item.resource_url;
+          videoLoading = true;
+          vidoeUrl = item.resource_url;
+          countdown();
         });
       },
       child: Padding(
@@ -175,11 +171,18 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
             ),
             Gaps.hGap5,
             Expanded(
-              child: Text(item.title, softWrap: true,),
+              child: vidoeUrl == item.resource_url ? Text(item.title, softWrap: true, style: TextStyle(color: Colours.text_star),) : Text(item.title, softWrap: true) 
             )
         ],
       ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    timer = null;
+    super.dispose();
   }
 }

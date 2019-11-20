@@ -138,7 +138,6 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
       body: TabBarView(
         controller: _tabController,
         children: myTabs.map((Tab tab) {
-          // return _getBody(list);
           return LoadingWidget.containerLoadingBody(_getBody(list), loading: loading);
         }).toList(),
       )
@@ -170,8 +169,7 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
           margin: EdgeInsets.only(left: index.toDouble() == 0.0 ? 0.0 : 16.0),
             width: ScreenUtil.getInstance().getAdapterSize(20), 
             height: ScreenUtil.getInstance().getAdapterSize(20),
-          child: 
-          CircleAvatar(
+          child: CircleAvatar(
               backgroundColor: Colors.white10,
               backgroundImage: 
               bean.casts[index].avatars == null ?  AssetImage("images/ic_default_img_subject_movie.8.png") : NetworkImage( 
