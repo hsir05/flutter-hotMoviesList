@@ -4,8 +4,9 @@ import './router_handler.dart';
 
 class Routes{
   static String root='/'; 
-  static String movieDetail = '/movieDetail';
+  static String movieDetail = '/movieDetail';  
   static String trailerVideo = '/trailerVideo';
+  static String celeBrity = '/celeBrity';
 
   // static String hot = '/hot';
 
@@ -16,9 +17,10 @@ class Routes{
       }
     );
     
-    router.define(root, handler:homeHandler);
-    router.define(movieDetail, handler:movieDetailHandler);
-    router.define(trailerVideo, handler:trailerVideoPlayHandler);
+    router.define(root, handler: homeHandler);
+    router.define(movieDetail, handler: movieDetailHandler);
+    router.define(trailerVideo, handler: trailerVideoPlayHandler);
+    router.define(celeBrity, handler: celeBrityPageHandler);
   //   router.define(hot, handler:hotHandler);
   }
 }

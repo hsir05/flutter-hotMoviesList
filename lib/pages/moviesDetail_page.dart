@@ -5,6 +5,7 @@ import 'package:flustars/flustars.dart';
 import 'package:fluro/fluro.dart';
 import '../service/service_method.dart';
 import '../model/movie_detail_bean.dart';
+import '../model/photo_model_entity.dart';
 import '../routers/application.dart';
 
 class MoviesDetailPage extends StatefulWidget {
@@ -22,12 +23,15 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
   MovieDetailBean movDetail;
   bool loading = true;
   bool isOpen = false;
+  // List<Photos> photo = [];
+ PhotoModel photSub;
 
   @override
   void initState () {
     super.initState();
-    print(widget.id);
+    print('电影id:-->' + widget.id);
     _getData({'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
+    // _getPhotoData({'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
   }
 
   void _getData(data){
@@ -37,7 +41,16 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
           loading = false;
         });
     }); 
-  }
+  } 
+  // 电影条目剧照
+  // void _getPhotoData(data){ 
+  //   request('movieDetailContext?${widget.id}/photos', data).then((result){
+  //       setState(() {
+  //         // var photoList = result['photos'];
+  //         loading = false;
+  //       });
+  //   }); 
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -249,7 +262,9 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
   Widget _casts(list) {
     var castList = List.generate(list.length, (int index) =>
         InkWell(
-          onTap: (){print(list[index]);},
+          onTap: (){
+            Application.router.navigateTo(context,"/celeBrity?id=${list[index].id}", transition: TransitionType.inFromRight);
+          },
           child: Container(
           margin: EdgeInsets.only(left: index.toDouble() == 0.0 ? 0.0 : 8.0),
           child: Column(
@@ -303,13 +318,6 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
         ),
     );
 
-    // 视频
-    // var detail = {
-    //   'title': movDetail.title,
-    //   'trailers': movDetail.trailers,
-    //   'bloopers': movDetail.bloopers,
-    //   'average': movDetail.rating.average
-    // };
     var videoTra = InkWell(
       onTap: (){
         Application.router.navigateTo(context,"/trailerVideo?id=${widget.id}", transition: TransitionType.inFromRight);

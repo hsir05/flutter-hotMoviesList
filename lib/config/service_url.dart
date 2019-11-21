@@ -11,5 +11,9 @@ const servicePath={
   'opinionsContext': serviceUrl + '/weekly?apikey=$apikey',
   'northAmericaContext': serviceUrl + '/us_box?apikey=$apikey',
   'newMovisContext': serviceUrl + '/new_movies?apikey=$apikey',
-  'movieDetailContext': serviceUrl + '/subject'
+  'movieDetailContext': serviceUrl + '/subject',
+  // 电影条目剧照
+  'moviePhotosContext': serviceUrl + '/subject',
+  // 影人条目信息
+  'celebrityContext': serviceUrl + '/celebrity'
 };

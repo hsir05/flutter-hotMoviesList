@@ -7,7 +7,7 @@ Future request(url, formData, {type: 'get'})async{
     try{
       print('$url, 开始获取数据...............');
       Response response;
-      Dio dio = new Dio();
+      Dio dio = new Dio(); 
       dio.options.contentType=ContentType.parse("application/x-www-form-urlencoded");
 
       if(type == 'get'){  
