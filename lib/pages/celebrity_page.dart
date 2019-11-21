@@ -62,14 +62,50 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
               children: <Widget>[
                 
                 _celePhot(),
+
               Gaps.vGap10,
-              Text(celebrityEntity.name, style: TextStyles.textBold16),
-              Gaps.vGap5,
-              Text(celebrityEntity.name_en, style: TextStyles.textDarkGray12),
+              
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(celebrityEntity.name, style: TextStyles.textBold16),
+                        Gaps.vGap5,
+                        Text(celebrityEntity.name_en, style: TextStyles.textDarkGray12),
+                      ],
+                    ),
+                  ),
+
+                  Container(
+                    width: ScreenUtil.getInstance().getAdapterSize(60),
+                    height:ScreenUtil.getInstance().getAdapterSize(40),
+                    margin: EdgeInsets.only(right: 20.0),
+                    color: Colors.redAccent,
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(Icons.filter_list),
+                            Text('收藏')
+                          ],
+                        ),
+                        // Text(celebrityEntity.collect_count)
+                      ],
+                    ),
+                  )
+                ],
+              ),
+
               Gaps.vGap10,
               Text('个人简介', style: TextStyles.textDarkGray14),
               Gaps.vGap5,
               ListTile(
+                onTap: (){
+                  print('1312313');
+                },
                 title: Text(celebrityEntity.summary, style: TextStyles.textBold12, maxLines: 2, overflow: TextOverflow.ellipsis,),
                 trailing: Icon(Icons.keyboard_arrow_right),
               ),
