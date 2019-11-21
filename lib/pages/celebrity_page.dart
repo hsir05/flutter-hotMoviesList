@@ -60,7 +60,22 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
           return Container(
             child: ListView(
               children: <Widget>[
+                
                 _celePhot(),
+              Gaps.vGap10,
+              Text(celebrityEntity.name, style: TextStyles.textBold16),
+              Gaps.vGap5,
+              Text(celebrityEntity.name_en, style: TextStyles.textDarkGray12),
+              Gaps.vGap10,
+              Text('个人简介', style: TextStyles.textDarkGray14),
+              Gaps.vGap5,
+              ListTile(
+                title: Text(celebrityEntity.summary, style: TextStyles.textBold12, maxLines: 2, overflow: TextOverflow.ellipsis,),
+                trailing: Icon(Icons.keyboard_arrow_right),
+              ),
+
+              Text('代表作品', style: TextStyles.textDarkGray14),
+
               ],
             ),
           );
@@ -68,27 +83,19 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
     }
 
     Widget _celePhot() {
-
       return Container(
         padding: EdgeInsets.only(top: 25.0, bottom: 25.0, left: 15.0),
         color: Colours.bg_detail_color,
         height: ScreenUtil.getInstance().getAdapterSize(280),
-        child: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            itemCount: celebrityEntity.photos.length,
-            itemBuilder: (BuildContext context, int index) {
-              return celebrityEntity.photos[index].image == null? Image.asset("images/ic_default_img_subject_movie.8.png",width: 50.0) : Image.network(celebrityEntity.photos[index].image, height: ScreenUtil.getInstance().getAdapterSize(130),  fit: BoxFit.contain);
-            },
-          ),
-        
-        // Row(children: <Widget>[
-        //   Container(
-        //     height: ScreenUtil.getInstance().getAdapterSize(280),
-        //     child: celebrityEntity.avatars == null ? Image.asset("images/ic_default_img_subject_movie.8.png",width: 50.0) : Image.network(celebrityEntity.avatars.medium),
-        //   ),
-
-        // ]),
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: <Widget>[
+            Container(
+              height: ScreenUtil.getInstance().getAdapterSize(280),
+              child: celebrityEntity.avatars == null ? Image.asset("images/ic_default_img_subject_movie.8.png",width: 50.0) : Image.network(celebrityEntity.avatars.medium),
+            ),
+          ],
+        )
       );
     }
 
