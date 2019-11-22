@@ -78,7 +78,6 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
 
   Widget _getContentVideo() {
     return Container(
-      margin: EdgeInsets.only(top: 1.0),
       width: ScreenUtil.getInstance().screenWidth,
       height: ScreenUtil.getInstance().getAdapterSize(180),
       child: videoLoading ? CupertinoActivityIndicator() :VideoWidget( vidoeUrl, showProgressBar: true ),
@@ -112,7 +111,7 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
             Divider(),
 
             Padding(
-              padding: EdgeInsets.only(top: 15.0, left: 15.0),
+              padding: EdgeInsets.only(top: 15.0, left: 15.0, bottom: 20.0),
               child: Text('观看预告片 / 花絮 / 片段', style: TextStyles.textDarkGray14),
             ),
 
@@ -140,7 +139,6 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
 
   void countdown(){
     timer = new Timer(new Duration(seconds: 1), () {
-        print('9999999');
         setState(() {
           videoLoading = false;
         });
@@ -156,7 +154,7 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
         });
       },
       child: Padding(
-      padding: EdgeInsets.only(bottom: 10.0),
+      padding: EdgeInsets.only(left:10.0, bottom: 10.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

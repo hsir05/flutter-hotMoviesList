@@ -116,7 +116,7 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
                               onTap: (){
                                 _dialog(context);
                               },
-                              child: Text(celebrityEntity.summary, style: TextStyles.textSize12, maxLines: 2, overflow: TextOverflow.ellipsis,)
+                              child: Text(celebrityEntity.summary.isEmpty ? '暂无' : celebrityEntity.summary, style: TextStyles.textSize12, maxLines: 2, overflow: TextOverflow.ellipsis,)
                             ),
                             // child: Text(celebrityEntity.summary, style: TextStyles.textSize12, maxLines: 2, overflow: TextOverflow.ellipsis,)
                           ),
@@ -181,7 +181,6 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
 
                       Gaps.vGap15,
                       Text(celebrityEntity.summary, style: TextStyles.textBold12, softWrap: true)
- 
 
                     ],
                   ),

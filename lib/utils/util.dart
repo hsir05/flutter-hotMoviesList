@@ -14,6 +14,7 @@ class Util {
       return str;
    } else{
      print('缺少参数或参数不正确');
+     return '暂无';
    }
   }
 }
