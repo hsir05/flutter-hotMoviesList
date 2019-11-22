@@ -161,10 +161,50 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
                 centerTitle: true),
                 body: Container(
                   color: Colors.white,
-                  child: Text('data'),
+                  padding: EdgeInsets.all(20.0),
+                  child: ListView(
+                    children: <Widget>[
+                      Text(celebrityEntity.name, style: TextStyles.textBold20,),
+                      Text(celebrityEntity.name_en, style: TextStyles.textBold12,),
+                      Gaps.vGap15,
+
+                       _info(Icons.person_pin, '性别:', celebrityEntity.gender),
+                      Gaps.vGap8,
+                       _info(Icons.blur_on, '星座:', celebrityEntity.constellation),
+                      Gaps.vGap8,
+                       _info(Icons.calendar_today, '出生日期:', celebrityEntity.birthday),
+                      Gaps.vGap8,
+                       _info(Icons.room, '出生地:', celebrityEntity.born_place),
+                      Gaps.vGap8,
+                       _info(Icons.face, '更多中文名:', celebrityEntity.born_place),
+
+                      Gaps.vGap15,
+                      Text(celebrityEntity.summary, style: TextStyles.textBold12, softWrap: true)
+
+
+                    ],
+                  ),
                 ),
             );
           }
+      );
+    }
+
+    Widget _info(icon, infoKey, infoVal){
+      return Row(
+        children: <Widget>[
+          SizedBox(
+          width: ScreenUtil.getInstance().getAdapterSize(100),
+          child: Row(
+            children: <Widget>[
+              Icon(icon, size: 16, color: Colours.bg_detail_color,),
+              Gaps.hGap5,
+              Text(infoKey, style: TextStyles.textBold12),
+            ],
+          ),
+        ),
+        Text(infoVal, style: TextStyles.textBold12)
+        ],
       );
     }
 
