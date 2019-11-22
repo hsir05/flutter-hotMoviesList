@@ -6,6 +6,7 @@ import 'package:flustars/flustars.dart';
 import '../service/service_method.dart';
 import '../model/celebrity_entity.dart';
 import '../model/celebrity_work_entity.dart';
+import '../utils/util.dart';
 
 class CeleBrityPage extends StatefulWidget {
   final String id;
@@ -175,12 +176,12 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
                        _info(Icons.calendar_today, '出生日期:', celebrityEntity.birthday),
                       Gaps.vGap8,
                        _info(Icons.room, '出生地:', celebrityEntity.born_place),
-                      Gaps.vGap8,
-                       _info(Icons.face, '更多中文名:', celebrityEntity.born_place),
+                      Gaps.vGap8, 
+                       _info(Icons.face, '更多中文名:', Util.strSplic(celebrityEntity.aka)),
 
                       Gaps.vGap15,
                       Text(celebrityEntity.summary, style: TextStyles.textBold12, softWrap: true)
-
+ 
 
                     ],
                   ),

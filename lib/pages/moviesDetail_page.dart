@@ -7,6 +7,7 @@ import '../service/service_method.dart';
 import '../model/movie_detail_bean.dart';
 import '../model/photo_model_entity.dart';
 import '../routers/application.dart';
+import '../utils/util.dart';
 
 class MoviesDetailPage extends StatefulWidget {
   final String id;
@@ -188,7 +189,7 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
                       
                       Text(movDetail.summary, style: TextStyles.textSize14, softWrap:isOpen),
 
-                      Positioned(
+                      isOpen ? Text('') : Positioned(
                         right: 0,
                         bottom: 1.0,
                         child: InkWell(
@@ -198,13 +199,13 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
                             });
                           },
                           child: Container(
-                            width: 45.0,
+                            width: 35.0,
                              decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   begin: Alignment.centerLeft,
                                   end: Alignment.centerRight,
                                   colors: [
-                                    Color.fromRGBO(255,255,255,0.3),
+                                    Color.fromRGBO(255,255,255,1),
                                     Color.fromRGBO(255,255,255,1),
                                   ],
                                 ),
@@ -238,25 +239,14 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
       );
     }
   }
+ 
 
   Widget _duration() {
-    return Text('片长：' + _strSplic(movDetail.durations) , style: TextStyles.textDarkGray12, softWrap: true);
+    return Text('片长：' + Util.strSplic(movDetail.durations), style: TextStyles.textDarkGray12, softWrap: true);
   }
 
   Widget _type() { 
-    return Text(movDetail.year + ' ' + _strSplic(movDetail.genres) + ' / ' +  _strSplic(movDetail.countries), style: TextStyles.textDarkGray12, softWrap: true);
-  }
-
-  String _strSplic(list) {
-    String str = '';
-    for (int i = 0; i<= list.length-1; i++) {
-      if (i == list.length-1) {
-        str += list[i];
-      } else {
-        str += list[i] + ' / ';
-      }
-    } 
-    return str;
+    return Text(movDetail.year + ' ' + Util.strSplic(movDetail.genres) + ' / ' +  Util.strSplic(movDetail.countries), style: TextStyles.textDarkGray12, softWrap: true);
   }
 
   Widget _casts(list) {
