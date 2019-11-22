@@ -24,7 +24,6 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
     super.initState();
     print('电影id:-->' + widget.id);
     _getData({'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
-    // _getWorksData({'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
   }
 
   void _getData(data) async{
@@ -98,8 +97,7 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
                                     Icon(Icons.add),
                                     Text('收藏')
                                   ],
-                                ),
-                                // Text(celebrityEntity.collect_count)
+                                )
                               ],
                             ),
                           )
@@ -113,7 +111,14 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
                       Row(
                         children: <Widget>[
                           Expanded(
-                            child: Text(celebrityEntity.summary, style: TextStyles.textSize12, maxLines: 2, overflow: TextOverflow.ellipsis,)),
+                            child: InkWell(
+                              onTap: (){
+                                _dialog(context);
+                              },
+                              child: Text(celebrityEntity.summary, style: TextStyles.textSize12, maxLines: 2, overflow: TextOverflow.ellipsis,)
+                            ),
+                            // child: Text(celebrityEntity.summary, style: TextStyles.textSize12, maxLines: 2, overflow: TextOverflow.ellipsis,)
+                          ),
                           Icon(Icons.keyboard_arrow_right, size: 18.0, color: Colours.bg_detail_color,)
                         ],
                       ),
@@ -135,6 +140,32 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
             ),
           );
       }
+    }
+
+    _dialog(context) {
+       showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return Scaffold(
+              appBar: AppBar(
+                brightness: Brightness.dark,
+                elevation: 0,
+                backgroundColor: Colors.white,
+                leading: IconButton(
+                    icon: Icon(Icons.close, color: Colours.bg_detail_color,),
+                    onPressed: () {
+                        Navigator.pop(context);
+                    }),
+                title: Text('影人资料'), 
+                centerTitle: true),
+                body: Container(
+                  color: Colors.white,
+                  child: Text('data'),
+                ),
+            );
+          }
+      );
     }
 
     Widget _celePhot() {
