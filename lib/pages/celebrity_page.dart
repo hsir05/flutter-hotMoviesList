@@ -5,6 +5,7 @@ import 'package:flustars/flustars.dart';
 // import 'package:fluro/fluro.dart';
 import '../service/service_method.dart';
 import '../model/celebrity_entity.dart';
+import '../model/celebrity_work_entity.dart';
 
 class CeleBrityPage extends StatefulWidget {
   final String id;
@@ -16,24 +17,25 @@ class CeleBrityPage extends StatefulWidget {
 class _CeleBrityPageState extends State<CeleBrityPage> {
   bool loading = true;
  CelebrityEntity celebrityEntity;
+ CelebrityWorkEntity celebrityWorkEntity;
 
 @override
   void initState () {
     super.initState();
     print('电影id:-->' + widget.id);
     _getData({'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
+    // _getWorksData({'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
   }
 
-  void _getData(data){
-    request('celebrityContext?${widget.id}', data).then((result){
-        setState(() {
-          celebrityEntity = CelebrityEntity.fromJson(result);
-          print(celebrityEntity.avatars);
-
-          loading = false;
-        });
-    }); 
-  } 
+  void _getData(data) async{
+    var result = await request('celebrityContext?${widget.id}', data); 
+    var res = await request('celebrityWidgetContext?${widget.id}/works', data);
+    setState(() {
+      celebrityEntity = CelebrityEntity.fromJson(result);
+      celebrityWorkEntity = CelebrityWorkEntity.fromJson(res);
+      loading = false;
+    });
+  }
 
  @override
   Widget build(BuildContext context) {
@@ -58,60 +60,77 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
           return Container(child: Center(child: Image.asset("images/ic_default_img_subject_movie.8.png",width: 50.0),));
         } else {
           return Container(
+            color: Colours.bg_color,
             child: ListView(
               children: <Widget>[
                 
                 _celePhot(),
 
-              Gaps.vGap10,
+                Container(
+                  padding: EdgeInsets.only(left:20.0, right: 20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Gaps.vGap10,
               
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(celebrityEntity.name, style: TextStyles.textBold16),
-                        Gaps.vGap5,
-                        Text(celebrityEntity.name_en, style: TextStyles.textDarkGray12),
-                      ],
-                    ),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(celebrityEntity.name, style: TextStyles.textBold16),
+                                Gaps.vGap5,
+                                Text(celebrityEntity.name_en, style: TextStyles.textDarkGray12),
+                              ],
+                            ),
+                          ),
+
+                          Container(
+                            width: ScreenUtil.getInstance().getAdapterSize(60),
+                            height:ScreenUtil.getInstance().getAdapterSize(40),
+                            color: Colors.white,
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(Icons.add),
+                                    Text('收藏')
+                                  ],
+                                ),
+                                // Text(celebrityEntity.collect_count)
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+
+                      Gaps.vGap15,
+                      Text('个人简介', style: TextStyles.textDarkGray14),
+                      
+                      Gaps.vGap10,
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Text(celebrityEntity.summary, style: TextStyles.textSize12, maxLines: 2, overflow: TextOverflow.ellipsis,)),
+                          Icon(Icons.keyboard_arrow_right, size: 18.0, color: Colours.bg_detail_color,)
+                        ],
+                      ),
+                      
+                      Gaps.vGap15,
+                      Text('代表作品', style: TextStyles.textDarkGray14),
+                      Gaps.vGap10,
+                      _getRepresentative(celebrityEntity.works),
+
+                      Gaps.vGap15,
+                      Text('全部作品', style: TextStyles.textDarkGray14),
+                      Gaps.vGap10,
+                      _getRepresentative(celebrityWorkEntity.works),
+
+                    ],
                   ),
-
-                  Container(
-                    width: ScreenUtil.getInstance().getAdapterSize(60),
-                    height:ScreenUtil.getInstance().getAdapterSize(40),
-                    margin: EdgeInsets.only(right: 20.0),
-                    color: Colors.redAccent,
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(Icons.filter_list),
-                            Text('收藏')
-                          ],
-                        ),
-                        // Text(celebrityEntity.collect_count)
-                      ],
-                    ),
-                  )
-                ],
-              ),
-
-              Gaps.vGap10,
-              Text('个人简介', style: TextStyles.textDarkGray14),
-              Gaps.vGap5,
-              ListTile(
-                onTap: (){
-                  print('1312313');
-                },
-                title: Text(celebrityEntity.summary, style: TextStyles.textBold12, maxLines: 2, overflow: TextOverflow.ellipsis,),
-                trailing: Icon(Icons.keyboard_arrow_right),
-              ),
-
-              Text('代表作品', style: TextStyles.textDarkGray14),
-
+                )
               ],
             ),
           );
@@ -135,5 +154,36 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
       );
     }
 
-
+    Widget _getRepresentative(list) {
+        var castList = List.generate(list.length, (int index) =>
+            InkWell(
+              onTap: (){
+                // Application.router.navigateTo(context,"/celeBrity?id=${list[index].id}", transition: TransitionType.inFromRight);
+              },
+              child: Container(
+                width: ScreenUtil.getInstance().getAdapterSize(100),
+                margin: EdgeInsets.only(left: index.toDouble() == 0.0 ? 0.0 : 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    ClipRRect( 
+                      borderRadius: BorderRadius.circular(6.0),
+                      child: list[index].subject == null ? Container(height: ScreenUtil.getInstance().getAdapterSize(130), padding: EdgeInsets.all(40.0),child: Image.asset("images/ic_default_img_subject_movie.8.png"),) : Image.network(list[index].subject.images.large,height: ScreenUtil.getInstance().getAdapterSize(130),)
+                    ),
+                    Gaps.vGap10,
+                    Text(list[index].subject.title, style: TextStyles.textBold14, overflow: TextOverflow.ellipsis,),
+                    Text('豆瓣评分${list[index].subject.rating.average}', style: TextStyles.textGray12,)
+                  ],
+                )
+              ),
+            )
+        );
+        return Container(
+          height:200.0,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: castList,
+          )
+        );
+    }
 }

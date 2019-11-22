@@ -15,5 +15,7 @@ const servicePath={
   // 电影条目剧照
   'moviePhotosContext': serviceUrl + '/subject',
   // 影人条目信息
-  'celebrityContext': serviceUrl + '/celebrity'
+  'celebrityContext': serviceUrl + '/celebrity',
+  // 影人工作经历
+  'celebrityWidgetContext': serviceUrl + '/celebrity'
 };
