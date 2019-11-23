@@ -3,26 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flustars/flustars.dart';
 import 'package:movies/res/resources.dart';
 import 'package:movies/constant/constant.dart';
-// import 'package:movies/widget/radius_img.dart';
 import 'package:movies/widget/loading_widget.dart';
-// import 'package:movies/widget/video_widget.dart';
 import 'package:fluro/fluro.dart';
 import './searchBar.dart';
 import '../service/service_method.dart';
 import '../model/hot_model.dart';
 import '../routers/application.dart';
 
- final List<Tab> myTabs = <Tab>[
-    Tab(text: '正在热映'),
-    Tab(text: '即将上映'),
-  ];
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin {
+// class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
+
   List<Subject> hotList = [];
   List<Subject> comingSoonList = [];
   List<Subject> list = [];
@@ -30,10 +25,18 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
   int _currentIndex = 0;
   bool loading = true;
 
+  final List<Tab> myTabs = <Tab>[
+    Tab(text: '正在热映'),
+    Tab(text: '即将上映'),
+  ];
+
+  @override
+  bool get wantKeepAlive => true;
+  
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: myTabs.length);
+    _tabController = TabController(length: myTabs.length, vsync: ScrollableState());
     _tabController.addListener(() => _onTabChanged());
 
     Future(() {
@@ -50,7 +53,6 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
 
   _onTabChanged() {
     if (_tabController.index.toDouble() == _tabController.animation.value) {
-      //赋值 并更新数据
       this.setState(() {
         list = [];
         loading = true;
@@ -92,6 +94,7 @@ class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin 
 
   @override
   Widget build(BuildContext context) {
+     super.build(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
