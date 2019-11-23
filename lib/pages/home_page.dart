@@ -55,17 +55,37 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
     if (_tabController.index.toDouble() == _tabController.animation.value) {
       this.setState(() {
         list = [];
-        loading = true;
         _currentIndex = _tabController.index;
-        
+
         String url;
-        if(_currentIndex == 0) {
+         if(_currentIndex == 0 && hotList.length == 0) {
+         loading = true;
           url = 'hotPageContext';
           _getData(url, {'star': 0, 'count': 20, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
+        } else if (_currentIndex == 0 && hotList.length != 0) {
+          setState(() {
+            list = hotList;
+          });
+        } else if (_currentIndex == 1 && comingSoonList.length != 0) {
+          setState(() {
+            list = comingSoonList;
+          });
         } else {
+          loading = true;
           url = 'upComContext';
           _getData(url, null);
         }
+        
+        // String url;
+        // if(_currentIndex == 0) {
+        //   url = 'hotPageContext';
+        //   _getData(url, {'star': 0, 'count': 20, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
+        // } else {
+        //   url = 'upComContext';
+        //   _getData(url, null);
+        // }
+
+
       });
     }
   }
