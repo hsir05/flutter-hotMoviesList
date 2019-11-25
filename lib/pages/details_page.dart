@@ -154,31 +154,31 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
     }
     if (_currentIndex == 0) {
       return ListView(
-           children: <Widget>[
-              Divider(),
-              title('豆瓣热映'), 
-              Divider(),
-              _hotMovies(hotList),
-       
-              ListTile( title: Text('豆瓣电影Top250', style: TextStyles.textBold18,)),
-              Divider(),
-              _topContent(),
-              Text('全部250', style: TextStyles.textSize12, textAlign: TextAlign.center,),
+        children: <Widget>[
+          Divider(),
+          title('豆瓣热映'), 
+          Divider(),
+          _hotMovies(hotList),
+    
+          ListTile( title: Text('豆瓣电影Top250', style: TextStyles.textBold18,)),
+          Divider(),
+          _topContent(),
+          Text('全部250', style: TextStyles.textSize12, textAlign: TextAlign.center,),
 
-              ListTile( title: Text('本周口碑榜', style: TextStyles.textBold18,)),
-              _optContent(weeklyBeans), 
+          ListTile( title: Text('本周口碑榜', style: TextStyles.textBold18,)),
+          _optContent(weeklyBeans), 
 
-              ListTile(title: Text('北美票房榜', style: TextStyles.textBold18,)),
-              _optContent(northAmerica),
-               
-           ],
-         );
+          ListTile(title: Text('北美票房榜', style: TextStyles.textBold18,)),
+          _optContent(northAmerica),
+            
+        ],
+      );
     } else {
       return Container(
-            child: Center(
-              child: Image.asset("images/ic_default_img_subject_movie.8.png",width: 50.0)
-            )
-          );
+        child: Center(
+          child: Image.asset("images/ic_default_img_subject_movie.8.png",width: 50.0)
+        )
+      );
     }
   }
 
