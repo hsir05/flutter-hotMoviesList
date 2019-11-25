@@ -30,8 +30,7 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
   bool loading = true;
 
   int hotStart = 0;
-  int comStart = 0;
-  int count = 20;
+  int count = 5;
 
   final List<Tab> myTabs = <Tab>[
     Tab(text: '正在热映'),
@@ -52,8 +51,9 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        print('滑动到了最底部');
         var data = {
-            'start': _currentIndex == 0 ? hotStart : comStart, 
+            'start': _currentIndex == 0 ? hotStart + count + 1 : null, 
             'count': count, 
             'apikey': '0b2bdeda43b5688921839c8ecb20399b'
         };
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
           list = comingSoonList;
         } else {
           loading = true;
-          _getData({'start': 0, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
+          _getData(null);
         }
       });
     }
@@ -87,42 +87,44 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
    Future  _handleRefresh() async {
     await Future.delayed(Duration(seconds: 1), () {
       print('下拉刷新');
+      if (_currentIndex == 0) {
+        setState(() {
+          hotStart = 0;
+        });
+      }
       
       _getData({'start': 0, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
     });
   }
 
-  void _getData(data){
+  void _getData(params){
     String url;
     if(_currentIndex == 0) {
         url = 'hotPageContext';
     } else {
         url = 'upComContext';
     }
-    print('参数data-->$data');
+    print('参数params-->$params');
 
-    request(url, data).then((result){
+    request(url, params).then((result){
         var resultList = result['subjects'];
         List<Subject> data = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
         setState(() {
           if (_currentIndex == 0) {
-            hotList.addAll(data);
-            hotList = data;
+            if (params['start'] == 0) {
+              hotList = data;
+            } else {
+              hotList.addAll(data);
+            }
             list = hotList;
-              print(data);
 
-              print('hotStart --->$hotStart');
-              if (data.length != 0) {
-                hotStart = hotStart + count + 1;
-              }
+            if (data.length != 0) {
+              hotStart = params['start'];
+            }
            
           } else {
-            comingSoonList.addAll(data);
+            comingSoonList = data;
             list = comingSoonList;
-
-             if(data.length != 0) {
-              comStart = comStart + count + 1;
-            }
           }
 
           loading = false;
