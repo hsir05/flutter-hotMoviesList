@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flustars/flustars.dart';
 import 'package:movies/res/resources.dart';
 
  final List<Tab> myTabs = <Tab>[
     Tab(text: '想看'),
-    Tab(text: '在看'),
+    Tab(text: '在看'), 
     Tab(text: '看过'),
     Tab(text: '影评'),
     Tab(text: '影人'),

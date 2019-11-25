@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flustars/flustars.dart';
 import 'package:fluro/fluro.dart';
 import 'package:movies/res/resources.dart';
-import 'package:movies/widget/loading_widget.dart';
 import './searchBar.dart';
 import '../service/service_method.dart';
 import '../model/hot_model.dart';
@@ -141,29 +140,46 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
       body: TabBarView(
         controller: _tabController,
         children: tabs.map((Tab tab) {
-         return ListView(
-           children: <Widget>[
-              Divider(),
-              title('豆瓣热映'),
-              Divider(),
-              LoadingWidget.containerLoadingBody(_hotMovies(hotList), loading: loading),
-       
-              ListTile( title: Text('豆瓣电影Top250', style: TextStyles.textBold18,)),
-              Divider(),
-              LoadingWidget.containerLoadingBody(_topContent(), loading: loading),
-              Text('全部250', style: TextStyles.textSize12, textAlign: TextAlign.center,),
-
-              ListTile( title: Text('本周口碑榜', style: TextStyles.textBold18,)),
-              LoadingWidget.containerLoadingBody(_optContent(weeklyBeans), loading: loading),
-
-              ListTile(title: Text('北美票房榜', style: TextStyles.textBold18,)),
-              LoadingWidget.containerLoadingBody(_optContent(northAmerica), loading: loading),
-               
-           ],
-         );
+          return  _getBody();
         }).toList(),
       )
     );
+  }
+
+  Widget _getBody() {
+    if (loading) {
+      return Center(
+        child: CupertinoActivityIndicator(),
+      );
+    }
+    if (_currentIndex == 0) {
+      return ListView(
+           children: <Widget>[
+              Divider(),
+              title('豆瓣热映'), 
+              Divider(),
+              _hotMovies(hotList),
+       
+              ListTile( title: Text('豆瓣电影Top250', style: TextStyles.textBold18,)),
+              Divider(),
+              _topContent(),
+              Text('全部250', style: TextStyles.textSize12, textAlign: TextAlign.center,),
+
+              ListTile( title: Text('本周口碑榜', style: TextStyles.textBold18,)),
+              _optContent(weeklyBeans), 
+
+              ListTile(title: Text('北美票房榜', style: TextStyles.textBold18,)),
+              _optContent(northAmerica),
+               
+           ],
+         );
+    } else {
+      return Container(
+            child: Center(
+              child: Image.asset("images/ic_default_img_subject_movie.8.png",width: 50.0)
+            )
+          );
+    }
   }
 
   // 本周口碑榜 北美票房榜
