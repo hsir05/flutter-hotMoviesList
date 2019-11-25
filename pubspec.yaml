@@ -33,6 +33,7 @@ dependencies:
   provide: ^1.0.2
   video_player: 0.10.0+2
   cached_network_image: 1.1.0
+  fluttertoast: ^3.1.0
 
 dev_dependencies:
   flutter_test:

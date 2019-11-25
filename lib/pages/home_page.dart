@@ -4,6 +4,8 @@ import 'package:flustars/flustars.dart';
 import 'package:movies/res/resources.dart';
 import 'package:movies/constant/constant.dart';
 import 'package:movies/widget/loading_widget.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:fluro/fluro.dart';
 import './searchBar.dart';
 import '../service/service_method.dart';
@@ -15,15 +17,21 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-// class _HomePageState extends State<HomePage>with SingleTickerProviderStateMixin {
 class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
 
   List<Subject> hotList = [];
   List<Subject> comingSoonList = [];
   List<Subject> list = [];
+
   TabController _tabController;
+  ScrollController _scrollController = new ScrollController();
+
   int _currentIndex = 0;
   bool loading = true;
+
+  int hotStart = 0;
+  int comStart = 0;
+  int count = 20;
 
   final List<Tab> myTabs = <Tab>[
     Tab(text: '正在热映'),
@@ -39,16 +47,20 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
     _tabController = TabController(length: myTabs.length, vsync: ScrollableState());
     _tabController.addListener(() => _onTabChanged());
 
-    Future(() {
-      return request('hotPageContext', {'start': 0, 'count': 20, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
-    }).then((result) {
-      var resultList = result['subjects'];
-      setState(() {
-        list = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
-        hotList = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
-        loading = false;
-      });
+    _getData({'start': hotStart, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
+
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        var data = {
+            'start': _currentIndex == 0 ? hotStart : comStart, 
+            'count': count, 
+            'apikey': '0b2bdeda43b5688921839c8ecb20399b'
+        };
+        _getData(data);
+      }
     });
+
   }
 
   _onTabChanged() {
@@ -57,59 +69,65 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
         list = [];
         _currentIndex = _tabController.index;
 
-        String url;
-         if(_currentIndex == 0 && hotList.length == 0) {
+        if(_currentIndex == 0 && hotList.length == 0) {
          loading = true;
-          url = 'hotPageContext';
-          _getData(url, {'star': 0, 'count': 20, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
+          _getData({'start': 0, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
         } else if (_currentIndex == 0 && hotList.length != 0) {
-          setState(() {
-            list = hotList;
-          });
+          list = hotList;
         } else if (_currentIndex == 1 && comingSoonList.length != 0) {
-          setState(() {
-            list = comingSoonList;
-          });
+          list = comingSoonList;
         } else {
           loading = true;
-          url = 'upComContext';
-          _getData(url, null);
+          _getData({'start': 0, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
         }
-        
-        // String url;
-        // if(_currentIndex == 0) {
-        //   url = 'hotPageContext';
-        //   _getData(url, {'star': 0, 'count': 20, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
-        // } else {
-        //   url = 'upComContext';
-        //   _getData(url, null);
-        // }
-
-
       });
     }
   }
 
-  void _getData(url, data){
-    request(url, data).then((result){
-        var resultList = result['subjects'];
-         List<Subject> data = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
-        setState(() {
-          loading = false;
-            if (_currentIndex == 0) {
-              hotList = data;
-            } else {
-              comingSoonList = data;
-            }
-            list = data;
-          });
-    }); 
+   Future  _handleRefresh() async {
+    await Future.delayed(Duration(seconds: 1), () {
+      print('下拉刷新');
+      
+      _getData({'start': 0, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
+    });
   }
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+  void _getData(data){
+    String url;
+    if(_currentIndex == 0) {
+        url = 'hotPageContext';
+    } else {
+        url = 'upComContext';
+    }
+    print('参数data-->$data');
+
+    request(url, data).then((result){
+        var resultList = result['subjects'];
+        List<Subject> data = resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
+        setState(() {
+          if (_currentIndex == 0) {
+            hotList.addAll(data);
+            hotList = data;
+            list = hotList;
+              print(data);
+
+              print('hotStart --->$hotStart');
+              if (data.length != 0) {
+                hotStart = hotStart + count + 1;
+              }
+           
+          } else {
+            comingSoonList.addAll(data);
+            list = comingSoonList;
+
+             if(data.length != 0) {
+              comStart = comStart + count + 1;
+            }
+          }
+
+          loading = false;
+        });
+    }); 
   }
 
   @override
@@ -158,7 +176,7 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
           labelColor: Colours.text,
         ),
       ),
-      body: TabBarView(
+      body:  TabBarView(
         controller: _tabController,
         children: myTabs.map((Tab tab) {
           return LoadingWidget.containerLoadingBody(_getBody(list), loading: loading);
@@ -173,17 +191,21 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
         child: Center(child: CupertinoActivityIndicator(),),
       );
     }
-    return ListView.builder(
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (BuildContext context, int index) {
-        Subject bean = list[index];
-        return Padding(
-          padding: const EdgeInsets.only(right: Constant.MARGIN_RIGHT, left: 6.0, top: 13.0),
-          child: _getItem(bean, index),
+    return RefreshIndicator(
+          onRefresh: _handleRefresh,
+          child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: list.length,
+            controller: _scrollController,
+            itemBuilder: (BuildContext context, int index) {
+              Subject bean = list[index];
+              return Padding(
+                padding: const EdgeInsets.only(right: Constant.MARGIN_RIGHT, left: 6.0, top: 13.0),
+                child: _getItem(bean, index),
+              );
+            },
+          )
         );
-      },
-      itemCount: list.length ,
-    );
   }
 
   Widget _getItem(Subject bean, int index) {
@@ -263,5 +285,11 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 }
