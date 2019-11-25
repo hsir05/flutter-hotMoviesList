@@ -41,31 +41,9 @@ class _MyPageState extends State<MyPage>with SingleTickerProviderStateMixin {
     return Scaffold(
       backgroundColor: Colours.bg_color,
       appBar: PreferredSize(
-        preferredSize: Size(130, 130),
+        preferredSize: Size(130, 100),
         child: AppBar(
           backgroundColor: Colours.bg_avatar,
-          title: Container(
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Row(
-                    children: <Widget>[
-                      CircleAvatar(
-                        radius: 26.0,
-                        backgroundColor: Colors.white,
-                        backgroundImage: AssetImage('images/ic_default_img_subject_movie.8.png'),
-                      )
-                    ],
-                  ),
-                ),
-
-                Container(
-                  width: 80.0,
-                  child: Icon(Icons.settings, size: 22.0, ),
-                )
-              ],
-            ),
-          ),
           centerTitle: true,
           bottom: TabBar(
             controller: _tabController,
@@ -80,7 +58,11 @@ class _MyPageState extends State<MyPage>with SingleTickerProviderStateMixin {
       body:TabBarView(
         controller: _tabController,
         children: myTabs.map((Tab tab) {
-          return Text(tab.text);
+          return Container(
+            child: Center(
+              child: Image.asset("images/ic_default_img_subject_movie.8.png",width: 50.0)
+            )
+          );
         }).toList(),
       )
     );

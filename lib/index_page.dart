@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-// import 'pages/hot_page.dart';
 import 'pages/home_page.dart';
 import 'pages/details_page.dart';
 import 'pages/my_page.dart';
@@ -14,7 +13,7 @@ class IndexPage extends StatefulWidget {
 class _IndexPageState extends State<IndexPage> {
    PageController _pageController;
 
-    final List<Widget> tabBodies = [
+  final List<Widget> tabBodies = [
     HomePage(),
     DetailsPage(),
     MyPage()

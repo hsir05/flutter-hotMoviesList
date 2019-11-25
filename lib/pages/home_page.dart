@@ -52,15 +52,17 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         print('滑动到了最底部');
-        var data = {
-            'start': _currentIndex == 0 ? hotStart + count + 1 : null, 
+        if (_currentIndex == 0) {
+          var data = {
+            'start': hotStart + count + 1, 
             'count': count, 
             'apikey': '0b2bdeda43b5688921839c8ecb20399b'
-        };
-        _getData(data);
+          };
+          _getData(data);
+        }
+       
       }
     });
-
   }
 
   _onTabChanged() {

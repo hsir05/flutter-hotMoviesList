@@ -6,7 +6,6 @@ import 'package:movies/res/resources.dart';
 import 'package:movies/widget/loading_widget.dart';
 import './searchBar.dart';
 import '../service/service_method.dart';
-// import '../model/hot_model.dart';
 import '../model/hot_model.dart';
 import '../routers/application.dart';
 
@@ -26,7 +25,6 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
   List<SubjectEntity> weeklyBeans = List();
   List<SubjectEntity> northAmerica = List();
   List<Subject> newMovie = [];
-  // List<Subject> list = [];
   TabController _tabController;
   int _currentIndex = 0;
   bool loading = true;
