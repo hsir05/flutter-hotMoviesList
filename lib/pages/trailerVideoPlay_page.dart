@@ -4,7 +4,6 @@ import 'package:flustars/flustars.dart';
 import 'package:movies/widget/video_widget.dart';
 import 'package:movies/res/resources.dart';
 import '../model/movie_detail_bean.dart';
-import 'package:movies/widget/loading_widget.dart';
 import 'dart:async';
 import '../service/service_method.dart';
 
@@ -62,6 +61,7 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
   }
 
   Widget _getBody() {
+
     if (loading) {
       return Container(child: Center(child: CupertinoActivityIndicator()));
     } else {
@@ -80,12 +80,11 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
     return Container(
       width: ScreenUtil.getInstance().screenWidth,
       height: ScreenUtil.getInstance().getAdapterSize(180),
-      child: videoLoading ? CupertinoActivityIndicator() :VideoWidget( vidoeUrl, showProgressBar: true ),
+      child: videoLoading ? CupertinoActivityIndicator() :VideoWidget( vidoeUrl, showProgressBar: false ),
     );
   } 
 
   Widget _blooper() {
-
      return Container(
         height: (ScreenUtil.getInstance().screenHeight - 180.0 - 105.0),
         padding: EdgeInsets.only(top: 12.0, left: 12.0),
@@ -144,6 +143,7 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
         });
     });
   }
+  
   Widget _getItem(item) {
     return InkWell(
       onTap: (){
@@ -177,6 +177,7 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
     );
   }
 
+  
   @override
   void dispose() {
     timer?.cancel();

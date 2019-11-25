@@ -65,6 +65,13 @@ flutter:
    - images/ic_default_img_subject_movie.8.png
    - images/ic_playing.png
    - images/ic_pause.png
+   - images/share.png
+   - images/db.png
+   - images/kj.png
+   - images/lj.png
+   - images/pyq.png
+   - images/QQ.png
+   - images/weixin.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

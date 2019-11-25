@@ -20,7 +20,7 @@ class MoviesDetailPage extends StatefulWidget {
 }
 
 class _MoviesDetailPageState extends State<MoviesDetailPage> {
- 
+  
   MovieDetailBean movDetail;
   bool loading = true;
   bool isOpen = false;
@@ -65,11 +65,22 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
             onPressed: () {
                 Navigator.pop(context);
             }),
+            actions: <Widget>[
+               IconButton(
+                icon: Image.asset('images/share.png', width: 20.0,),
+                tooltip: '分享',
+                onPressed: () {
+                  print(444);
+                  Util.showShareModalBottom(context);
+                }),
+            ],
         title: loading ? CupertinoActivityIndicator() : Text(movDetail.title, style: TextStyle(color: Colors.white),), 
         centerTitle: true),
       body: _getBody(context)
       );
   }
+
+  
 
   Widget _getBody(BuildContext context) {
     if (loading) {
@@ -240,7 +251,6 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
     }
   }
  
-
   Widget _duration() {
     return Text('片长：' + Util.strSplic(movDetail.durations), style: TextStyles.textDarkGray12, softWrap: true);
   }

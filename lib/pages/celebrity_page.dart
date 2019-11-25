@@ -49,6 +49,14 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
             onPressed: () {
                 Navigator.pop(context);
             }),
+              actions: <Widget>[
+               IconButton(
+                icon: Image.asset('images/share.png', width: 20.0,),
+                tooltip: '分享',
+                onPressed: () {
+                  Util.showShareModalBottom(context);
+                }),
+            ],
         title: loading ? CupertinoActivityIndicator() : Text('影人', style: TextStyle(color: Colors.white),), 
         centerTitle: true),
       body: _getBody(context)
