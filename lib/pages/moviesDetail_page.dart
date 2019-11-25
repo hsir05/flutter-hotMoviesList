@@ -55,46 +55,20 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      child: DecoratedBox(
-        decoration: const BoxDecoration(color: Colors.blueAccent),
-        child: Container(
-          child: CustomScrollView(
-            slivers: <Widget>[
-            CupertinoSliverNavigationBar(
-              leading: Icon(Icons.arrow_back, color: Colors.black,size: 24.0,),
-              largeTitle: const Text('demo', maxLines: 1,),
-              // previousPageTitle: 'Cupertino',
-              
-              trailing: Icon(Icons.share)
-            ),
-            CupertinoSliverRefreshControl(
-              onRefresh: () {
-                print(33333);
-              },
-            ),
-            // _getBody(context)
-            ],
-          ),
-        )
-      ),
-    );
-
-
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     brightness: Brightness.dark,
-    //     elevation: 0,
-    //     backgroundColor: Colours.bg_detail_color,
-    //     leading: IconButton(
-    //         icon: Icon(Icons.arrow_back, color: Colors.white,),
-    //         onPressed: () {
-    //             Navigator.pop(context);
-    //         }),
-    //     title: loading ? CupertinoActivityIndicator() : Text(movDetail.title, style: TextStyle(color: Colors.white),), 
-    //     centerTitle: true),
-    //   body: _getBody(context)
-    //   );
+    return Scaffold(
+      appBar: AppBar(
+        brightness: Brightness.dark,
+        elevation: 0,
+        backgroundColor: Colours.bg_detail_color,
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.white,),
+            onPressed: () {
+                Navigator.pop(context);
+            }),
+        title: loading ? CupertinoActivityIndicator() : Text(movDetail.title, style: TextStyle(color: Colors.white),), 
+        centerTitle: true),
+      body: _getBody(context)
+      );
   }
 
   Widget _getBody(BuildContext context) {
