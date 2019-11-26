@@ -4,6 +4,7 @@ import 'package:flustars/flustars.dart';
 import 'package:movies/res/resources.dart';
 import 'package:movies/constant/constant.dart';
 import 'package:movies/widget/loading_widget.dart';
+import 'package:city_pickers/city_pickers.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:fluro/fluro.dart';
@@ -140,13 +141,22 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: Container(
-          margin: EdgeInsets.only(left: 11.0),
-          alignment: Alignment.center,
-          child: Row(children: <Widget>[
-            Text('兰州', style: TextStyle(fontWeight: FontWeight.w700, color: Colours.text)),
-            Icon(Icons.arrow_drop_down, color: Colours.text, size: ScreenUtil.getInstance().getAdapterSize(14),)
-          ],),
+        leading: InkWell(
+          onTap: () async{
+            Result result2 = await CityPickers.showCitiesSelector(
+              context: context,
+            );
+            print('-------------');
+            print(result2);
+          },
+          child: Container(
+            margin: EdgeInsets.only(left: 11.0),
+            alignment: Alignment.center,
+            child: Row(children: <Widget>[
+              Text('兰州', style: TextStyle(fontWeight: FontWeight.w700, color: Colours.text)),
+              Icon(Icons.arrow_drop_down, color: Colours.text, size: ScreenUtil.getInstance().getAdapterSize(14),)
+            ],),
+          ),
         ),
         title: InkWell(
           onTap: (){
