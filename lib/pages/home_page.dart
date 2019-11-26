@@ -151,10 +151,13 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
           },
           child: Container(
             margin: EdgeInsets.only(left: 11.0),
+            width: 50.0,
             alignment: Alignment.center,
             child: Row(children: <Widget>[
-              Text('兰州', style: TextStyle(fontWeight: FontWeight.w700, color: Colours.text)),
-              Icon(Icons.arrow_drop_down, color: Colours.text, size: ScreenUtil.getInstance().getAdapterSize(14),)
+              Text('北京', style: TextStyle(fontWeight: FontWeight.w500, color: Colours.text), overflow:  TextOverflow.ellipsis,),
+              Expanded(
+                child: Icon(Icons.arrow_drop_down, color: Colours.text, size: ScreenUtil.getInstance().getAdapterSize(14)),
+              )
             ],),
           ),
         ),
