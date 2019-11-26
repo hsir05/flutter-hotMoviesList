@@ -74,12 +74,32 @@ class Util {
             builder: (BuildContext context){
               return Container(
                 alignment: Alignment.topLeft,
-                height: ScreenUtil.getInstance().getAdapterSize(150),
+                height: ScreenUtil.getInstance().getAdapterSize(140),
                 color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: icontList,
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: icontList,
+                      ),
+
+                      Divider(height: 20.0,),
+
+                      InkWell(
+                        onTap: (){
+                          print(333);
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          width: ScreenUtil.getInstance().screenWidth,
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+                          child: Text('取消', style: TextStyles.textSize16),
+                        )
+                      )
+
+                  ],
                 ),
               );
             }

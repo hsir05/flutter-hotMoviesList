@@ -126,7 +126,6 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
                               },
                               child: Text(celebrityEntity.summary.isEmpty ? '暂无' : celebrityEntity.summary, style: TextStyles.textSize12, maxLines: 2, overflow: TextOverflow.ellipsis,)
                             ),
-                            // child: Text(celebrityEntity.summary, style: TextStyles.textSize12, maxLines: 2, overflow: TextOverflow.ellipsis,)
                           ),
                           Icon(Icons.keyboard_arrow_right, size: 18.0, color: Colours.bg_detail_color,)
                         ],
