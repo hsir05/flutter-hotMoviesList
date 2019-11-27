@@ -6,7 +6,8 @@ import 'package:movies/constant/constant.dart';
 import 'package:movies/widget/loading_widget.dart';
 import 'package:city_pickers/city_pickers.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:provide/provide.dart';
+import '../provide/location.dart';
 import 'package:fluro/fluro.dart';
 import './searchBar.dart';
 import '../service/service_method.dart';
@@ -138,67 +139,83 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
      super.build(context);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: InkWell(
-          onTap: () async{
-            Result result2 = await CityPickers.showCitiesSelector(
-              context: context,
-            );
-            print('-------------');
-            print(result2);
-          },
-          child: Container(
-            margin: EdgeInsets.only(left: 11.0),
-            width: 50.0,
-            alignment: Alignment.center,
-            child: Row(children: <Widget>[
-              Text('北京', style: TextStyle(fontWeight: FontWeight.w500, color: Colours.text), overflow:  TextOverflow.ellipsis,),
-              Expanded(
-                child: Icon(Icons.arrow_drop_down, color: Colours.text, size: ScreenUtil.getInstance().getAdapterSize(14)),
-              )
-            ],),
+    return Provide<Location>(
+      builder: (context, child, data){
+        print('9999999999999');
+        print(data.location);
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            title: Row(
+              children: <Widget>[ 
+              Container(
+                width: 80.0,
+                child: InkWell(
+                  onTap: () async{
+                    Result result = await CityPickers.showCitiesSelector(context: context,);
+                    print('-------------');
+                    print(result);
+                    var data = {
+                      "cityName": result.cityName,
+                      "cityId": result.cityId
+                    };
+                    Provide.value<Location>(context).getLocation(data);
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Row(children: <Widget>[
+                      Text(data.location['cityName'], style: TextStyles.textBlockBold14, overflow: TextOverflow.ellipsis,),
+                      Expanded(
+                        child: Icon(Icons.arrow_drop_down, color: Colours.text, size: ScreenUtil.getInstance().getAdapterSize(14)),
+                      )
+                    ],),
+                  ),
+                ),
+               ),
+               Expanded(
+                 child: InkWell(
+                  onTap: (){
+                    showSearch(context: context,delegate: SearchBarDelegate());
+                  },
+                  child: Container(
+                    height: 40.0, 
+                    padding: EdgeInsets.only(left: 5.0),
+                    decoration: BoxDecoration(
+                      color: Colours.bg_color,
+                      borderRadius: BorderRadius.all(new Radius.circular(5.0)),
+                      border: Border.all(width: 1.0, color: Colors.white)
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.search, color: Colors.black26,),
+                        Text('电影/电视剧/影人', style: TextStyle(fontSize: 14.0, color: Colors.black26),)
+                      ],
+                    ),
+                  ),
+                ),
+                )
+              ],
+            ),
+            centerTitle: true,
+            bottom: TabBar(
+              controller: _tabController,
+              tabs: myTabs,
+              onTap: (int i){
+                setState(() {
+                  list = [];
+                });
+              },
+              labelColor: Colours.text,
+            ),
           ),
-        ),
-        title: InkWell(
-          onTap: (){
-             showSearch(context: context,delegate: SearchBarDelegate());
-          },
-          child: Container(
-          height: 40.0, 
-          padding: EdgeInsets.only(left: 5.0),
-          decoration: BoxDecoration(
-            color: Colours.bg_color,
-            borderRadius: BorderRadius.all(new Radius.circular(5.0)),
-            border: Border.all(width: 1.0, color: Colors.white)
-          ),
-          child: Row(
-            children: <Widget>[
-              Icon(Icons.search, color: Colors.black26,),
-              Text('电影/电视剧/影人', style: TextStyle(fontSize: 14.0, color: Colors.black26),)
-            ],
-          ),
-        ),
-        ),
-        centerTitle: true,
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: myTabs,
-          onTap: (int i){
-            setState(() {
-              list = [];
-            });
-          },
-          labelColor: Colours.text,
-        ),
-      ),
-      body:  TabBarView(
-        controller: _tabController,
-        children: myTabs.map((Tab tab) {
-          return LoadingWidget.containerLoadingBody(_getBody(list), loading: loading);
-        }).toList(),
-      )
+          body:  TabBarView(
+            controller: _tabController,
+            children: myTabs.map((Tab tab) {
+              return LoadingWidget.containerLoadingBody(_getBody(list), loading: loading);
+            }).toList(),
+          )
+        );
+      }
     );
   }
 

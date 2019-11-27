@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_redux/flutter_redux.dart';
-// import 'package:redux/redux.dart';
 import 'package:fluro/fluro.dart';
 import 'package:provide/provide.dart';
 import 'index_page.dart';
@@ -8,14 +6,18 @@ import './routers/routes.dart';
 import './routers/application.dart';
 import 'package:movies/res/resources.dart';
 import './provide/theme.dart';
+import './provide/location.dart';
 
 
 void main() async{
-  var themer=Themer();
-   var providers  =Providers();
-    providers
-      ..provide(Provider<Themer>.value(themer));
-    runApp(ProviderNode(child:MyApp(), providers:providers));
+  var themer = Themer();
+  var location = Location();
+  var providers  =Providers();
+  providers
+    ..provide(Provider<Themer>.value(themer))
+    ..provide(Provider<Location>.value(location));
+
+  runApp(ProviderNode(child:MyApp(), providers:providers));
 }
 
 class MyApp extends StatelessWidget {
