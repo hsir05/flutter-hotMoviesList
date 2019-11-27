@@ -4,7 +4,7 @@ import 'package:provide/provide.dart';
 import 'index_page.dart';
 import './routers/routes.dart';
 import './routers/application.dart';
-import 'package:movies/res/resources.dart';
+// import 'package:movies/res/resources.dart';
 import './provide/theme.dart';
 import './provide/location.dart';
 

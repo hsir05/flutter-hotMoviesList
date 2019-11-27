@@ -47,8 +47,10 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
     super.initState();
     _tabController = TabController(length: myTabs.length, vsync: ScrollableState());
     _tabController.addListener(() => _onTabChanged());
-
-    _getData({'start': hotStart, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
+    // var city = Provide.value<Location>(context).location;
+    // print('88888888888');
+    // print(Provide.value<Location>(context));
+    _getData({'city': '北京', 'start': hotStart, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
 
 
     _scrollController.addListener(() {
@@ -141,15 +143,13 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
      super.build(context);
     return Provide<Location>(
       builder: (context, child, data){
-        print('9999999999999');
-        print(data.location);
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
-            title: Row(
+            title: Row( 
               children: <Widget>[ 
               Container(
-                width: 80.0,
+                width: 75.0,
                 child: InkWell(
                   onTap: () async{
                     Result result = await CityPickers.showCitiesSelector(context: context,);
@@ -164,7 +164,7 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
                   child: Container(
                     alignment: Alignment.center,
                     child: Row(children: <Widget>[
-                      Text(data.location['cityName'], style: TextStyles.textBlockBold14, overflow: TextOverflow.ellipsis,),
+                      SizedBox(width: 61.0, child: Text(data.location['cityName'], style: TextStyles.textBlockBold14, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,),),
                       Expanded(
                         child: Icon(Icons.arrow_drop_down, color: Colours.text, size: ScreenUtil.getInstance().getAdapterSize(14)),
                       )
