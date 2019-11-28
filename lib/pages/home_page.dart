@@ -142,8 +142,62 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
-            leading: Container(
+            // leading: Container(
+            //       width: 75.0,
+            //       child: InkWell(
+            //         onTap: () async{
+            //           Result result = await CityPickers.showCitiesSelector(context: context,);
+            //           print('-------------');
+            //           print(result);
+            //           var data = {
+            //             "cityName": result.cityName,
+            //             "cityId": result.cityId
+            //           };
+            //           Provide.value<Location>(context).getLocation(data);
+            //           _getData({'city': result.cityName, 'start': 0, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
+
+            //         },
+            //         child: Row(
+            //             children: <Widget>[
+            //             Container(
+            //               width: ScreenUtil.getInstance().getAdapterSize(35),
+            //               child: Text(data.location['cityName'], style: TextStyles.textBlockBold12, overflow: TextOverflow.ellipsis,),
+            //             ),
+            //             Icon(Icons.arrow_drop_down, color: Colours.text, size: ScreenUtil.getInstance().getAdapterSize(12)
+            //             )
+            //           ],),
+            //       ),
+            //     ),
+            title: Container(
+              width: ScreenUtil.getInstance().screenWidth,
+              child:   
+              // InkWell(
+              //     onTap: (){
+              //       showSearch(context: context,delegate: SearchBarDelegate());
+              //     },
+              //     child: Container(
+              //       height: 40.0, 
+              //       padding: EdgeInsets.only(left: 5.0),
+              //       decoration: BoxDecoration(
+              //         color: Colours.bg_color,
+              //         borderRadius: BorderRadius.all(new Radius.circular(5.0)),
+              //         border: Border.all(width: 1.0, color: Colors.white)
+              //       ),
+              //       child: Row(
+              //         children: <Widget>[
+              //           Icon(Icons.search, color: Colors.black26,),
+              //           Text('电影/电视剧/影人', style: TextStyle(fontSize: 14.0, color: Colors.black26),)
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              
+              
+              Row( 
+              children: <Widget>[ 
+                Container(
                   width: 75.0,
+                  alignment: Alignment.centerLeft,
                   child: InkWell(
                     onTap: () async{
                       Result result = await CityPickers.showCitiesSelector(context: context,);
@@ -157,20 +211,21 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
                       _getData({'city': result.cityName, 'start': 0, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
 
                     },
-                    child: Row(
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Row(
                         children: <Widget>[
-                        Container(
-                          width: ScreenUtil.getInstance().getAdapterSize(35),
-                          child: Text(data.location['cityName'], style: TextStyles.textBlockBold12, overflow: TextOverflow.ellipsis,),
-                        ),
-                        Icon(Icons.arrow_drop_down, color: Colours.text, size: ScreenUtil.getInstance().getAdapterSize(12)
+                        SizedBox(child: Text(data.location['cityName'], style: TextStyles.textBlockBold12, overflow: TextOverflow.ellipsis, textAlign: TextAlign.left,)),
+                        Expanded(
+                          child: Icon(Icons.arrow_drop_down, color: Colours.text, size: ScreenUtil.getInstance().getAdapterSize(14)),
                         )
                       ],),
+                    ),
                   ),
                 ),
-            title: Container(
-              width: ScreenUtil.getInstance().screenWidth,
-              child:   InkWell(
+               Expanded(
+                 child: 
+                 InkWell(
                   onTap: (){
                     showSearch(context: context,delegate: SearchBarDelegate());
                   },
@@ -190,63 +245,9 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
                     ),
                   ),
                 ),
-              
-              
-            //   Row( 
-            //   children: <Widget>[ 
-            //     Container(
-            //       width: 75.0,
-            //       alignment: Alignment.centerLeft,
-            //       child: InkWell(
-            //         onTap: () async{
-            //           Result result = await CityPickers.showCitiesSelector(context: context,);
-            //           print('-------------');
-            //           print(result);
-            //           var data = {
-            //             "cityName": result.cityName,
-            //             "cityId": result.cityId
-            //           };
-            //           Provide.value<Location>(context).getLocation(data);
-            //           _getData({'city': result.cityName, 'start': 0, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
-
-            //         },
-            //         child: Container(
-            //           alignment: Alignment.centerLeft,
-            //           child: Row(
-            //             children: <Widget>[
-            //             SizedBox(child: Text(data.location['cityName'], style: TextStyles.textBlockBold14, overflow: TextOverflow.ellipsis, textAlign: TextAlign.left,)),
-            //             Expanded(
-            //               child: Icon(Icons.arrow_drop_down, color: Colours.text, size: ScreenUtil.getInstance().getAdapterSize(14)),
-            //             )
-            //           ],),
-            //         ),
-            //       ),
-            //     ),
-            //    Expanded(
-            //      child: 
-            //      InkWell(
-            //       onTap: (){
-            //         showSearch(context: context,delegate: SearchBarDelegate());
-            //       },
-            //       child: Container(
-            //         height: 40.0, 
-            //         padding: EdgeInsets.only(left: 5.0),
-            //         decoration: BoxDecoration(
-            //           color: Colours.bg_color,
-            //           borderRadius: BorderRadius.all(new Radius.circular(5.0)),
-            //           border: Border.all(width: 1.0, color: Colors.white)
-            //         ),
-            //         child: Row(
-            //           children: <Widget>[
-            //             Icon(Icons.search, color: Colors.black26,),
-            //             Text('电影/电视剧/影人', style: TextStyle(fontSize: 14.0, color: Colors.black26),)
-            //           ],
-            //         ),
-            //       ),
-            //     ),
-            //     )
-            //   ],
-            //  ),
+                )
+              ],
+             ),
             ),
             centerTitle: true,
             bottom: TabBar(
