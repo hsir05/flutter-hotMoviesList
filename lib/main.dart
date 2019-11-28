@@ -4,7 +4,6 @@ import 'package:provide/provide.dart';
 import 'index_page.dart';
 import './routers/routes.dart';
 import './routers/application.dart';
-// import 'package:movies/res/resources.dart';
 import './provide/theme.dart';
 import './provide/location.dart';
 import './splash.dart';
@@ -38,7 +37,8 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: Application.router.generator,
             theme: theme.getTheme(),
             darkTheme: theme.getTheme(isDarkMode: true),
-            home:SplashScreen()
+            // home:SplashScreen()
+            home:IndexPage()
         );
       }
     );

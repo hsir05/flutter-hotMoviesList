@@ -6,18 +6,18 @@ import 'package:flustars/flustars.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
-  _SplashScreenState createState() => new _SplashScreenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
   startTime() async {
-    //设置启动图生效时间
     var _duration = new Duration(seconds: 3);
     return new Timer(_duration, navigationPage);
   } 
 
   void navigationPage() {
-      Application.router.navigateTo(context,"/", transition: TransitionType.inFromRight);
+      // Application.router.navigateTo(context,"/", transition: TransitionType.inFromRight);
+      Application.router.navigateTo(context,"/");
   }
 
   @override
