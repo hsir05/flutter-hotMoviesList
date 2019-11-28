@@ -7,6 +7,7 @@ class Routes{
   static String movieDetail = '/movieDetail';  
   static String trailerVideo = '/trailerVideo';
   static String celeBrity = '/celeBrity';
+  static String test = '/test';
 
   // static String hot = '/hot';
 
@@ -21,6 +22,7 @@ class Routes{
     router.define(movieDetail, handler: movieDetailHandler);
     router.define(trailerVideo, handler: trailerVideoPlayHandler);
     router.define(celeBrity, handler: celeBrityPageHandler);
+    router.define(test, handler: testPageHandler);
   //   router.define(hot, handler:hotHandler);
   }
 }

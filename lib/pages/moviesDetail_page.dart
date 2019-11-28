@@ -24,7 +24,6 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
   MovieDetailBean movDetail;
   bool loading = true;
   bool isOpen = false;
-  // List<Photos> photo = [];
  PhotoModel photSub;
 
   @override
@@ -60,6 +59,7 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
         brightness: Brightness.dark,
         elevation: 0,
         backgroundColor: Colours.bg_detail_color,
+        //  backgroundColor: Colors.transparent,
         leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.white,),
             onPressed: () {

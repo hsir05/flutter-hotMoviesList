@@ -313,6 +313,7 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
     return GestureDetector(
       onTap: () {
         Application.router.navigateTo(context,"/movieDetail?id=${bean.id}", transition: TransitionType.inFromRight);
+        // Application.router.navigateTo(context,"/test?id=${bean.id}", transition: TransitionType.inFromRight);
       },
       behavior: HitTestBehavior.translucent,
       child: Container(

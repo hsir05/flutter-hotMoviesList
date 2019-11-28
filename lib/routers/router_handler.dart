@@ -5,7 +5,7 @@ import '../index_page.dart';
 import '../pages/moviesDetail_page.dart';
 import '../pages/trailerVideoPlay_page.dart';
 import '../pages/celebrity_page.dart';
-// import '../pages/hot_page.dart';
+import '../pages/test.dart';
 
 Handler homeHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>>params) {
@@ -30,6 +30,11 @@ Handler celeBrityPageHandler = Handler(
   return CeleBrityPage(id: id);
 });
 
+Handler testPageHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>>params) {
+  String id = params['id'].first;
+  return TestPage(id: id);
+});
 // Handler hotHandler = Handler(
 //   handlerFunc: (BuildContext context, Map<String, List<String>>params) {
 //   return HotPage();
