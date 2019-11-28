@@ -7,6 +7,7 @@ import './routers/application.dart';
 // import 'package:movies/res/resources.dart';
 import './provide/theme.dart';
 import './provide/location.dart';
+import './splash.dart';
 
 
 void main() async{
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: Application.router.generator,
             theme: theme.getTheme(),
             darkTheme: theme.getTheme(isDarkMode: true),
-            home:IndexPage()
+            home:SplashScreen()
         );
       }
     );

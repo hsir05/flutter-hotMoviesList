@@ -73,6 +73,7 @@ flutter:
    - images/pyq.png
    - images/QQ.png
    - images/weixin.png
+   - images/splash.webp
 
   # To add assets to your application, add an assets section, like this:
   # assets:
