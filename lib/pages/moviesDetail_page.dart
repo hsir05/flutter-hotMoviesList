@@ -260,6 +260,9 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
   }
 
   Widget _casts(list) {
+    if (list.length == 0) {
+      return Text('');
+    }
     var castList = List.generate(list.length, (int index) =>
         InkWell(
           onTap: (){
@@ -292,6 +295,9 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
 
 
   Widget _trailerUrl() {
+     if (movDetail.photos.length == 0) {
+      return Text('');
+    }
     var castList = List.generate(movDetail.photos.length, (int index) =>
         InkWell(
           onTap: (){print(movDetail.photos[index]);},

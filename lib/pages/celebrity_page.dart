@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:movies/res/resources.dart';
 import 'package:flustars/flustars.dart';
-// import 'package:fluro/fluro.dart';
+import 'package:fluro/fluro.dart';
 import '../service/service_method.dart';
 import '../model/celebrity_entity.dart';
 import '../model/celebrity_work_entity.dart';
 import '../utils/util.dart';
+import '../routers/application.dart';
 
 class CeleBrityPage extends StatefulWidget {
   final String id;
@@ -236,6 +237,8 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
         var castList = List.generate(list.length, (int index) =>
             InkWell(
               onTap: (){
+                Application.router.navigateTo(context,"/movieDetail?id=${list[index].subject.id}", transition: TransitionType.inFromRight);
+
                 // Application.router.navigateTo(context,"/celeBrity?id=${list[index].id}", transition: TransitionType.inFromRight);
               },
               child: Container(
