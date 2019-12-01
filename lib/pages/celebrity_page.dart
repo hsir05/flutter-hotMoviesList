@@ -8,6 +8,7 @@ import '../model/celebrity_entity.dart';
 import '../model/celebrity_work_entity.dart';
 import '../utils/util.dart';
 import '../routers/application.dart';
+import '../widget/photoViewSimpleScreen.dart';
 
 class CeleBrityPage extends StatefulWidget {
   final String id;
@@ -226,20 +227,35 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
           children: <Widget>[
             Container(
               height: ScreenUtil.getInstance().getAdapterSize(280),
-              child: celebrityEntity.avatars == null ? Image.asset("images/ic_default_img_subject_movie.8.png",width: 50.0) : Image.network(celebrityEntity.avatars.medium),
+              child: celebrityEntity.avatars == null ? Image.asset("images/ic_default_img_subject_movie.8.png",width: 50.0) : InkWell(
+                onTap: (){
+                  _photoView(context);
+                },
+                child: Image.network(celebrityEntity.avatars.medium),
+              ),
             ),
           ],
         )
       );
     }
 
+  void _photoView(context) {
+    showDialog<Null>(
+        context: context,
+        builder: (BuildContext context) {
+            return PhotoViewSimpleScreen(
+                imageProvider:NetworkImage(celebrityEntity.avatars.large),
+                heroTag: 'simple',
+              );
+        },
+    );
+}
+
     Widget _getRepresentative(list) {
         var castList = List.generate(list.length, (int index) =>
             InkWell(
               onTap: (){
                 Application.router.navigateTo(context,"/movieDetail?id=${list[index].subject.id}", transition: TransitionType.inFromRight);
-
-                // Application.router.navigateTo(context,"/celeBrity?id=${list[index].id}", transition: TransitionType.inFromRight);
               },
               child: Container(
                 width: ScreenUtil.getInstance().getAdapterSize(100),
@@ -268,3 +284,4 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
         );
     }
 }
+
