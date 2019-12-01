@@ -27,6 +27,7 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
   @override
   void initState () {
     super.initState();
+        print(widget.id);
     _getData({'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
   }
 
@@ -34,7 +35,12 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
     request('movieDetailContext?${widget.id}', data).then((result){
         setState(() {
           movDetail = MovieDetailBean.fromJson(result);
-          vidoeUrl = movDetail.bloopers[0].resource_url;
+         print('================');
+          if (movDetail.bloopers.length != 0){
+            vidoeUrl = movDetail.bloopers[0].resource_url;
+          } else if (movDetail.trailers.length != 0){
+            vidoeUrl = movDetail.trailers[0].resource_url;
+          }
           loading = false;
           videoLoading = false;
         });

@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import './Home.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
-import './state/state.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key,this.isLogin,this.email}):super(key: key);

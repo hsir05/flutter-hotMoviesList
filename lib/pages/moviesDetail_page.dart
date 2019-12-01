@@ -70,7 +70,6 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
                 icon: Image.asset('images/share.png', width: 20.0,),
                 tooltip: '分享',
                 onPressed: () {
-                  print(444);
                   Util.showShareModalBottom(context);
                 }),
             ],
@@ -295,7 +294,7 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
 
 
   Widget _trailerUrl() {
-     if (movDetail.photos.length == 0) {
+     if (movDetail.photos == null || movDetail.photos.length == 0) {
       return Text('');
     }
     var castList = List.generate(movDetail.photos.length, (int index) =>
@@ -324,9 +323,12 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
         ),
     );
 
+    
     var videoTra = InkWell(
-      onTap: (){
-        Application.router.navigateTo(context,"/trailerVideo?id=${widget.id}", transition: TransitionType.inFromRight);
+      onTap: (){ 
+        if (movDetail.bloopers.length != 0 && movDetail.trailers.length != 0) {
+          Application.router.navigateTo(context,"/trailerVideo?id=${widget.id}", transition: TransitionType.inFromRight);
+        }
       },
       child: Container(
         margin: EdgeInsets.only(right: 20.0),
@@ -334,7 +336,10 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
           children: <Widget>[
             ClipRRect(
               borderRadius: BorderRadius.circular(6.0),
-              child: Image.network(movDetail.trailers[0].medium),
+              child: movDetail.trailers.length == 0 ? Container(
+                width: 130.0,
+                child: Center(child: Image.asset("images/ic_default_img_subject_movie.8.png", width: 50.0,),),
+              ) : Image.network(movDetail.trailers[0].medium),
             ),
             Positioned(
               top: ScreenUtil.getInstance().getAdapterSize(75),
@@ -347,7 +352,9 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
     );
 
     castList.add(photoCount);
-    castList.insert(0, videoTra);
+    if(movDetail.bloopers.length != 0 || movDetail.trailers.length != 0) {
+      castList.insert(0, videoTra);
+    }
 
     return Container(
       height: ScreenUtil.getInstance().getAdapterSize(160),
