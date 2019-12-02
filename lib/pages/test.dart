@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:movies/res/resources.dart';
 import '../service/service_method.dart';
 import '../model/movie_detail_bean.dart';
 import '../model/photo_model_entity.dart';
@@ -26,7 +25,6 @@ class _TestPageState extends State<TestPage> {
   @override
   void initState () {
     super.initState();
-    print('电影id:-->' + widget.id);
     _getData({'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
   }
 
@@ -43,11 +41,9 @@ class _TestPageState extends State<TestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.transparent,
       appBar: AppBar(
         // brightness: Brightness.dark,
         elevation: 0,
-        // backgroundColor: Colours.bg_detail_color,
          backgroundColor: Colors.transparent,
         leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.white,),

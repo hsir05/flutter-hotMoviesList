@@ -5,7 +5,6 @@ import 'package:movies/res/resources.dart';
 import 'package:movies/constant/constant.dart';
 import 'package:movies/widget/loading_widget.dart';
 import 'package:city_pickers/city_pickers.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provide/provide.dart';
 import '../provide/location.dart';
 import 'package:fluro/fluro.dart';
@@ -201,8 +200,6 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
                   child: InkWell(
                     onTap: () async{
                       Result result = await CityPickers.showCitiesSelector(context: context,);
-                      print('-------------');
-                      print(result);
                       var data = {
                         "cityName": result.cityName,
                         "cityId": result.cityId
@@ -313,7 +310,6 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
     return GestureDetector(
       onTap: () {
         Application.router.navigateTo(context,"/movieDetail?id=${bean.id}", transition: TransitionType.inFromRight);
-        // Application.router.navigateTo(context,"/test?id=${bean.id}", transition: TransitionType.inFromRight);
       },
       behavior: HitTestBehavior.translucent,
       child: Container(

@@ -37,7 +37,6 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
     Future(() {
       return request('hotPageContext', {'start': 0, 'count': 5,  'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
     }).then((result) {
-      print('数据加载完成');
       var resultList = result['subjects'];
       setState(() {
         hotList =resultList.map<Subject>((item) => Subject.fromMap(item)).toList();
@@ -61,7 +60,6 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
 
   void _getOpinionsData() {
       request('opinionsContext', null).then((result){
-        print('++++++opinionsContext++++++++');
         var resultList = result['subjects'];
         setState(() {
           loading = false;
@@ -74,7 +72,6 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
   
   void _northAmerica() {
     request('northAmericaContext', null).then((result){
-        print('+++++northAmericaContext+++++');
         var resultList = result['subjects'];
         setState(() {
           loading = false;
@@ -87,9 +84,7 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
 
   _onTabChanged() {
     if (_tabController.index.toDouble() == _tabController.animation.value) {
-      //赋值 并更新数据
       this.setState(() {
-        // loading = true;
         _currentIndex = _tabController.index;
         // _getData(url);
       });
