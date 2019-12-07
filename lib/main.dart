@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import 'package:provide/provide.dart';
+import 'package:flutter/services.dart';
 import 'index_page.dart';
 import './routers/routes.dart';
 import './routers/application.dart';
@@ -10,6 +11,11 @@ import './splash.dart';
 
 
 void main() async{
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown
+  ]);
+
   var themer = Themer();
   var location = Location();
   var providers  =Providers();
