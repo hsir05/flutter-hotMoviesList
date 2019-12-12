@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import './routers/application.dart';
+import 'package:fluro/fluro.dart';
+import 'package:flustars/flustars.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key,this.isLogin,this.email}):super(key: key);
@@ -96,22 +99,15 @@ class _LoginPageState extends State<LoginPage> {
       child: SizedBox(
         height: 45.0,
         width: 270.0,
-        child: StoreConnector<AppState,VoidCallback>(
-          key: ValueKey("logout"),
-          builder: (BuildContext context,VoidCallback login){
-            return RaisedButton(
+        child: RaisedButton(
               color: Colors.redAccent,
               shape: StadiumBorder(), 
-              child: Text(
-                'Login',style: Theme.of(context).primaryTextTheme.headline,
-              ),
-              onPressed:login,
-              );
-          }, 
-          converter: (Store<AppState> store){
-            return ()=>
-              login(store);
-          })
+              child: Text( 'Login',style: Theme.of(context).primaryTextTheme.headline,),
+              onPressed:(){
+                login();
+              },
+              )
+          
       ));
   }
 
@@ -139,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void login(store) async{
+  void login() async{
     print('login'); 
     // if (_forKey.currentState.validate()) {
     //   _forKey.currentState.save();
@@ -151,12 +147,7 @@ class _LoginPageState extends State<LoginPage> {
     //     return BottomNavigationWidget();
     //   }));
     // }
-     store.dispatch(
-        LoginSuccessAction(email: '123123@qq.com')
-      );
-      Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-        return BottomNavigationWidget();
-      }));
+      Application.router.navigateTo(context,"/");
       // try {
       //   Response response;
       //   response = await Dio().get("https://www.toutiao.com/stream/widget/local_weather/data/?city=兰州");
