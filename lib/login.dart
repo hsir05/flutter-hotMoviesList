@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import './routers/application.dart';
-import 'package:fluro/fluro.dart';
-import 'package:flustars/flustars.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key,this.isLogin,this.email}):super(key: key);
@@ -137,17 +134,13 @@ class _LoginPageState extends State<LoginPage> {
 
   void login() async{
     print('login'); 
-    // if (_forKey.currentState.validate()) {
-    //   _forKey.currentState.save();
-    //   print('email:$_email , assword:$_password');
-    //   store.dispatch(
-    //     LoginSuccessAction(email: '123123@qq.com')
-    //   );
-    //   Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-    //     return BottomNavigationWidget();
-    //   }));
-    // }
+    if (_forKey.currentState.validate()) {
+      _forKey.currentState.save();
+      print('email:$_email , assword:$_password');
+    
       Application.router.navigateTo(context,"/");
+
+    }
       // try {
       //   Response response;
       //   response = await Dio().get("https://www.toutiao.com/stream/widget/local_weather/data/?city=兰州");
