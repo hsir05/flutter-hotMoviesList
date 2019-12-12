@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import './routers/application.dart';
-import 'package:fluro/fluro.dart';
 import 'package:flustars/flustars.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -16,7 +15,6 @@ class _SplashScreenState extends State<SplashScreen> {
   } 
 
   void navigationPage() {
-      // Application.router.navigateTo(context,"/", transition: TransitionType.inFromRight);
       Application.router.navigateTo(context,"/");
   }
 

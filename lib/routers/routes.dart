@@ -9,8 +9,6 @@ class Routes{
   static String celeBrity = '/celeBrity';
   static String test = '/test';
 
-  // static String hot = '/hot';
-
   static void configureRoutes(Router router){
     router.notFoundHandler = new Handler(
       handlerFunc: (BuildContext context, Map<String, List<String>> params ){
@@ -23,6 +21,5 @@ class Routes{
     router.define(trailerVideo, handler: trailerVideoPlayHandler);
     router.define(celeBrity, handler: celeBrityPageHandler);
     router.define(test, handler: testPageHandler);
-  //   router.define(hot, handler:hotHandler);
   }
 }
