@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:movies/res/resources.dart';
+import 'package:douban/res/resources.dart';
 
  final List<Tab> myTabs = <Tab>[
     Tab(text: '想看'),

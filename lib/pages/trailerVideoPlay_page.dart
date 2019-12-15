@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flustars/flustars.dart';
-import 'package:movies/widget/video_widget.dart';
-import 'package:movies/res/resources.dart';
+import 'package:douban/widget/video_widget.dart';
+import 'package:douban/res/resources.dart';
 import '../model/movie_detail_bean.dart';
 import 'dart:async';
 import '../service/service_method.dart';

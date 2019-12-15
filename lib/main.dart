@@ -7,7 +7,7 @@ import './routers/routes.dart';
 import './routers/application.dart';
 import './provide/theme.dart';
 import './provide/location.dart';
-import './splash.dart';
+// import './splash.dart';
 
 
 void main() async{

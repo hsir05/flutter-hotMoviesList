@@ -1,10 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 //import 'package:doubanapp/widgets/image/cached_network_image.dart';
-import 'package:movies/constant/constant.dart';
-import 'package:movies/widget/video_progress_bar.dart';
+import 'package:douban/constant/constant.dart';
+import 'package:douban/widget/video_progress_bar.dart';
 
-///http://vt1.doubanio.com/201902111139/0c06a85c600b915d8c9cbdbbaf06ba9f/view/movie/M/302420330.mp4
 class VideoWidget extends StatefulWidget {
   final String url;
   final String previewImgUrl; //预览图片的地址
@@ -102,11 +101,14 @@ class _VideoWidgetState extends State<VideoWidget> {
     _controller.dispose(); //释放播放器资源
   }
 
-  Widget getPreviewImg() {
-    return widget.previewImgUrl.isNotEmpty
-        ? CachedNetworkImage(imageUrl: widget.previewImgUrl)
-        : null;
-  }
+  // Widget getPreviewImg() {
+  //   return widget.previewImgUrl.isNotEmpty
+  //       ? CachedNetworkImage(imageUrl: widget.previewImgUrl)
+  //       : null;
+  //       // return widget.previewImgUrl.isNotEmpty
+  //       // ? CachedNetworkImage(imageUrl: widget.previewImgUrl)
+  //       // : null;
+  // }
 
   getMinuteSeconds(var inSeconds) {
     if (inSeconds == null || inSeconds <= 0) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:photo_view/photo_view.dart';
+// import 'package:photo_view/photo_view.dart';
 // 图片预览
 
 class PhotoViewSimpleScreen extends StatelessWidget{
@@ -27,21 +27,21 @@ class PhotoViewSimpleScreen extends StatelessWidget{
             ),
             child: Stack(
                 children: <Widget>[
-                    Positioned(
-                        top: 0,
-                        left: 0,
-                        bottom: 0,
-                        right: 0,
-                        child: PhotoView(
-                            imageProvider: imageProvider,
-                            loadingChild: loadingChild,
-                            backgroundDecoration: backgroundDecoration,
-                            minScale: minScale,
-                            maxScale: maxScale,
-                            heroAttributes: PhotoViewHeroAttributes(tag: heroTag),
-                            enableRotation: true,
-                        ),
-                    ),
+                    // Positioned(
+                    //     top: 0,
+                    //     left: 0,
+                    //     bottom: 0,
+                    //     right: 0,
+                    //     child: PhotoView(
+                    //         imageProvider: imageProvider,
+                    //         loadingChild: loadingChild,
+                    //         backgroundDecoration: backgroundDecoration,
+                    //         minScale: minScale,
+                    //         maxScale: maxScale,
+                    //         heroAttributes: PhotoViewHeroAttributes(tag: heroTag),
+                    //         enableRotation: true,
+                    //     ),
+                    // ),
                     Positioned(//右上角关闭按钮
                         right: 10,
                         top: MediaQuery.of(context).padding.top,

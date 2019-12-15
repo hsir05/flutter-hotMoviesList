@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flustars/flustars.dart';
-import 'package:movies/res/resources.dart';
-import 'package:movies/constant/constant.dart';
-import 'package:movies/widget/loading_widget.dart';
-import 'package:city_pickers/city_pickers.dart';
+import 'package:douban/res/resources.dart';
+import 'package:douban/constant/constant.dart';
+import 'package:douban/widget/loading_widget.dart';
+// import 'package:city_pickers/city_pickers.dart';
 import 'package:provide/provide.dart';
 import '../provide/location.dart';
 import 'package:fluro/fluro.dart';
@@ -199,13 +199,14 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
                   alignment: Alignment.centerLeft,
                   child: InkWell(
                     onTap: () async{
-                      Result result = await CityPickers.showCitiesSelector(context: context,);
-                      var data = {
-                        "cityName": result.cityName,
-                        "cityId": result.cityId
-                      };
-                      Provide.value<Location>(context).getLocation(data);
-                      _getData({'city': result.cityName, 'start': 0, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
+                      print('地址');
+                      // Result result = await CityPickers.showCitiesSelector(context: context,);
+                      // var data = {
+                      //   "cityName": result.cityName,
+                      //   "cityId": result.cityId
+                      // };
+                      // Provide.value<Location>(context).getLocation(data);
+                      // _getData({'city': result.cityName, 'start': 0, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
 
                     },
                     child: Container(

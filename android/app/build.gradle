@@ -22,6 +22,7 @@ if (flutterVersionName == null) {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 def keystorePropertiesFile = rootProject.file("key.properties")
@@ -30,36 +31,31 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 android {
     compileSdkVersion 28
 
-    lintOptions {
-        // disable 'InvalidPackage'
-        checkReleaseBuilds false
-        abortOnError false
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
     }
-    // aaptOptions.cruncherEnabled = false
-    // aaptOptions.useNewCruncher = false
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
 
     defaultConfig {
-        applicationId "com.example.movies"
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.example.douban"
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-        manifestPlaceholders = [
-          AMAP_KEY : "72bb91a73f5ecec5b4227c0a29b32833", /// 高德地图key
-        ]
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
-        release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-        }
-    }
-    // buildTypes节点上面配置
+    // buildTypes {
+    //     release {
+    //         // TODO: Add your own signing config for the release build.
+    //         // Signing with the debug keys for now, so `flutter run --release` works.
+    //         signingConfig signingConfigs.debug
+    //     }
+    // }
     signingConfigs {
         release {
             keyAlias keystoreProperties['keyAlias']
@@ -72,18 +68,8 @@ android {
         release {
             signingConfig signingConfigs.release
         }
-    //   release {
-    //         minifyEnabled true
-    //         debuggable true
-    //         buildConfigField ("boolean", "MY_DEBUG", "false")
-    //         proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-    //     }
-    //     debug {
-    //         minifyEnabled false
-    //         buildConfigField ("boolean", "MY_DEBUG", "true")
-    //         proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-    //     }
     }
+
 }
 
 flutter {
@@ -91,7 +77,8 @@ flutter {
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:movies/res/resources.dart';
+import 'package:douban/res/resources.dart';
 import 'package:flustars/flustars.dart';
 import 'package:fluro/fluro.dart';
 import '../service/service_method.dart';
@@ -8,7 +8,7 @@ import '../model/celebrity_entity.dart';
 import '../model/celebrity_work_entity.dart';
 import '../utils/util.dart';
 import '../routers/application.dart';
-import '../widget/photoViewSimpleScreen.dart';
+// import '../widget/photoViewSimpleScreen.dart';
 
 class CeleBrityPage extends StatefulWidget {
   final String id;
@@ -229,7 +229,7 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
               height: ScreenUtil.getInstance().getAdapterSize(280),
               child: celebrityEntity.avatars == null ? Image.asset("images/ic_default_img_subject_movie.8.png",width: 50.0) : InkWell(
                 onTap: (){
-                  _photoView(context);
+                  // _photoView(context);
                 },
                 child: Image.network(celebrityEntity.avatars.medium),
               ),
@@ -239,17 +239,17 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
       );
     }
 
-  void _photoView(context) {
-    showDialog<Null>(
-        context: context,
-        builder: (BuildContext context) {
-            return PhotoViewSimpleScreen(
-                imageProvider:NetworkImage(celebrityEntity.avatars.large),
-                heroTag: 'simple',
-              );
-        },
-    );
-}
+  // void _photoView(context) {
+  //   showDialog<Null>(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //           return PhotoViewSimpleScreen(
+  //               imageProvider:NetworkImage(celebrityEntity.avatars.large),
+  //               heroTag: 'simple',
+  //             );
+  //       },
+  //   );
+  // }
 
     Widget _getRepresentative(list) {
         var castList = List.generate(list.length, (int index) =>

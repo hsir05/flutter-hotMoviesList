@@ -20,6 +20,5 @@ class Routes{
     router.define(movieDetail, handler: movieDetailHandler);
     router.define(trailerVideo, handler: trailerVideoPlayHandler);
     router.define(celeBrity, handler: celeBrityPageHandler);
-    router.define(test, handler: testPageHandler);
   }
 }
