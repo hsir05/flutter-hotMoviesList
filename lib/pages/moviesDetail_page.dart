@@ -209,18 +209,19 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
                             });
                           },
                           child: Container(
-                            width: 35.0,
+                            width: 41.0,
                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                  colors: [
-                                    Color.fromRGBO(255,255,255,1),
-                                    Color.fromRGBO(255,255,255,1),
-                                  ],
-                                ),
+                               color: Colours.bg_color
+                                // gradient: LinearGradient(
+                                //   begin: Alignment.centerLeft,
+                                //   end: Alignment.centerRight,
+                                //   colors: [
+                                //     Color.fromRGBO(255,255,255,1),
+                                //     Color.fromRGBO(255,255,255,1),
+                                //   ],
+                                // ),
                               ),
-                            child: Text('展开', style: TextStyles.textGreen14, textAlign: TextAlign.right,),
+                            child: Text('...展开', style: TextStyles.textGreen14, overflow: TextOverflow.ellipsis,textAlign: TextAlign.right,),
                           ),
                         ),
                       )

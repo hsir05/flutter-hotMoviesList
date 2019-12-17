@@ -55,6 +55,7 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
                IconButton(
                 icon: Image.asset('images/share.png', width: 20.0,),
                 tooltip: '分享',
+                color: Colors.white,
                 onPressed: () {
                   Util.showShareModalBottom(context);
                 }),
@@ -101,6 +102,7 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
                             height:ScreenUtil.getInstance().getAdapterSize(40),
                             color: Colors.white,
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
