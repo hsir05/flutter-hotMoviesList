@@ -8,6 +8,7 @@ import '../model/movie_detail_bean.dart';
 import '../model/photo_model_entity.dart';
 import '../routers/application.dart';
 import '../utils/util.dart';
+import '../index_page.dart';
 
 class MoviesDetailPage extends StatefulWidget {
   final String id;
@@ -54,29 +55,36 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        brightness: Brightness.dark,
-        elevation: 0,
-        backgroundColor: Colours.bg_detail_color,
-        //  backgroundColor: Colors.transparent,
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white,),
-            onPressed: () {
-                Navigator.pop(context);
-            }),
-            actions: <Widget>[
-               IconButton(
-                icon: Image.asset('images/share.png', width: 20.0,),
-                tooltip: '分享',
+    return CupertinoPageScaffold(
+      child: GestureDetector(
+        onHorizontalDragEnd: (details){
+          Navigator.pop(context);
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            brightness: Brightness.dark,
+            elevation: 0,
+            backgroundColor: Colours.bg_detail_color,
+            //  backgroundColor: Colors.transparent,
+            leading: IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.white,),
                 onPressed: () {
-                  Util.showShareModalBottom(context);
+                    Navigator.pop(context);
                 }),
-            ],
-        title: loading ? CupertinoActivityIndicator() : Text(movDetail.title, style: TextStyle(color: Colors.white),), 
-        centerTitle: true),
-      body: _getBody(context)
-      );
+                actions: <Widget>[
+                  IconButton(
+                    icon: Image.asset('images/share.png', width: 20.0,),
+                    tooltip: '分享',
+                    onPressed: () {
+                      Util.showShareModalBottom(context);
+                    }),
+                ],
+            title: loading ? CupertinoActivityIndicator() : Text(movDetail.title, style: TextStyle(color: Colors.white),), 
+            centerTitle: true),
+          body: _getBody(context)
+          ),
+      )
+    );
   }
 
   

@@ -41,28 +41,35 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
 
  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        brightness: Brightness.dark,
-        elevation: 0,
-        backgroundColor: Colours.bg_detail_color,
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white,),
-            onPressed: () {
-                Navigator.pop(context);
-            }),
-              actions: <Widget>[
-               IconButton(
-                icon: Image.asset('images/share.png', width: 20.0,),
-                tooltip: '分享',
-                color: Colors.white,
+    return CupertinoPageScaffold(
+      child: GestureDetector(
+        onHorizontalDragEnd: (details){
+          Navigator.pop(context);
+        },
+        child:Scaffold(
+          appBar: AppBar(
+            brightness: Brightness.dark,
+            elevation: 0,
+            backgroundColor: Colours.bg_detail_color,
+            leading: IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.white,),
                 onPressed: () {
-                  Util.showShareModalBottom(context);
+                    Navigator.pop(context);
                 }),
-            ],
-        title: loading ? CupertinoActivityIndicator() : Text('影人', style: TextStyle(color: Colors.white),), 
-        centerTitle: true),
-      body: _getBody(context)
+                  actions: <Widget>[
+                  IconButton(
+                    icon: Image.asset('images/share.png', width: 20.0,),
+                    tooltip: '分享',
+                    color: Colors.white,
+                    onPressed: () {
+                      Util.showShareModalBottom(context);
+                    }),
+                ],
+            title: loading ? CupertinoActivityIndicator() : Text('影人', style: TextStyle(color: Colors.white),), 
+            centerTitle: true),
+          body: _getBody(context)
+        )
+       )
       );
   }
 
