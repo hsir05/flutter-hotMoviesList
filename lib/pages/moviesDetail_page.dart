@@ -8,7 +8,6 @@ import '../model/movie_detail_bean.dart';
 import '../model/photo_model_entity.dart';
 import '../routers/application.dart';
 import '../utils/util.dart';
-import '../index_page.dart';
 
 class MoviesDetailPage extends StatefulWidget {
   final String id;
