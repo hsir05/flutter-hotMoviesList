@@ -2,74 +2,72 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:douban/res/resources.dart';
 
- final List<Tab> myTabs = <Tab>[
-    Tab(text: '想看'),
-    Tab(text: '在看'), 
-    Tab(text: '看过'),
-    Tab(text: '影评'),
-    Tab(text: '影人'),
-  ];
+import 'package:flustars/flustars.dart';
+import 'package:fluro/fluro.dart';
+import '../routers/application.dart';
 
 class MyPage extends StatefulWidget {
   @override
   _MyPageState createState() => _MyPageState();
 }
 
-class _MyPageState extends State<MyPage>with SingleTickerProviderStateMixin {
-  bool loading = true;
-  int _currentIndex = 0;
-  TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(vsync: this, length: myTabs.length);
-    _tabController.addListener(() => _onTabChanged());
-  }
-
-   _onTabChanged() {
-    if (_tabController.index.toDouble() == _tabController.animation.value) {
-      print("======+++++=====");
-       loading = true;
-      _currentIndex = _tabController.index;
-    }
-    }
+class _MyPageState extends State<MyPage> {
+  String barcode = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colours.bg_color,
-      appBar: PreferredSize(
-        preferredSize: Size(130, 100),
-        child: AppBar(
-          backgroundColor: Colours.bg_avatar,
-          centerTitle: true,
-          bottom: TabBar(
-            controller: _tabController,
-            tabs: myTabs,
-            indicatorColor: Colors.white,
-            onTap: (int i){
-              print(444);
-            },
-          ),
-        ),
-      ),
-      body:TabBarView(
-        controller: _tabController,
-        children: myTabs.map((Tab tab) {
-          return Container(
-            child: Center(
-              child: Image.asset("images/ic_default_img_subject_movie.8.png",width: 50.0)
-            )
-          );
-        }).toList(),
+      body: ListView(
+        children: <Widget>[
+          _headTop(context),
+       
+
+        ],
       )
     );
   }
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+  Widget _headTop(BuildContext context) {
+    return Container(
+      height: ScreenUtil.getInstance().getAdapterSize(130),
+      padding: EdgeInsets.only(top: 25, bottom: 25),
+      margin: EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+         borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          image: DecorationImage(
+            image: AssetImage("images/membg.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+      child: Row(
+        children: <Widget>[
+          InkWell(
+            onTap: (){
+               Application.router.navigateTo(context, "/setting", transition: TransitionType.inFromRight); 
+            },
+            child: Container(
+            width: ScreenUtil.getInstance().getAdapterSize(60),
+            height: ScreenUtil.getInstance().getAdapterSize(60),
+            margin: EdgeInsets.only(left: 30.0, right: 15.0),
+            child: CircleAvatar(
+              radius: 50.0,
+              backgroundColor: Colors.black54,
+              backgroundImage: AssetImage("images/avatar.png")),
+          ),
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('清风明月', style: TextStyles.textSize14,),
+              Text('普通用户', style: TextStyles.textSize12,)
+            ],
+          ),
+          ),
+        ],
+      ),
+    );
   }
 }
