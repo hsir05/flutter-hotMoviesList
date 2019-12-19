@@ -29,12 +29,12 @@ class _LoginPageState extends State<LoginPage> {
       body: Form(
         key: _forKey,
         child: ListView(
-          key: ValueKey("login"),
+          key: ValueKey("登陆"),
           padding: EdgeInsets.symmetric(horizontal: 22.0),
           children: <Widget>[
             SizedBox(height: kToolbarHeight,),
             buildTitle(),
-            buildTitleLine(),
+            // buildTitleLine(),
             SizedBox(height: 70.0,),
             buildEmailTextField(),
             SizedBox(height: 30.0),
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
   TextFormField buildEmailTextField () {
     return TextFormField(
       decoration: InputDecoration(
-        labelText: 'Email Address',
+        labelText: '邮箱地址',
       ),
       validator: (String value) {
         var emailReg = RegExp(
@@ -74,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
         }
       },
       decoration: InputDecoration(
-        labelText: 'Password',
+        labelText: '密码',
         suffixIcon: IconButton(
           icon: Icon(
             Icons.remove_red_eye,
@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
         child: RaisedButton(
               color: Colors.redAccent,
               shape: StadiumBorder(), 
-              child: Text( 'Login',style: Theme.of(context).primaryTextTheme.headline,),
+              child: Text( '登陆', style: TextStyle(color: Colors.white, fontSize: 16.0)),
               onPressed:(){
                 login();
               },
@@ -126,8 +126,8 @@ class _LoginPageState extends State<LoginPage> {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: Text(
-        'Login',
-        style: TextStyle(fontSize: 42.0),
+        '登陆',
+        style: TextStyle(color: Colors.black, fontSize: 28.0),
       ),
     );
   }
@@ -137,8 +137,8 @@ class _LoginPageState extends State<LoginPage> {
     if (_forKey.currentState.validate()) {
       _forKey.currentState.save();
       print('email:$_email , assword:$_password');
-    
-      Application.router.navigateTo(context,"/");
+      Navigator.pop(context);
+      // Application.router.navigateTo(context,"/");
 
     }
       // try {

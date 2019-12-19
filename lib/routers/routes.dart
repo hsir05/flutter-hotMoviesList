@@ -4,10 +4,10 @@ import './router_handler.dart';
 
 class Routes{
   static String root='/'; 
+  static String login='/login'; 
   static String movieDetail = '/movieDetail';  
   static String trailerVideo = '/trailerVideo';
   static String celeBrity = '/celeBrity';
-  static String test = '/test';
 
   static void configureRoutes(Router router){
     router.notFoundHandler = new Handler(
@@ -17,6 +17,7 @@ class Routes{
     );
     
     router.define(root, handler: homeHandler);
+    router.define(login, handler: loginHandler);
     router.define(movieDetail, handler: movieDetailHandler);
     router.define(trailerVideo, handler: trailerVideoPlayHandler);
     router.define(celeBrity, handler: celeBrityPageHandler);

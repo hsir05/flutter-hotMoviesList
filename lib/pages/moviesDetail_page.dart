@@ -158,9 +158,11 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
                   
                   Row(
                     children: <Widget>[
-
                        OutlineButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          print('想看');
+                          Application.router.navigateTo(context,"/login", transition: TransitionType.inFromRight);
+                        },
                         textColor: Colours.text,
                         color: Colours.bg_color,
                         borderSide: BorderSide(color: Colours.btn_border_color),
@@ -173,7 +175,9 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
 
                       Expanded(
                         child:OutlineButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Application.router.navigateTo(context,"/login", transition: TransitionType.inFromRight);
+                          },
                           textColor: Colours.text,
                           color: Colours.bg_color,
                           borderSide: BorderSide(color: Colours.btn_border_color),
