@@ -7,6 +7,7 @@ import './routers/routes.dart';
 import './routers/application.dart';
 import './provide/theme.dart';
 import './provide/location.dart';
+import './provide/userInfo.dart';
 // import './splash.dart';
 
 
@@ -15,13 +16,15 @@ void main() async{
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
   ]);
-
+ 
   var themer = Themer();
   var location = Location();
+  var userInfo = UserInfo();
   var providers  =Providers();
   providers
     ..provide(Provider<Themer>.value(themer))
-    ..provide(Provider<Location>.value(location));
+    ..provide(Provider<Location>.value(location))
+    ..provide(Provider<UserInfo>.value(userInfo));
 
   runApp(ProviderNode(child:MyApp(), providers:providers));
 }

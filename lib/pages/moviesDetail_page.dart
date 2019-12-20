@@ -96,7 +96,6 @@ class _MoviesDetailPageState extends State<MoviesDetailPage> {
         color: Colours.bg_color,
         child: ListView(
           children: <Widget>[
-
             Container(
               width: ScreenUtil.getInstance().screenWidth, 
               height: ScreenUtil.getInstance().getAdapterSize(300),
