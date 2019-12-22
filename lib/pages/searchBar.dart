@@ -6,7 +6,6 @@ class SearchBarDelegate extends SearchDelegate<String> {
 
   @override
   List<Widget> buildActions(BuildContext context) {
-    //右侧显示内容 这里放清除按钮
     return [
       IconButton(
         icon: Icon(Icons.clear),

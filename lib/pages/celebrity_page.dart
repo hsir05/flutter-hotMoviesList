@@ -25,7 +25,6 @@ class _CeleBrityPageState extends State<CeleBrityPage> {
 @override
   void initState () {
     super.initState();
-    print('电影id:-->' + widget.id);
     _getData({'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
   }
 

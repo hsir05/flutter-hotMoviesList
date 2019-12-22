@@ -86,7 +86,6 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
     if (_tabController.index.toDouble() == _tabController.animation.value) {
       this.setState(() {
         _currentIndex = _tabController.index;
-        // _getData(url);
       });
     }
   }
