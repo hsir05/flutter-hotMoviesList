@@ -49,7 +49,12 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CupertinoPageScaffold(
+      child: GestureDetector(
+        onHorizontalDragEnd: (details){
+          Navigator.pop(context);
+        },
+        child: Scaffold(
        appBar: AppBar(
         brightness: Brightness.dark,
         elevation: 0,
@@ -63,7 +68,8 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
         title: loading ? Text('') : Text(movDetail.title),
         ),
         body: _getBody(),
-    );
+    )
+    ) );
   }
 
   Widget _getBody() {
