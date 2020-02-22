@@ -5,7 +5,7 @@ import 'package:douban/constant/constant.dart';
 import 'package:douban/widget/video_progress_bar.dart';
 
 class VideoWidget extends StatefulWidget {
-  final String url;
+  final String url; 
   final String previewImgUrl; //预览图片的地址
   final bool showProgressBar; //是否显示进度条
   final bool showProgressText; //是否显示进度文本

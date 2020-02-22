@@ -12,7 +12,7 @@ class Routes{
   static void configureRoutes(Router router){
     router.notFoundHandler = new Handler(
       handlerFunc: (BuildContext context, Map<String, List<String>> params ){
-        print('错误---------->路由未找到');
+        print('错误---->路由未找到');
       }
     );
     
