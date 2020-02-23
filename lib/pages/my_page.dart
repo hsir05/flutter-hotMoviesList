@@ -94,7 +94,7 @@ class _MyPageState extends State<MyPage> {
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
             ),
-            margin: EdgeInsets.all(10.0),
+            margin: EdgeInsets.only(top:5.0, bottom: 5.0, left: 10.0, right: 10.0),
             child: ListTile(
               title: Text(list[index]['name']),
               leading: Icon(list[index]['icon']),

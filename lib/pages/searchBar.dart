@@ -8,8 +8,9 @@ class SearchBarDelegate extends SearchDelegate<String> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: Icon(Icons.clear,  color: Colors.black26,),
         onPressed: () {
+          print('清除！');
           query = "";
           showSuggestions(context);
         },
@@ -23,14 +24,14 @@ class SearchBarDelegate extends SearchDelegate<String> {
     return IconButton(
       icon: AnimatedIcon(
           icon: AnimatedIcons.menu_arrow, progress: transitionAnimation),
-      onPressed: () {
-        if (query.isEmpty) {
-          close(context, null);
-        } else {
-          query = "";
-          showSuggestions(context);
-        }
-      },
+          onPressed: () {
+            if (query.isEmpty) {
+              close(context, null);
+            } else {
+              query = "";
+              showSuggestions(context);
+            }
+          },
     );
   }
 
@@ -38,7 +39,7 @@ class SearchBarDelegate extends SearchDelegate<String> {
   Widget buildResults(BuildContext context) {
     //点击了搜索显示的页面    
     return Center(
-      child: Text('12312321'),
+      child: Text('暂无'),
     );
   }
 
@@ -68,18 +69,12 @@ class _SearchContentViewState extends State<SearchContentView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            child: Text(
-              '大家都在搜',
-              style: TextStyle(fontSize: 16),
-            ),
+            child: Text(  '大家都在搜', style: TextStyle(fontSize: 14), ),
           ),
           SearchItemView(),
           Container(
             margin: EdgeInsets.only(top: 20),
-            child: Text(
-              '历史记录',
-              style: TextStyle(fontSize: 16),
-            ),
+            child: Text( '历史记录', style: TextStyle(fontSize: 14), ),
           ),
           SearchItemView()
         ],
@@ -103,7 +98,6 @@ class _SearchItemViewState extends State<SearchItemView> {
     return Container(
       child: Wrap(
         spacing: 10,
-        // runSpacing: 0,
         children: items.map((item) {
           return SearchItem(title: item);
         }).toList(),
@@ -128,7 +122,7 @@ class _SearchItemState extends State<SearchItem> {
         child: Chip(
           label: Text(widget.title),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10)
+            borderRadius: BorderRadius.circular(2)
           ),
         ),
         onTap: () {
