@@ -19,8 +19,13 @@ class _MyPageState extends State<MyPage> {
       "url": ""
     },
     {
-      "icon": Icons.favorite,
+      "icon": Icons.collections,
       "name": '我收藏的电影',
+      "url": ""
+    },
+    {
+      "icon": Icons.favorite,
+      "name": '我喜欢的电影',
       "url": ""
     },
   ];
@@ -31,7 +36,6 @@ class _MyPageState extends State<MyPage> {
       body: ListView(
         children: <Widget>[
           _headTop(context),
-
           _listContent(context),
 
         ],
