@@ -25,18 +25,18 @@ class _IndexPageState extends State<IndexPage> {
       title: Text('热映'),
     ),
      BottomNavigationBarItem(
-      icon: Icon(CupertinoIcons.search),
+      icon: Icon(CupertinoIcons.eye),
       title: Text('找片'),
     ),
      BottomNavigationBarItem(
-      icon: Icon(CupertinoIcons.shopping_cart),
+      icon: Icon(CupertinoIcons.person),
       title: Text('我的'),
     ),
   ];
 
   int currentIndex = 0;
   var currentPage;
-  
+   
   @override
   void initState() {
     currentPage=tabBodies[currentIndex];
