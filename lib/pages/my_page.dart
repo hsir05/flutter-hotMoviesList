@@ -12,19 +12,16 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> {
-  String barcode = '';
-final List<Map> list = [
+  final List<Map> list = [
     {
-      "icon": Icons.timer,
-      "name": '修改登陆密码'
+      "icon": Icons.dashboard,
+      "name": '我看过的电影',
+      "url": ""
     },
     {
-      "icon": Icons.timer,
-      "name": '绑定手机号码'
-    },
-    {
-      "icon": Icons.category,
-      "name": '启用支付密码'
+      "icon": Icons.favorite,
+      "name": '我收藏的电影',
+      "url": ""
     },
   ];
   @override
@@ -35,37 +32,7 @@ final List<Map> list = [
         children: <Widget>[
           _headTop(context),
 
-          Container(
-            decoration: BoxDecoration(
-            color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              ),
-            margin: EdgeInsets.all(10.0),
-            child: ListTile(
-            title: Text('我看过的电影'),
-            leading: Icon(Icons.dashboard),
-            trailing: Icon(Icons.keyboard_arrow_right),
-            onTap: () {
-              print(333);
-            },
-          ),
-          ),
-
-          Container(
-            decoration: BoxDecoration(
-            color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              ),
-            margin: EdgeInsets.only(left: 10.0, right: 10.0,),
-            child: ListTile(
-            title: Text('我收藏的电影'),
-            leading: Icon(Icons.favorite),
-            trailing: Icon(Icons.keyboard_arrow_right),
-            onTap: () {
-              print(333);
-            },
-          ),
-          )
+          _listContent(context),
 
         ],
       )
@@ -113,5 +80,30 @@ final List<Map> list = [
         ],
       ),
     );
+  }
+
+  Widget _listContent(BuildContext context){
+      var castList = List.generate(list.length, (int index) => 
+
+        Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            ),
+            margin: EdgeInsets.all(10.0),
+            child: ListTile(
+              title: Text(list[index]['name']),
+              leading: Icon(list[index]['icon']),
+              trailing: Icon(Icons.keyboard_arrow_right),
+              onTap: () {
+                print(333);
+              },
+            ),
+          )
+      );
+
+      return Column(
+        children: castList,
+      );
   }
 }
