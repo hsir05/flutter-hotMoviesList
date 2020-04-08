@@ -31,7 +31,7 @@ dependencies:
   flustars: ^0.2.6+1
   city_pickers: ^0.1.30
   provide: ^1.0.2
-#   video_player: 0.10.0+2
+  video_player: ^0.10.4
 #   cached_network_image: 1.1.0
   fluttertoast: ^3.1.0
 #   shared_preferences: ^0.5.5
