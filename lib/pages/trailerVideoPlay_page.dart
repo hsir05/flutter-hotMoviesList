@@ -73,15 +73,12 @@ class _TrailerViderPlayPageState extends State<TrailerViderPlayPage> {
   }
 
   Widget _getBody() {
-
     if (loading) {
       return Container(child: Center(child: CupertinoActivityIndicator()));
     } else {
       return Column(
         children: <Widget>[
-
           _getContentVideo(),
-
           _blooper()
         ],
       );

@@ -24,6 +24,7 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
   List<SubjectEntity> weeklyBeans = List();
   List<SubjectEntity> northAmerica = List();
   List<Subject> newMovie = [];
+  
   TabController _tabController;
   int _currentIndex = 0;
   bool loading = true;
@@ -125,7 +126,7 @@ class _DetailsPageState extends State<DetailsPage>with SingleTickerProviderState
         bottom: TabBar(
           controller: _tabController,
           tabs: tabs,
-          onTap: (int i){
+          onTap: (int i){ 
             print(i);
           },
           labelColor: Colours.text,

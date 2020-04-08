@@ -4,11 +4,11 @@ import 'package:flustars/flustars.dart';
 import 'package:douban/res/resources.dart';
 import 'package:douban/constant/constant.dart';
 import 'package:douban/widget/loading_widget.dart';
-// import 'package:city_pickers/city_pickers.dart';
+import 'package:city_pickers/city_pickers.dart';
 import 'package:provide/provide.dart';
 import '../provide/location.dart';
 import 'package:fluro/fluro.dart';
-import './searchBar.dart';
+import './searchBar.dart'; 
 import '../service/service_method.dart';
 import '../model/hot_model.dart';
 import '../routers/application.dart';
@@ -59,7 +59,6 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
           };
           _getData(data);
         }
-       
       }
     });
   }
@@ -141,32 +140,32 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
-            // leading: Container(
-            //       width: 75.0,
-            //       child: InkWell(
-            //         onTap: () async{
-            //           Result result = await CityPickers.showCitiesSelector(context: context,);
-            //           print('-------------');
-            //           print(result);
-            //           var data = {
-            //             "cityName": result.cityName,
-            //             "cityId": result.cityId
-            //           };
-            //           Provide.value<Location>(context).getLocation(data);
-            //           _getData({'city': result.cityName, 'start': 0, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
+            leading: Container(
+                  width: 75.0,
+                  child: InkWell(
+                    onTap: () async{
+                      Result result = await CityPickers.showCitiesSelector(context: context,);
+                      print('-------------'); 
+                      print(result);
+                      var data = {
+                        "cityName": result.cityName,
+                        "cityId": result.cityId
+                      };
+                      Provide.value<Location>(context).getLocation(data);
+                      _getData({'city': result.cityName, 'start': 0, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
 
-            //         },
-            //         child: Row(
-            //             children: <Widget>[
-            //             Container(
-            //               width: ScreenUtil.getInstance().getAdapterSize(35),
-            //               child: Text(data.location['cityName'], style: TextStyles.textBlockBold12, overflow: TextOverflow.ellipsis,),
-            //             ),
-            //             Icon(Icons.arrow_drop_down, color: Colours.text, size: ScreenUtil.getInstance().getAdapterSize(12)
-            //             )
-            //           ],),
-            //       ),
-            //     ),
+                    },
+                    child: Row(
+                        children: <Widget>[
+                        Container(
+                          width: ScreenUtil.getInstance().getAdapterSize(35),
+                          child: Text(data.location['cityName'], style: TextStyles.textBlockBold12, overflow: TextOverflow.ellipsis,),
+                        ),
+                        Icon(Icons.arrow_drop_down, color: Colours.text, size: ScreenUtil.getInstance().getAdapterSize(12)
+                        )
+                      ],),
+                  ),
+                ),
             title: Container(
               width: ScreenUtil.getInstance().screenWidth,
               child:   
@@ -200,13 +199,13 @@ class _HomePageState extends State<HomePage>with AutomaticKeepAliveClientMixin {
                   child: InkWell(
                     onTap: () async{
                       print('地址');
-                      // Result result = await CityPickers.showCitiesSelector(context: context,);
-                      // var data = {
-                      //   "cityName": result.cityName,
-                      //   "cityId": result.cityId
-                      // };
-                      // Provide.value<Location>(context).getLocation(data);
-                      // _getData({'city': result.cityName, 'start': 0, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
+                      Result result = await CityPickers.showCitiesSelector(context: context,);
+                      var data = {
+                        "cityName": result.cityName,
+                        "cityId": result.cityId
+                      };
+                      Provide.value<Location>(context).getLocation(data);
+                      _getData({'city': result.cityName, 'start': 0, 'count': count, 'apikey': '0b2bdeda43b5688921839c8ecb20399b'});
 
                     },
                     child: Container(
