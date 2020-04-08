@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
-import 'package:douban/common/common.dart';
-import 'package:douban/common/themes.dart';
-import 'package:douban/res/resources.dart';
+import 'package:ybpt/common/common.dart';
+import 'package:ybpt/common/themes.dart';
+import 'package:ybpt/res/resources.dart';
  
 class Themer with ChangeNotifier {
   static const Map<Themes, String> themes = {

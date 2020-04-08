@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:douban/res/resources.dart';
+import 'package:ybpt/res/resources.dart';
 import './routers/application.dart';
 
 class LoginPage extends StatefulWidget {

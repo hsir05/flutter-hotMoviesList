@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flustars/flustars.dart';
 import 'package:fluro/fluro.dart';
-import 'package:douban/res/resources.dart';
+import 'package:ybpt/res/resources.dart';
 import './searchBar.dart';
 import '../service/service_method.dart';
 import '../model/hot_model.dart';

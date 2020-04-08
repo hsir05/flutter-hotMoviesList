@@ -1,24 +1,16 @@
-# 豆瓣电影
+# ybpt
 
-## 1. 使用的插件
+A new Flutter project.
 
-```flutter
-dio: ^2.0.7
-flutter_easyrefresh: ^2.0.3
-fluro: ^1.5.1
-image_picker: '^0.4.5'
-flutter_webview_plugin: ^0.3.0+2
-fluwx: ^0.6.0
-flustars: ^0.2.6+1
-provide: ^1.0.2
-video_player: 0.10.0+2
-cached_network_image: 1.1.0
-fluttertoast: ^3.1.0
-city_pickers: ^0.1.29
-photo_view: ^0.9.0
-```
+## Getting Started
 
-## 2. 预览图
+This project is a starting point for a Flutter application.
 
-| ![](./preview/01.jpeg)    |  ![](./preview/02.jpeg)    | ![](./preview/03.jpeg)   |  ![](./preview/04.jpeg)   |
-| :--------------------------------: | :---------------------------------: | :-------------------------------: | :-------------------------------:  |
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

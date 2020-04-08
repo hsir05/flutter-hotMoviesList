@@ -1,8 +1,8 @@
 // import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 //import 'package:doubanapp/widgets/image/cached_network_image.dart';
-import 'package:douban/constant/constant.dart';
-import 'package:douban/widget/video_progress_bar.dart';
+import 'package:ybpt/constant/constant.dart';
+import 'package:ybpt/widget/video_progress_bar.dart';
 
 class VideoWidget extends StatefulWidget {
   final String url; 

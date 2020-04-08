@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flustars/flustars.dart';
-import 'package:douban/res/resources.dart';
-import 'package:douban/constant/constant.dart';
-import 'package:douban/widget/loading_widget.dart';
+import 'package:ybpt/res/resources.dart';
+import 'package:ybpt/constant/constant.dart';
+import 'package:ybpt/widget/loading_widget.dart';
 import 'package:city_pickers/city_pickers.dart';
 import 'package:provide/provide.dart';
 import '../provide/location.dart';

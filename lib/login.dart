@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flustars/flustars.dart';
-import 'package:douban/res/resources.dart';
+import 'package:ybpt/res/resources.dart';
 
 // import 'package:fluwx/fluwx.dart' as fluwx;
 // import 'package:flutter_qq/flutter_qq.dart';
